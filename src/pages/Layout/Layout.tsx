@@ -1,22 +1,13 @@
-import { App, Button } from 'antd';
-import { useTheme } from 'antd-style';
+import { Outlet } from 'react-router-dom';
+import Header from "../../components/Header/Header.tsx";
 
-
-
-const Layout= () => {
-    const theme = useTheme();
+function Layout() {
     return (
-        <App>
-            <div style={{
-                background: theme.colorBgLayout,
-                minHeight: '100vh'
-            }}>
-                        <Button ghost type={'primary'}>
-                            Border
-                        </Button>
-                        <Button type={'primary'}>Primary</Button>
+            <div style={{minHeight: 'calc(100vh - 96px)'}}>
+                <Header/>
+                <Outlet/>
             </div>
-        </App>
     );
-};
+}
+
 export default Layout;

@@ -1,7 +1,10 @@
+import Main from "../../components/Main/Main.tsx";
 
-import Layout from '../Layout/Layout.tsx';
 function HomePages() {
-  return <Layout />;
+    return (
+        <>
+            <Main/>
+        </>);
 }
 
 export default HomePages;

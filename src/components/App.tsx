@@ -1,32 +1,35 @@
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import {App} from 'antd';
+import { ThemeAppearance, ThemeProvider } from 'antd-style';
+import Layout from "../pages/Layout/Layout.tsx";
 import HomePages from '../pages/HomePage/HomePages.tsx';
+import {Context} from "../store";
 import './app.scss'
 
-import { useState } from 'react';
-import { Segmented } from 'antd';
-import { ThemeAppearance, ThemeProvider } from 'antd-style';
 
 
 
-const options = [
-    { label: 'Light', value: 'light' },
-    { label: 'Dark', value: 'dark' },
-];
-
-function App() {
+function AppDefault() {
     const [appearance, setTheme] = useState<ThemeAppearance>('light');
+
     return (
         <div className="app">
-            <Segmented onChange={(v) => setTheme(v as ThemeAppearance)} options={options} />
+            <Context.Provider value={{setTheme}}>
             <ThemeProvider appearance={appearance} >
+                <App>
             <Routes>
-                <Route path="/" element={<HomePages/>}/>
+                <Route path="/" element={<Layout />}>
+                <Route index  element={<HomePages/>}/>
+                </Route>
             </Routes>
+                </App>
             </ThemeProvider>
+            </Context.Provider>
         </div>
 
     )
 }
 
-export default App
+export default AppDefault
 
