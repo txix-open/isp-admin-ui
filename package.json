@@ -20,6 +20,8 @@
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
+    "antd-style": "3.6.2-beta.1",
+    "antd": "5.15.3",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.56",
