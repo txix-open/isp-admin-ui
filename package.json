@@ -14,14 +14,16 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.2",
     "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.6.8",
+    "isp-ui-kit": "https://github.com/integration-system/isp-ui-kit.git",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
-    "antd-style": "3.6.2-beta.1",
-    "antd": "5.15.3",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.56",
@@ -30,6 +32,8 @@
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react": "^4.1.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "antd": "5.15.3",
+    "antd-style": "3.6.2-beta.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",

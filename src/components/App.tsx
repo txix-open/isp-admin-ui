@@ -1,35 +1,24 @@
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import {App} from 'antd';
-import { ThemeAppearance, ThemeProvider } from 'antd-style';
-import Layout from "../pages/Layout/Layout.tsx";
-import HomePages from '../pages/HomePage/HomePages.tsx';
+import {useState} from 'react';
+import {ThemeAppearance, ThemeProvider} from 'antd-style';
 import {Context} from "../store";
+import Routers from "./Routers/Routers.tsx";
 import './app.scss'
 
 
-
-
-function AppDefault() {
-    const [appearance, setTheme] = useState<ThemeAppearance>('light');
+function App() {
+    const [theme, setTheme] = useState<ThemeAppearance>('light');
 
     return (
         <div className="app">
             <Context.Provider value={{setTheme}}>
-            <ThemeProvider appearance={appearance} >
-                <App>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                <Route index  element={<HomePages/>}/>
-                </Route>
-            </Routes>
-                </App>
-            </ThemeProvider>
+                <ThemeProvider appearance={theme}>
+                    <Routers/>
+                </ThemeProvider>
             </Context.Provider>
         </div>
 
     )
 }
 
-export default AppDefault
+export default App
 
