@@ -16,7 +16,6 @@ function App() {
                 </ConfigProvider>
             </Context.Provider>
         </div>
-
     )
 }
 

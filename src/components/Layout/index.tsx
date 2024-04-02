@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Navigate, Outlet, useNavigate} from 'react-router-dom';
 import {Menu} from 'antd';
-import Header from "../../components/Header";
+import Header from "../Header";
 import useRole from "../../hooks/useRole.tsx";
 import {PermissionKeys} from "../../types/roles.type.ts";
 import {MenuItemKeys, menuKeys} from "../../types/layout.type.ts";

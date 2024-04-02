@@ -1,9 +1,10 @@
 import {Route, Routes} from 'react-router-dom';
 import {App} from 'antd';
-import Layout from "../../pages/Layout";
 import HomePages from "../../pages/HomePage";
-import Test from "../Test/Test.tsx";
+import ErrorPage from "../ErrorPage";
 import PrivateRoute from "../PrivateRoute";
+import LoginPage from "../../pages/LoginPage";
+import Layout from "../Layout";
 
 function Routers() {
 
@@ -13,10 +14,10 @@ function Routers() {
                 <Route element={<PrivateRoute/>}>
                     <Route path="/" element={<Layout/>}>
                         <Route index element={<HomePages/>}/>
-                        <Route path="/sessions" element={<Test/>}/>
-                        <Route path="/error" element={<Test/>}/>
                     </Route>
                 </Route>
+                <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/error" element={<ErrorPage/>}/>
             </Routes>
         </App>
     )
