@@ -1,19 +1,19 @@
 import {useState} from 'react';
-import {ThemeAppearance, ThemeProvider} from 'antd-style';
+import {ConfigProvider} from "antd";
 import {Context} from "../store";
-import Routers from "./Routers/Routers.tsx";
+import Routers from "./Routers";
+import {lightTheme} from "../constants/theme.ts";
 import './app.scss'
 
-
 function App() {
-    const [theme, setTheme] = useState<ThemeAppearance>('light');
+    const [themes, setTheme] = useState(lightTheme);
 
     return (
         <div className="app">
             <Context.Provider value={{setTheme}}>
-                <ThemeProvider appearance={theme}>
+                <ConfigProvider theme={themes}>
                     <Routers/>
-                </ThemeProvider>
+                </ConfigProvider>
             </Context.Provider>
         </div>
 

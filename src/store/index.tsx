@@ -1,15 +1,15 @@
 import {Dispatch, SetStateAction, createContext} from 'react'
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {theme} from "antd";
 import profileReducer from '../redusers/ProfileSlice.ts';
 
 export interface ContextProps {
-    setTheme: Dispatch<SetStateAction<'dark' | 'light' | string>>
+    setTheme: Dispatch<SetStateAction<any>>
 }
 
 export const Context = createContext<ContextProps>({
-    setTheme: () => 'light'
+    setTheme: () => theme.defaultAlgorithm
 })
-
 
 const rootReducer = combineReducers({
     profileReducer

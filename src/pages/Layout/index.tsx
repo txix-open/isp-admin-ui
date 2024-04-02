@@ -1,15 +1,14 @@
+import {useEffect, useState} from "react";
 import {Navigate, Outlet, useNavigate} from 'react-router-dom';
+import {Menu} from 'antd';
 import Header from "../../components/Header";
 import useRole from "../../hooks/useRole.tsx";
 import {PermissionKeys} from "../../types/roles.type.ts";
-import {Menu} from 'antd';
-import {useEffect, useState} from "react";
 import {MenuItemKeys, menuKeys} from "../../types/layout.type.ts";
 import {routePaths} from "../../constants/routes.ts";
 import {StateProfileStatus} from "../../redusers/ProfileSlice.ts";
 import {useAppSelector} from "../../hooks/redux.ts";
 import './layout.scss'
-
 
 function Layout() {
     const {hasPermission} = useRole();
