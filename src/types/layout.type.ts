@@ -1,8 +1,8 @@
 import {MenuProps} from 'antd';
 
 export enum MenuItemKeys {
-    users = 'users',
-    roles = 'roles',
+    users = "users",
+    roles = "roles",
 }
 
 type MenuItem = {
@@ -12,12 +12,12 @@ type MenuItem = {
 export const menuKeys: Record<MenuItemKeys, MenuItem> = {
     [MenuItemKeys.users]: {
         key: MenuItemKeys.users,
-        parent: ['sessionManagement'],
+        parent: ["sessionManagement"],
     },
     [MenuItemKeys.roles]: {
         key: MenuItemKeys.roles,
-        parent: ['sessionManagement'],
+        parent: ["sessionManagement"],
     },
 };
 
-export type MenuItemType = Required<MenuProps>['items'][number];
+export type MenuItemType = Required<MenuProps>["items"][number];

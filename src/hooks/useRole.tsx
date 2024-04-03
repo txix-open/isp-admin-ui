@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
-import {useAppSelector} from "./redux.ts";
-import {PermissionKeys} from "../types/roles.type.ts";
+import {useAppSelector} from './redux.ts';
+import {PermissionKeys} from '../types/roles.type.ts';
 
 export const useRole = () => {
     const {profile} = useAppSelector((state: any) => state.profileReducer);

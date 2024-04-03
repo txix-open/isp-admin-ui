@@ -1,11 +1,11 @@
 export enum RoleKeys {
-    user = 'user',
-    admin = 'admin',
+    user = "user",
+    admin = "admin",
 }
 
 export enum PermissionKeys {
-    user_view = 'user_view', // Просмотр списка пользователей
-    admin_view = 'admin_view', // роль суперадмина, требуется для интерфейса
+    user_view = "user_view", // Просмотр списка пользователей
+    admin_view = "admin_view", // роль суперадмина, требуется для интерфейса
 }
 
 export type ConfigRoles = {
@@ -30,7 +30,7 @@ export type RoleType = {
     exclusive: boolean;
 };
 
-export type NewRoleType = Omit<RoleType, 'id' | 'createdAt' | 'updatedAt'>;
+export type NewRoleType = Omit<RoleType, "id" | "createdAt" | "updatedAt">;
 
 export type PermissionType = {
     key: PermissionKeys;

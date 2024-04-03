@@ -1,18 +1,18 @@
 import {message} from 'antd';
 import axios, {AxiosError} from 'axios';
-import {LocalStorage} from "../utils/localStorageUtils.ts";
-import {getConfigProperty} from "../utils/configUtils.ts";
-import {MSPError} from "../types";
-import {routePaths} from "../constants/routes.ts";
-import {localStorageKeys} from "../constants/localStorageKeys.ts";
+import {LocalStorage} from '../utils/localStorageUtils.ts';
+import {getConfigProperty} from '../utils/configUtils.ts';
+import {MSPError} from '../types';
+import {routePaths} from '../constants/routes.ts';
+import {localStorageKeys} from '../constants/localStorageKeys.ts';
 
 export const apiService = axios.create({
     timeout: 15000,
     data: {},
 });
 
-apiService.defaults.headers.post['X-APPLICATION-TOKEN'] = getConfigProperty(
-    'APP_TOKEN',
+apiService.defaults.headers.post["X-APPLICATION-TOKEN"] = getConfigProperty(
+    "APP_TOKEN",
     import.meta.env.APP_TOKEN,
 );
 
@@ -35,7 +35,7 @@ apiService.interceptors.response.use(
         }
 
         if (error.response && error.response.status === 500) {
-            message.error('Внутренняя ошибка сервиса').then();
+            message.error("Внутренняя ошибка сервиса").then();
         }
 
         return Promise.reject(error);

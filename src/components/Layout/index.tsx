@@ -1,16 +1,16 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react';
 import {Navigate, Outlet, useNavigate} from 'react-router-dom';
 import {Menu} from 'antd';
-import Header from "../Header";
-import useRole from "../../hooks/useRole.tsx";
-import {PermissionKeys} from "../../types/roles.type.ts";
-import {MenuItemKeys, menuKeys} from "../../types/layout.type.ts";
-import {routePaths} from "../../constants/routes.ts";
-import {StateProfileStatus} from "../../redusers/ProfileSlice.ts";
-import {useAppSelector} from "../../hooks/redux.ts";
+import Header from '../Header';
+import useRole from '../../hooks/useRole.tsx';
+import {PermissionKeys} from '../../types/roles.type.ts';
+import {MenuItemKeys, menuKeys} from '../../types/layout.type.ts';
+import {routePaths} from '../../constants/routes.ts';
+import {StateProfileStatus} from '../../redusers/ProfileSlice.ts';
+import {useAppSelector} from '../../hooks/redux.ts';
 import './layout.scss'
 
-function Layout() {
+const Layout = () => {
     const {hasPermission} = useRole();
     const navigate = useNavigate();
     const {status} = useAppSelector((state) => state.profileReducer);
@@ -19,32 +19,31 @@ function Layout() {
     const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeys[]>([]);
 
     const hideItem = (permission: PermissionKeys | PermissionKeys[]) => {
-
         if (Array.isArray(permission)) {
             const result = permission.reduce((acc, currentValue) => {
                 const isHasPermission = hasPermission(currentValue);
                 return isHasPermission || acc;
             }, false);
-            return result ? '' : 'hide-item';
+            return result ? "" : "hide-item";
         }
-        return hasPermission(permission) ? '' : 'hide-item';
+        return hasPermission(permission) ? "" : "hide-item";
     };
 
     const menuItems = [
         {
-            label: 'Profile',
-            key: 'users',
+            label: "Profile",
+            key: "users",
             className: hideItem(PermissionKeys.user_view),
         },
         {
-            label: 'Profile2',
-            key: 'roles',
+            label: "Profile2",
+            key: "roles",
             className: hideItem(PermissionKeys.user_view),
         }
     ];
 
     useEffect(() => {
-        const menuKey = location.pathname.split('/')[1] as MenuItemKeys;
+        const menuKey = location.pathname.split("/")[1] as MenuItemKeys;
 
         const menuItem = menuKeys[menuKey];
 
@@ -65,11 +64,13 @@ function Layout() {
             default:
         }
     };
+
     if (status === StateProfileStatus.rejected) {
         return <Navigate to={routePaths.error} replace/>;
     }
+
     return (
-        <div className='layout'>
+        <section className="layout">
             <Header/>
             <Menu
                 onOpenChange={(keys) => setOpenKeys(keys)}
@@ -81,7 +82,7 @@ function Layout() {
                 items={menuItems}
             />
             <Outlet/>
-        </div>
+        </section>
     );
 }
 

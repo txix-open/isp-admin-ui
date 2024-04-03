@@ -1,4 +1,4 @@
-import {StateProfileStatus} from "../redusers/ProfileSlice.ts";
+import {StateProfileStatus} from '../redusers/ProfileSlice.ts';
 
 export type ProfileDataType = {
     email: string;

@@ -1,30 +1,30 @@
 import {PayloadAction, createSlice, ActionReducerMapBuilder} from '@reduxjs/toolkit';
-import {ProfileDataType, ProfileType} from "../types/profile.type.ts";
-import {fetchProfile} from "./ActionCreators.ts";
+import {ProfileDataType, ProfileType} from '../types/profile.type.ts';
+import {fetchProfile} from './ActionCreators.ts';
 
 export enum StateProfileStatus {
-    resolved = 'resolved',
-    pending = 'pending',
-    rejected = 'rejected',
-    notInit = 'notInit',
+    resolved = "resolved",
+    pending = "pending",
+    rejected = "rejected",
+    notInit = "notInit",
 }
 
 export const initialState: ProfileType = {
     profile: {
-        email: '',
-        firstName: '',
-        lastName: '',
-        role: '',
+        email: "",
+        firstName: "",
+        lastName: "",
+        role: "",
         roles: [],
         permissions: [],
         idleTimeoutMs: 0,
     },
     status: StateProfileStatus.notInit,
-    error: '',
+    error: "",
 };
 
 export const profileSlice = createSlice({
-    name: 'profile',
+    name: "profile",
     initialState,
     reducers: {
         clearProfile(state) {

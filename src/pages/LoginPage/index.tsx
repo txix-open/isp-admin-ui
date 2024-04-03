@@ -1,19 +1,19 @@
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
-function LoginPage() {
+const LoginPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='login-page'>
+        <main className="login-page">
             <button onClick={() => {
-                const url = localStorage.getItem('redirectUrl')
+                const url = localStorage.getItem("redirectUrl")
                 if (url) {
                     navigate(url)
-                    localStorage.removeItem('redirectUrl')
+                    localStorage.removeItem("redirectUrl")
                 }
             }}>Зарегистрироваться
             </button>
-        </div>
+        </main>
     );
 }
 

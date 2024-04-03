@@ -1,8 +1,8 @@
 import {PropsWithChildren} from 'react';
-import useRole from "../../hooks/useRole.tsx";
-import {PermissionKeys} from "../../types/roles.type.ts";
+import useRole from '../../hooks/useRole.tsx';
+import {PermissionKeys} from '../../types/roles.type.ts';
 
-function AdminPermission({children}: PropsWithChildren) {
+const AdminPermission = ({children}: PropsWithChildren) => {
     const {hasPermission} = useRole();
 
     if (hasPermission(PermissionKeys.admin_view)) {

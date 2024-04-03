@@ -1,11 +1,11 @@
 import {useState} from 'react';
-import {ConfigProvider} from "antd";
-import {Context} from "../store";
-import Routers from "./Routers";
-import {lightTheme} from "../constants/theme.ts";
+import {ConfigProvider} from 'antd';
+import {Context} from '../store';
+import Routers from './Routers';
+import {lightTheme} from '../constants/theme.ts';
 import './app.scss'
 
-function App() {
+const App = () => {
     const [themes, setTheme] = useState(lightTheme);
 
     return (
@@ -20,4 +20,3 @@ function App() {
 }
 
 export default App
-

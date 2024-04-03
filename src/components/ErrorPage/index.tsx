@@ -1,9 +1,9 @@
 const ErrorPage = () => {
-
     return (
-        <div className='error-page'>
-            <div>Извините, ошибка</div>
-        </div>
-    );
+        <section className="error-page">
+            <p>Извините, ошибка</p>
+        </section>
+    )
 };
+
 export default ErrorPage;
