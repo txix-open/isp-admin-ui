@@ -1,5 +1,5 @@
-import {theme} from "antd";
+import { theme } from 'antd'
 
-export const darkTheme = {algorithm: theme.darkAlgorithm}
+export const darkTheme = { algorithm: theme.darkAlgorithm }
 
-export const lightTheme = {algorithm: theme.defaultAlgorithm}
+export const lightTheme = { algorithm: theme.defaultAlgorithm }

@@ -1,6 +1,5 @@
-type PathKeys =
-    | 'baseUrl'
+type PathKeys = 'baseUrl'
 
 export const apiPaths: Record<PathKeys, string> = {
-    baseUrl: '/',
-};
+  baseUrl: '/'
+}

@@ -1,14 +1,15 @@
-import {PropsWithChildren} from 'react';
-import useRole from '../../hooks/useRole.tsx';
-import {PermissionKeys} from '../../types/roles.type.ts';
+import { PropsWithChildren } from 'react'
 
-const AdminPermission = ({children}: PropsWithChildren) => {
-    const {hasPermission} = useRole();
+import useRole from '../../hooks/useRole.tsx'
+import { PermissionKeys } from '../../types/roles.type.ts'
 
-    if (hasPermission(PermissionKeys.admin_view)) {
-        return <>{children}</>;
-    }
-    return null;
+const AdminPermission = ({ children }: PropsWithChildren) => {
+  const { hasPermission } = useRole()
+
+  if (hasPermission(PermissionKeys.admin_view)) {
+    return <>{children}</>
+  }
+  return null
 }
 
-export default AdminPermission;
+export default AdminPermission

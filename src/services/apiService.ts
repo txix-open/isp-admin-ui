@@ -1,43 +1,44 @@
-import {message} from 'antd';
-import axios, {AxiosError} from 'axios';
-import {LocalStorage} from '../utils/localStorageUtils.ts';
-import {getConfigProperty} from '../utils/configUtils.ts';
-import {MSPError} from '../types';
-import {routePaths} from '../constants/routes.ts';
-import {localStorageKeys} from '../constants/localStorageKeys.ts';
+import { message } from 'antd'
+import axios, { AxiosError } from 'axios'
+
+import { localStorageKeys } from '../constants/localStorageKeys.ts'
+import { routePaths } from '../constants/routes.ts'
+import { MSPError } from '../types'
+import { getConfigProperty } from '../utils/configUtils.ts'
+import { LocalStorage } from '../utils/localStorageUtils.ts'
 
 export const apiService = axios.create({
-    timeout: 15000,
-    data: {},
-});
+  timeout: 15000,
+  data: {}
+})
 
-apiService.defaults.headers.post["X-APPLICATION-TOKEN"] = getConfigProperty(
-    "APP_TOKEN",
-    import.meta.env.APP_TOKEN,
-);
+apiService.defaults.headers.post['X-APPLICATION-TOKEN'] = getConfigProperty(
+  'APP_TOKEN',
+  import.meta.env.APP_TOKEN
+)
 
 apiService.interceptors.request.use(
-    async (config: any) => {
-        const headerName = LocalStorage.get(localStorageKeys.HEADER_NAME);
-        config.headers[headerName] = LocalStorage.get(localStorageKeys.USER_TOKEN);
+  async (config: any) => {
+    const headerName = LocalStorage.get(localStorageKeys.HEADER_NAME)
+    config.headers[headerName] = LocalStorage.get(localStorageKeys.USER_TOKEN)
 
-        return config;
-    },
-    (error: AxiosError<MSPError>) => Promise.reject(error),
-);
+    return config
+  },
+  (error: AxiosError<MSPError>) => Promise.reject(error)
+)
 
 apiService.interceptors.response.use(
-    async (response: any) => response,
-    (error: AxiosError<MSPError>) => {
-        if (error.response && error.response.status === 401) {
-            window.location.href = routePaths.home;
-            LocalStorage.clear();
-        }
+  async (response: any) => response,
+  (error: AxiosError<MSPError>) => {
+    if (error.response && error.response.status === 401) {
+      window.location.href = routePaths.home
+      LocalStorage.clear()
+    }
 
-        if (error.response && error.response.status === 500) {
-            message.error("Внутренняя ошибка сервиса").then();
-        }
+    if (error.response && error.response.status === 500) {
+      message.error('Внутренняя ошибка сервиса').then()
+    }
 
-        return Promise.reject(error);
-    },
-);
+    return Promise.reject(error)
+  }
+)
