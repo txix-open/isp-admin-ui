@@ -1,9 +1,12 @@
 import { ConfigProvider } from 'antd'
 import { useState } from 'react'
 
-import { lightTheme } from '../constants/theme.ts'
-import { Context } from '../store'
-import Routers from './Routers'
+import { lightTheme } from '@constants/theme.ts'
+
+import { Context } from '@stores/index.tsx'
+
+import Routers from '@routes/Routers'
+
 import './app.scss'
 
 const App = () => {

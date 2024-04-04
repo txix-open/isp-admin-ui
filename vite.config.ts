@@ -1,7 +1,8 @@
+import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react'
-import path from 'path'
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import svgr from 'vite-plugin-svgr'
+
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
@@ -14,16 +15,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       minify: 'terser',
-      outDir: 'build',
-      sourcemap: false,
-      chunkSizeWarningLimit: 200,
-      rollupOptions: {
-        output: {
-          manualChunks(id: string) {
-            return 'vendor'
-          }
-        }
-      }
+      outDir: 'build'
     },
     server: {
       watch: {
@@ -31,16 +23,11 @@ export default defineConfig(({ mode }) => {
       },
       host: true,
       strictPort: true,
-      port: 8070,
+      port: 8000,
       proxy: {
-        '/api': 'https://land.mos.ru/'
+        '/api': env.PROXY_URL
       }
     },
-    plugins: [react(), svgr(), tsconfigPaths(), splitVendorChunkPlugin()],
-    resolve: {
-      alias: {
-        '@styles': path.resolve(__dirname, './src/styles')
-      }
-    }
+    plugins: [react(), svgr(), legacy(), tsconfigPaths()]
   }
 })

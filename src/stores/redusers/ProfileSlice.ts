@@ -4,7 +4,7 @@ import {
   createSlice
 } from '@reduxjs/toolkit'
 
-import { ProfileDataType, ProfileType } from '../types/profile.type.ts'
+import { ProfileDataType, ProfileType } from '../../type/profile.type.ts'
 import { fetchProfile } from './ActionCreators.ts'
 
 export enum StateProfileStatus {

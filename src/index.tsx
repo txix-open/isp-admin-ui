@@ -1,16 +1,18 @@
 import { setupListeners } from '@reduxjs/toolkit/query'
-import ReactDOM from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './components/App.tsx'
+
 import './index.css'
-import { setupStore } from './store'
+import { setupStore } from './stores'
 
 const store = setupStore()
 setupListeners(store.dispatch)
+const root = createRoot(document.getElementById('root') as HTMLElement)
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+root.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />

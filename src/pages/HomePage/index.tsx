@@ -1,9 +1,10 @@
 import { Button, theme } from 'antd'
 
-import useRole from '../../hooks/useRole.tsx'
-import { PermissionKeys } from '../../types/roles.type.ts'
-import './home.scss'
+import { useRole } from '@hooks/useRole.tsx'
 
+import { PermissionKeys } from '@type/roles.type.ts'
+
+import './home.scss'
 
 const HomePages = () => {
   const { hasPermission } = useRole()

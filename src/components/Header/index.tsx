@@ -1,8 +1,10 @@
 import { Segmented, theme } from 'antd'
 import { useContext } from 'react'
 
-import { darkTheme, lightTheme } from '../../constants/theme.ts'
-import { Context } from '../../store'
+import { darkTheme, lightTheme } from '@constants/theme.ts'
+
+import { Context } from '@stores/index.tsx'
+
 import './header.scss'
 
 const options = [

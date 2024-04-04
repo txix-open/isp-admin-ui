@@ -3,7 +3,7 @@ import { theme } from 'antd'
 import { MapToken, SeedToken } from 'antd/es/theme/interface'
 import { createContext, Dispatch, SetStateAction } from 'react'
 
-import profileReducer from '../redusers/ProfileSlice.ts'
+import profileReducer from './redusers/ProfileSlice.ts'
 
 export interface ContextProps {
   setTheme: Dispatch<

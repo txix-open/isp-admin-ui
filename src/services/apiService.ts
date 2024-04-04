@@ -1,11 +1,14 @@
 import { message } from 'antd'
 import axios, { AxiosError } from 'axios'
 
-import { localStorageKeys } from '../constants/localStorageKeys.ts'
-import { routePaths } from '../constants/routes.ts'
-import { MSPError } from '../types'
-import { getConfigProperty } from '../utils/configUtils.ts'
-import { LocalStorage } from '../utils/localStorageUtils.ts'
+import { localStorageKeys } from '@constants/localStorageKeys.ts'
+
+import { getConfigProperty } from '@utils/configUtils.ts'
+import { LocalStorage } from '@utils/localStorageUtils.ts'
+
+import { routePaths } from '@routes/routePaths.ts'
+
+import { MSPError } from '@type/index.ts'
 
 export const apiService = axios.create({
   timeout: 15000,

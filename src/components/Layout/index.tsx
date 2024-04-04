@@ -2,13 +2,19 @@ import { Menu } from 'antd'
 import { useEffect, useState } from 'react'
 import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 
-import { routePaths } from '../../constants/routes.ts'
-import { useAppSelector } from '../../hooks/redux.ts'
-import useRole from '../../hooks/useRole.tsx'
-import { StateProfileStatus } from '../../redusers/ProfileSlice.ts'
-import { MenuItemKeys, menuKeys } from '../../types/layout.type.ts'
-import { PermissionKeys } from '../../types/roles.type.ts'
-import Header from '../Header'
+import Header from '@components/Header'
+
+import { useAppSelector } from '@hooks/redux.ts'
+import { useRole } from '@hooks/useRole.tsx'
+
+import { StateProfileStatus } from '@stores/redusers/ProfileSlice.ts'
+
+import { routePaths } from '@routes/routePaths.ts'
+
+import { PermissionKeys } from '@type/roles.type.ts'
+
+import { MenuItemKeys, menuKeys } from './layout.type.ts'
+
 import './layout.scss'
 
 const Layout = () => {

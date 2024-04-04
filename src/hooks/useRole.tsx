@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { PermissionKeys } from '../types/roles.type.ts'
+import { PermissionKeys } from '@type/roles.type.ts'
+
 import { useAppSelector } from './redux.ts'
 
 export const useRole = () => {
