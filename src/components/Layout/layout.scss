@@ -64,7 +64,7 @@
   }
 
   .ant-layout-sider {
-    padding-top: 64px;
+    padding-top: $basic-padding * 2;
   }
 
   .ant-menu-title-content {
@@ -80,12 +80,14 @@
     }
   }
 }
+
 .user-menu {
-  padding-top: 20px;
-  padding-bottom: 100px;
+  margin-bottom: 100px;
+
   & ul {
     height: 40px;
   }
+
   & .ant-menu-submenu-arrow {
     display: none !important;
   }
