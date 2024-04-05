@@ -1,4 +1,13 @@
-#root {
-  width: 100%;
-  text-align: center;
+@import "src/constants/styleConstants";
+
+*, html {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.app{
+  padding: 0 $basic-padding;
+  min-height: 0;
+  min-width: 500px;
 }
