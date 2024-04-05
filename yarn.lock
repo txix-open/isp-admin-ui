@@ -3742,8 +3742,8 @@ isexe@^2.0.0:
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
 "isp-ui-kit@https://github.com/txix-open/isp-ui-kit":
-  version "0.3.2"
-  resolved "https://github.com/txix-open/isp-ui-kit#dbbe386bfa9e870cf27d483dc8dcd9ae1494a51a"
+  version "0.3.3"
+  resolved "https://github.com/txix-open/isp-ui-kit#508a5bd9cb4efac0e9389ad2f9f8c60683d1712e"
   dependencies:
     "@codemirror/lang-javascript" "^6.2.1"
     "@codemirror/lang-json" "^6.0.1"
