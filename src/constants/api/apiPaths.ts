@@ -1,5 +1,6 @@
-type PathKeys = 'baseUrl'
+type PathKeys = 'baseUrl' | 'login'
 
 export const apiPaths: Record<PathKeys, string> = {
-  baseUrl: '/'
+  baseUrl: '/',
+  login: '/api/admin/auth/login'
 }
