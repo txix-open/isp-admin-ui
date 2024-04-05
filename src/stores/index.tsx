@@ -3,7 +3,10 @@ import { theme } from 'antd'
 import { MapToken, SeedToken } from 'antd/es/theme/interface'
 import { createContext, Dispatch, SetStateAction } from 'react'
 
+import roleApi from '@services/roleService.ts'
+
 import profileReducer from './redusers/ProfileSlice.ts'
+
 
 export interface ContextProps {
   setTheme: Dispatch<
@@ -16,12 +19,15 @@ export const Context = createContext<ContextProps>({
 })
 
 const rootReducer = combineReducers({
-  profileReducer
+  profileReducer,
+  [roleApi.reducerPath]: roleApi.reducer
 })
 
 export const setupStore = () =>
   configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat([roleApi.middleware])
   })
 
 export type RootState = ReturnType<typeof rootReducer>
