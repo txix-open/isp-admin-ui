@@ -13,6 +13,9 @@ const LoginPage = lazy(() => import('@pages/LoginPage'))
 
 const ErrorPage = lazy(() => import('@components/ErrorPage'))
 
+
+const ProfilePage = lazy(() => import('@pages/ProfilePage'))
+
 const Routers = () => {
   return (
     <Routes>
@@ -26,10 +29,17 @@ const Routers = () => {
               </Suspense>
             }
           />
+            <Route
+              path={`${routePaths.profile}`}
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ProfilePage />
+                </Suspense>
+              }
+            />
+          </Route>
         </Route>
-      </Route>
-      <Route
-        path={routePaths.error}
+        <Route path={routePaths.error}
         element={
           <Suspense fallback={<Spin />}>
             <ErrorPage />
