@@ -1,4 +1,12 @@
-type PathKeys = 'baseUrl' | 'getAllRoles'  | 'createRole' | 'updateRole' | 'deleteRole' | 'login' | 'logout'
+type PathKeys =
+  | 'baseUrl'
+  | 'getAllRoles'
+  | 'createRole'
+  | 'updateRole'
+  | 'deleteRole'
+  | 'login'
+  | 'logout'
+  | 'getProfile'
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/admin',
   // ======= ROLES ======
@@ -8,5 +16,7 @@ export const apiPaths: Record<PathKeys, string> = {
   deleteRole: '/role/delete',
   // ======= AUTH ======
   login: '/api/admin/auth/login',
-  logout: '/api/admin/auth/logout'
+  logout: '/api/admin/auth/logout',
+  // ======= PROFILE ======
+  getProfile: '/api/admin/user/get_profile'
 }

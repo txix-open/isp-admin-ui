@@ -1,12 +1,16 @@
 import {
   ActionReducerMapBuilder,
-  PayloadAction,
-  createSlice
+  createSlice,
+  PayloadAction
 } from '@reduxjs/toolkit'
 
-import { ProfileDataType, ProfileType } from '@type/profile.type.ts'
+import {
+  ProfileDataType,
+  ProfileType
+} from '@pages/ProfilePage/profile-page.type.ts'
 
 import { fetchProfile } from './ActionCreators.ts'
+
 
 export enum StateProfileStatus {
   resolved = 'resolved',
