@@ -1,28 +1,50 @@
-import { App } from 'antd'
+import { Spin } from 'antd'
+import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import ErrorPage from '@components/ErrorPage'
 import Layout from '@components/Layout'
 
-import HomePages from '@pages/HomePage'
-import LoginPage from '@pages/LoginPage'
+import HomePage from '@pages/HomePage'
 
 import PrivateRoute from '@routes/PrivateRoute'
 import { routePaths } from '@routes/routePaths.ts'
 
+const LoginPage = lazy(() => import('@pages/LoginPage'))
+
+const ErrorPage = lazy(() => import('@components/ErrorPage'))
+
 const Routers = () => {
   return (
-    <App>
-      <Routes>
-        <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePages />} />
-          </Route>
+    <Routes>
+      <Route element={<PrivateRoute />}>
+        <Route path={routePaths.home} element={<Layout />}>
+          <Route
+            index
+            element={
+              <Suspense fallback={<Spin />}>
+                <HomePage />
+              </Suspense>
+            }
+          />
         </Route>
-        <Route path={routePaths.login} element={<LoginPage />} />
-        <Route path={routePaths.error} element={<ErrorPage />} />
-      </Routes>
-    </App>
+      </Route>
+      <Route
+        path={routePaths.error}
+        element={
+          <Suspense fallback={<Spin />}>
+            <ErrorPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path={routePaths.login}
+        element={
+          <Suspense fallback={<Spin />}>
+            <LoginPage />
+          </Suspense>
+        }
+      />
+    </Routes>
   )
 }
 

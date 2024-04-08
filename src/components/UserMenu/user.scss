@@ -1,0 +1,16 @@
+@import "src/constants/styleConstants";
+.user {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  &__avatar {
+    width: 24px;
+    height: 24px;
+    background: url("/src/assets/icon/default-user.svg") no-repeat, center left;
+  }
+  &__name {
+    margin-left: $basic-margin;
+  }
+}

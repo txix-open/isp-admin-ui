@@ -1,53 +1,75 @@
-import { Menu } from 'antd'
+import { ProfileOutlined } from '@ant-design/icons'
+import { Layout, Menu, Spin } from 'antd'
 import { useEffect, useState } from 'react'
-import { Navigate, Outlet, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-import Header from '@components/Header'
+import { localStorageKeys } from '@constants/localStorageKeys.ts'
 
-import { useAppSelector } from '@hooks/redux.ts'
-import { useRole } from '@hooks/useRole.tsx'
+import {
+  MenuItemKeys,
+  MenuItemType,
+  menuKeys
+} from '@components/Layout/layout.type.ts'
+import UserMenu from '@components/UserMenu'
 
+import { LocalStorage } from '@utils/localStorageUtils.ts'
+
+import { useAppDispatch, useAppSelector } from '@hooks/redux.ts'
+import useRole from '@hooks/useRole.tsx'
+
+import { fetchProfile } from '@stores/redusers/ActionCreators.ts'
 import { StateProfileStatus } from '@stores/redusers/ProfileSlice.ts'
 
 import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeys } from '@type/roles.type.ts'
 
-import { MenuItemKeys, menuKeys } from './layout.type.ts'
-
 import './layout.scss'
 
-const Layout = () => {
-  const { hasPermission } = useRole()
-  const navigate = useNavigate()
-  const { status } = useAppSelector((state) => state.profileReducer)
+const { Header, Content, Sider } = Layout
 
-  const [openKeys, setOpenKeys] = useState<string[]>([])
+const LayoutComponent = () => {
+  const [collapsed, setCollapsed] = useState<boolean>(false)
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeys[]>([])
+  const [openKeys, setOpenKeys] = useState<string[]>([])
+  const dispatch = useAppDispatch()
+  const { status } = useAppSelector((state) => state.profileReducer)
+  const location = useLocation()
+  const userToken = LocalStorage.get(localStorageKeys.USER_TOKEN)
+
+  const { hasPermission } = useRole()
 
   const hideItem = (permission: PermissionKeys | PermissionKeys[]) => {
     if (Array.isArray(permission)) {
       const result = permission.reduce((acc, currentValue) => {
-        const isHasPermission = hasPermission(currentValue)
-        return isHasPermission || acc
+        const hasPermissionFunc = hasPermission(currentValue)
+        return hasPermissionFunc || acc
       }, false)
       return result ? '' : 'hide-item'
     }
     return hasPermission(permission) ? '' : 'hide-item'
   }
-
-  const menuItems = [
+  const menuItems: MenuItemType[] = [
     {
-      label: 'Profile',
-      key: 'users',
-      className: hideItem(PermissionKeys.user_view)
-    },
-    {
-      label: 'Profile2',
-      key: 'roles',
-      className: hideItem(PermissionKeys.user_view)
+      label: 'Пользователи и роли',
+      key: 'sessionManagement',
+      className: hideItem([PermissionKeys.user_view]),
+      icon: <ProfileOutlined />,
+      children: [
+        {
+          label: 'Пользователи',
+          key: 'users',
+          className: hideItem(PermissionKeys.user_view)
+        }
+      ]
     }
   ]
+
+  useEffect(() => {
+    if (userToken) {
+      dispatch(fetchProfile())
+    }
+  }, [])
 
   useEffect(() => {
     const menuKey = location.pathname.split('/')[1] as MenuItemKeys
@@ -62,12 +84,6 @@ const Layout = () => {
 
   const handlerOnClickMenu = ({ key }: any): void => {
     switch (key) {
-      case MenuItemKeys.roles:
-        navigate(routePaths.error)
-        break
-      case MenuItemKeys.users:
-        navigate(routePaths.home)
-        break
       default:
     }
   }
@@ -77,20 +93,41 @@ const Layout = () => {
   }
 
   return (
-    <section className="layout">
-      <Header />
-      <Menu
-        onOpenChange={(keys) => setOpenKeys(keys)}
-        openKeys={openKeys}
-        selectedKeys={selectedMenuKeys}
-        onClick={handlerOnClickMenu}
-        theme="light"
-        mode="inline"
-        items={menuItems}
-      />
-      <Outlet />
-    </section>
+    <Layout className="layout" data-cy="homePage">
+      {status === StateProfileStatus.pending ? (
+        <Spin size="large" />
+      ) : (
+        <>
+          <Sider
+            width="250px"
+            data-cy="aside"
+            theme="light"
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+          >
+            <Menu
+              onOpenChange={(keys) => setOpenKeys(keys)}
+              openKeys={openKeys}
+              selectedKeys={selectedMenuKeys}
+              onClick={handlerOnClickMenu}
+              theme="light"
+              mode="inline"
+              items={menuItems}
+            />
+          </Sider>
+          <Layout className="site-layout">
+            <Header className="site-layout-background header" data-cy="header">
+              <UserMenu />
+            </Header>
+            <Content className="site-layout__content">
+              <Outlet />
+            </Content>
+          </Layout>
+        </>
+      )}
+    </Layout>
   )
 }
 
-export default Layout
+export default LayoutComponent

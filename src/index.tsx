@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './components/App.tsx'
 
-import './index.css'
 import { setupStore } from './stores'
 
 const store = setupStore()
