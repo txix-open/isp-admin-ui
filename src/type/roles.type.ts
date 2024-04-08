@@ -5,7 +5,10 @@ export enum RoleKeys {
 
 export enum PermissionKeys {
   user_view = 'user_view', // Просмотр списка пользователей
-  admin_view = 'admin_view' // роль суперадмина, требуется для интерфейса
+  admin_view = 'admin_view', // роль суперадмина, требуется для интерфейса
+  session_view = 'session_view', // Просмотр списка пользовательских сессий
+  security_log_view = 'security_log_view', // Просмотр журналов ИБ
+  role_view = 'role_view', // Просмотр экрана ролей
 }
 
 export type ConfigRoles = {
