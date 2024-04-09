@@ -1,3 +1,5 @@
+## 0.2.5
+- UserMenu изменен и перенесен из Header в Menu из Layout, удален Header
 ## 0.2.4
 - Изменен Layout
 ## 0.2.3
