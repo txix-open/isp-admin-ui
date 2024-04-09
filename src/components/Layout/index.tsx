@@ -26,7 +26,7 @@ import { PermissionKeys } from '@type/roles.type.ts'
 
 import './layout.scss'
 
-const { Header, Content, Sider } = Layout
+const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false)
@@ -106,6 +106,7 @@ const LayoutComponent = () => {
             collapsed={collapsed}
             onCollapse={(value) => setCollapsed(value)}
           >
+            <UserMenu />
             <Menu
               onOpenChange={(keys) => setOpenKeys(keys)}
               openKeys={openKeys}
@@ -117,9 +118,6 @@ const LayoutComponent = () => {
             />
           </Sider>
           <Layout className="site-layout">
-            <Header className="site-layout-background header" data-cy="header">
-              <UserMenu />
-            </Header>
             <Content className="site-layout__content">
               <Outlet />
             </Content>
