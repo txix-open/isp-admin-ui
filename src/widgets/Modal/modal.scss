@@ -1,0 +1,47 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(211, 211, 211, 0.8);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  &__wrap {
+    min-width: 310px;
+    min-height: 170px;
+    background: white;
+    color: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    position: relative;
+  }
+
+  &__header {
+    height: 50px;
+    background: white;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  &__content {
+    padding: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+    text-align: center;
+  }
+  &__footer {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    button:first-child {
+      margin-right: 8px;
+    }
+  }
+}
+
+
