@@ -10,6 +10,9 @@ type PathKeys =
   | 'logout'
   | 'getProfile'
   | 'getSystemTree'
+  | 'getById'
+  | 'setList'
+  | 'setOne'
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/admin',
   baseSystemUrl: '/api/system',
@@ -25,5 +28,9 @@ export const apiPaths: Record<PathKeys, string> = {
   // ======= PROFILE ======
   getProfile: '/api/admin/user/get_profile',
   // ======= APPLICATIONS ======
-  getSystemTree: '/application/get_system_tree'
+  getSystemTree: '/application/get_system_tree',
+  // ======= ACCESS_LIST ======
+  getById: '/access_list/get_by_id',
+  setList: '/access_list/set_list',
+  setOne: '/access_list/set_one'
 }
