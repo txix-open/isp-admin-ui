@@ -1,3 +1,4 @@
+@import 'src/constants/style/styleConst';
 
 .layout {
   min-height: 100vh !important;
@@ -12,6 +13,7 @@
     top: 50%;
     left: 50%;
   }
+
   .header {
     display: flex;
     align-items: center;
@@ -19,12 +21,14 @@
     line-height: 18px;
     background: #fff;
     padding: 0;
+
     &__search {
       max-width: 300px;
       border: none;
       margin-right: auto;
       padding-right: 40px;
       position: relative;
+
       &:after {
         content: '';
         background: url("/src/assets/icon/search-icon.svg");
@@ -35,35 +39,55 @@
         top: 50%;
         transform: translateY(-50%);
       }
+
       .ant-input-search .ant-input:focus, .ant-input-search .ant-input:hover {
         border-color: red !important;
       }
+
       & .ant-input {
         border: none;
       }
+
       & button {
         border: none;
         display: none;
       }
     }
+
     & .user {
       padding-right: 34px;
     }
   }
+
   .ant-menu {
     border-inline-end: none !important;
   }
+
+  .ant-layout-sider {
+    padding-top: $basic-padding * 2;
+  }
+
   .ant-menu-title-content {
     color: #1B1B1B;
     padding-left: 15px;
+
+  }
+
+  .site-layout {
+
+    &__content {
+      padding: $basic-padding * 2;
+    }
   }
 }
+
 .user-menu {
-  padding-top: 20px;
-  padding-bottom: 100px;
+  margin-bottom: 100px;
+
   & ul {
     height: 40px;
   }
+
   & .ant-menu-submenu-arrow {
     display: none !important;
   }

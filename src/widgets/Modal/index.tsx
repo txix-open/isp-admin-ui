@@ -1,35 +1,50 @@
 import { Button } from 'antd'
-import { Dispatch, MouseEvent, ReactNode, SetStateAction } from 'react'
+import { useEffect } from 'react'
 import CloseBtn from 'src/ui/CloseBtn'
+
+import { ModalPropsType } from '@widgets/Modal/modal.type.ts'
 
 import './modal.scss'
 
-interface ModalPropsType {
-  onOk?: () => void
-  title: string
-  children: ReactNode
-  setIsOpenModal: Dispatch<SetStateAction<boolean>>
-  footer?: { onOkText: string; onCanselText: string }
-}
 
 const Modal = ({
-  onOk,
+  open,
+  onOk = () => {},
   footer,
   title,
   children,
-  setIsOpenModal
+  onClose = () => {}
 }: ModalPropsType) => {
-  const closeModal = () => {
-    setIsOpenModal(false)
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      onClose()
+    }
   }
 
-  const handleModalClick = (event: MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation()
+  const closeModal = () => {
+    onClose()
+    document.body.classList.remove('modal-open')
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+
+    if (open) {
+      document.body.classList.add('modal-open')
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [open])
+
+  if (!open) {
+    return null
   }
 
   return (
     <section className="modal" onClick={closeModal}>
-      <div className="modal__wrap" onClick={handleModalClick}>
+      <div className="modal__wrap" onClick={(event) => event.stopPropagation()}>
         <h1 className="modal__title">{title}</h1>
         <div className="modal__content">{children}</div>
         {footer && (
@@ -37,7 +52,7 @@ const Modal = ({
             <Button type="default" onClick={closeModal}>
               {footer.onCanselText}
             </Button>
-            <Button type="default" onClick={onOk}>
+            <Button type="primary" onClick={onOk}>
               {footer.onOkText}
             </Button>
           </div>

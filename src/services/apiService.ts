@@ -17,7 +17,7 @@ export const apiService = axios.create({
 
 apiService.defaults.headers.post['X-APPLICATION-TOKEN'] = getConfigProperty(
   'APP_TOKEN',
-  import.meta.env.APP_TOKEN
+  import.meta.env.VITE_APP_TOKEN
 )
 
 apiService.interceptors.request.use(

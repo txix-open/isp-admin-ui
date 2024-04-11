@@ -1,4 +1,4 @@
-@import "src/constants/styleConstants";
+@import "src/constants/style/styleConst";
 
 .login-page {
   height: 100vh;
@@ -32,7 +32,7 @@
     &__title {
       text-align: center;
       font-family: 'Roboto', sans-serif;
-      font-size: 14px;
+      font-size: $text-size;
       line-height: 20px;
       color: $text-color-gray;
     }
@@ -40,6 +40,7 @@
     &__submit-sudir-btn {
       background: #0000000f;
       margin-top: 4 * $basic-margin;
+
       &:hover {
         background: rgba(0, 0, 0, 0.09) !important;
       }

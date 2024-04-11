@@ -1,5 +1,5 @@
 import { ProfileOutlined } from '@ant-design/icons'
-import { Layout, Menu, Spin } from 'antd'
+import { Divider, Layout, Menu, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
@@ -25,6 +25,7 @@ import { routePaths } from '@routes/routePaths.ts'
 import { PermissionKeys } from '@type/roles.type.ts'
 
 import './layout.scss'
+
 
 const { Content, Sider } = Layout
 
@@ -107,6 +108,7 @@ const LayoutComponent = () => {
             onCollapse={(value) => setCollapsed(value)}
           >
             <UserMenu />
+            <Divider />
             <Menu
               onOpenChange={(keys) => setOpenKeys(keys)}
               openKeys={openKeys}

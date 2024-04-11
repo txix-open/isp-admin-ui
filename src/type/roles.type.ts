@@ -11,15 +11,6 @@ export enum PermissionKeys {
   role_view = 'role_view', // Просмотр экрана ролей
 }
 
-export type ConfigRoles = {
-  operator: string[]
-  supervisor: string[]
-  ontologist: string[]
-  businessMonitoring: string[]
-  technicalMonitoring: string[]
-  administratorIS: string[]
-}
-
 export type RoleType = {
   changeMessage?: string
   createdAt: string

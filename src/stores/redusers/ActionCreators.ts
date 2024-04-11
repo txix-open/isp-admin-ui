@@ -2,15 +2,18 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { apiPaths } from '@constants/api/apiPaths.ts'
 
+import { ProfileDataType } from '@pages/ProfilePage/profile-page.type.ts'
+
 import { apiService } from '@services/apiService.ts'
 
-import { ProfileDataType } from '@type/profile.type.ts'
 
 export const fetchProfile = createAsyncThunk(
   'profile/fetchProfile',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await apiService.post<ProfileDataType>(apiPaths.baseUrl)
+      const response = await apiService.post<ProfileDataType>(
+        apiPaths.getProfile
+      )
       return response.data
     } catch (error) {
       return rejectWithValue(error)
