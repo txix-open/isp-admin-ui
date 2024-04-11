@@ -1,3 +1,5 @@
+@import "src/constants/style/styleConst";
+
 .modal {
   position: fixed;
   top: 50%;
@@ -13,12 +15,19 @@
   &__wrap {
     min-width: 310px;
     min-height: 170px;
+    max-height: 90vh;
+    max-width: 90%;
     background: white;
     color: white;
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
     position: relative;
+    padding: $basic-padding * 1.5;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__header {
@@ -28,20 +37,28 @@
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
   }
+  &__title {
+    color: $grey;
+  }
   &__content {
     padding: 10px;
     font-size: 14px;
     color: #2c3e50;
-    text-align: center;
+    overflow: auto;
   }
   &__footer {
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-    button:first-child {
-      margin-right: 8px;
-    }
+    display: flex;
+    justify-content: end;
+    margin-top: $basic-margin;
+      button:first-child {
+        margin-right: 8px;
+      }
   }
+}
+
+body.modal-open {
+  overflow: hidden;
+  padding-right: 14px;
 }
 
 
