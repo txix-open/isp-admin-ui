@@ -1,5 +1,7 @@
 type PathKeys =
   | 'baseUrl'
+  | 'baseSystemUrl'
+  | 'baseConfigUrl'
   | 'getAllRoles'
   | 'createRole'
   | 'updateRole'
@@ -7,8 +9,11 @@ type PathKeys =
   | 'login'
   | 'logout'
   | 'getProfile'
+  | 'getSystemTree'
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/admin',
+  baseSystemUrl: '/api/system',
+  baseConfigUrl: '/api/config',
   // ======= ROLES ======
   getAllRoles: '/role/all',
   createRole: '/role/create',
@@ -18,5 +23,7 @@ export const apiPaths: Record<PathKeys, string> = {
   login: '/api/admin/auth/login',
   logout: '/api/admin/auth/logout',
   // ======= PROFILE ======
-  getProfile: '/api/admin/user/get_profile'
+  getProfile: '/api/admin/user/get_profile',
+  // ======= APPLICATIONS ======
+  getSystemTree: '/application/get_system_tree'
 }
