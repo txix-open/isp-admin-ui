@@ -6,6 +6,7 @@ import { createContext, Dispatch, SetStateAction } from 'react'
 import accessListApi from '@services/accessListService.ts'
 import appApi from '@services/appService.ts'
 import roleApi from '@services/roleService.ts'
+import routeApi from '@services/routeService.ts'
 
 import profileReducer from './redusers/ProfileSlice.ts'
 
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   profileReducer,
   [roleApi.reducerPath]: roleApi.reducer,
   [appApi.reducerPath]: appApi.reducer,
-  [accessListApi.reducerPath]: accessListApi.reducer
+  [accessListApi.reducerPath]: accessListApi.reducer,
+  [routeApi.reducerPath]: routeApi.reducer
 })
 
 export const setupStore = () =>
@@ -34,7 +36,8 @@ export const setupStore = () =>
       getDefaultMiddleware().concat(
         roleApi.middleware,
         appApi.middleware,
-        accessListApi.middleware
+        accessListApi.middleware,
+        routeApi.middleware
       )
   })
 

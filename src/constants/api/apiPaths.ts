@@ -13,6 +13,7 @@ type PathKeys =
   | 'getById'
   | 'setList'
   | 'setOne'
+  | 'getAllRoutes'
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/admin',
   baseSystemUrl: '/api/system',
@@ -32,5 +33,6 @@ export const apiPaths: Record<PathKeys, string> = {
   // ======= ACCESS_LIST ======
   getById: '/access_list/get_by_id',
   setList: '/access_list/set_list',
-  setOne: '/access_list/set_one'
+  setOne: '/access_list/set_one',
+  getAllRoutes: '/routing/get_routes'
 }
