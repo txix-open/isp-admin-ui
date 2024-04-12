@@ -33,16 +33,18 @@ apiService.interceptors.request.use(
 apiService.interceptors.response.use(
   async (response: any) => response,
   (error: AxiosError<MSPError>) => {
-      console.error(error)
+    console.error(error)
     if (error.response && error.response.status === 401) {
-        LocalStorage.clear()
-        message.error('Ваша сессия истекла"').then()
-        LocalStorage.set('redirectUrl', location.pathname)
-        window.location.href = routePaths.login
+      LocalStorage.clear()
+      message.error('Ваша сессия истекла"').then()
+      LocalStorage.set('redirectUrl', location.pathname)
+      window.location.href = routePaths.login
     }
 
     if (error.response && error.response.status >= 500) {
-      message.error('Внутренняя ошибка сервиса, попробуйте повторить запрос').then()
+      message
+        .error('Внутренняя ошибка сервиса, попробуйте повторить запрос')
+        .then()
     }
 
     return Promise.reject(error)
