@@ -9,13 +9,25 @@ type PathKeys =
   | 'login'
   | 'logout'
   | 'getProfile'
+  | 'getUsers'
+  | 'createUser'
+  | 'updateUser'
+  | 'blockUser'
+  | 'deleteUser'
+  | 'getRoles'
+  | 'getAllPermissions'
+  | 'baseUserUrl'
+  | 'baseAdminUrl'
   | 'getSystemTree'
   | 'getById'
   | 'setList'
   | 'setOne'
   | 'getAllRoutes'
+
 export const apiPaths: Record<PathKeys, string> = {
-  baseUrl: '/api/admin',
+  baseUrl: '/api/kkd-configuration-service',
+  baseAdminUrl: '/api/admin',
+  baseUserUrl: '/api/admin/user',
   baseSystemUrl: '/api/system',
   baseConfigUrl: '/api/config',
   // ======= ROLES ======
@@ -28,6 +40,14 @@ export const apiPaths: Record<PathKeys, string> = {
   logout: '/api/admin/auth/logout',
   // ======= PROFILE ======
   getProfile: '/api/admin/user/get_profile',
+  // ======= USERS ======
+  getUsers: '/get_users',
+  createUser: '/create_user',
+  updateUser: '/update_user',
+  blockUser: '/block_user',
+  deleteUser: '/delete_user',
+  getRoles: '/get_roles',
+  getAllPermissions: '/get_permissions',
   // ======= APPLICATIONS ======
   getSystemTree: '/application/get_system_tree',
   // ======= ACCESS_LIST ======

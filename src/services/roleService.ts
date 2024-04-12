@@ -6,12 +6,11 @@ import { axiosBaseQuery } from '@utils/apiUtils.ts'
 
 import { NewRoleType, RoleType } from '@type/roles.type.ts'
 
-
 const roleApi = createApi({
   reducerPath: 'roleApi',
   refetchOnFocus: true,
   tagTypes: ['Roles'],
-  baseQuery: axiosBaseQuery({ baseUrl: apiPaths.baseUrl }),
+  baseQuery: axiosBaseQuery({ baseUrl: apiPaths.baseAdminUrl }),
   endpoints: (builder) => ({
     getAllRoles: builder.query<RoleType[], void>({
       query: () => ({ url: apiPaths.getAllRoles }),
