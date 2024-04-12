@@ -5,10 +5,12 @@ import svgr from 'vite-plugin-svgr'
 
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
+    optimizeDeps: { exclude: [] },
     define: {
       __APP_ENV__: env.APP_ENV,
       APP_VERSION: JSON.stringify(process.env.npm_package_version)
