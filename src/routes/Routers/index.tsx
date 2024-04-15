@@ -13,6 +13,7 @@ const LoginPage = lazy(() => import('@pages/LoginPage'))
 const ErrorPage = lazy(() => import('@components/ErrorPage'))
 const ProfilePage = lazy(() => import('@pages/ProfilePage'))
 const UsersPage = lazy(() => import('@pages/UsersPage'))
+const UserEditor = lazy(() => import('src/pages/UserEditor'))
 const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
 
 const Routers = () => {
@@ -37,6 +38,22 @@ const Routers = () => {
             }
           />
           <Route
+            path={routePaths.users}
+            element={
+              <Suspense fallback={<Spin />}>
+                <UsersPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${routePaths.users}/:id`}
+            element={
+              <Suspense fallback={<Spin />}>
+                <UserEditor />
+              </Suspense>
+            }
+          />
+          <Route
             path={`${routePaths.appAccess}`}
             element={
               <Suspense fallback={<Spin />}>
@@ -53,14 +70,6 @@ const Routers = () => {
               }
             />
           </Route>
-          <Route
-            path={routePaths.users}
-            element={
-              <Suspense fallback={<Spin />}>
-                <UsersPage />
-              </Suspense>
-            }
-          />
         </Route>
       </Route>
       <Route
