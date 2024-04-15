@@ -18,6 +18,8 @@ type PathKeys =
   | 'getAllPermissions'
   | 'baseUserUrl'
   | 'baseAdminUrl'
+  | 'getAllSession'
+  | 'revokeSession'
   | 'getAllLogs'
   | 'getLogEvents'
   | 'setLogEvents'
@@ -51,6 +53,9 @@ export const apiPaths: Record<PathKeys, string> = {
   deleteUser: '/delete_user',
   getRoles: '/get_roles',
   getAllPermissions: '/get_permissions',
+  // ======= SESSIONS ======
+  getAllSession: '/session/all',
+  revokeSession: '/session/revoke',
   // ======= LOGS ======
   getAllLogs: '/log/all',
   getLogEvents: '/log/events',
