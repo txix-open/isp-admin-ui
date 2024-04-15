@@ -18,6 +18,9 @@ type PathKeys =
   | 'getAllPermissions'
   | 'baseUserUrl'
   | 'baseAdminUrl'
+  | 'getAllLogs'
+  | 'getLogEvents'
+  | 'setLogEvents'
   | 'getSystemTree'
   | 'getById'
   | 'setList'
@@ -48,6 +51,10 @@ export const apiPaths: Record<PathKeys, string> = {
   deleteUser: '/delete_user',
   getRoles: '/get_roles',
   getAllPermissions: '/get_permissions',
+  // ======= LOGS ======
+  getAllLogs: '/log/all',
+  getLogEvents: '/log/events',
+  setLogEvents: '/log/set_events',
   // ======= APPLICATIONS ======
   getSystemTree: '/application/get_system_tree',
   // ======= ACCESS_LIST ======
