@@ -14,6 +14,7 @@ const ErrorPage = lazy(() => import('@components/ErrorPage'))
 const ProfilePage = lazy(() => import('@pages/ProfilePage'))
 const UsersPage = lazy(() => import('@pages/UsersPage'))
 const UserEditor = lazy(() => import('src/pages/UserEditor'))
+const SecurityLogPage = lazy(() => import('@pages/SecurityLogPage'))
 const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
 
 const Routers = () => {
@@ -70,6 +71,14 @@ const Routers = () => {
               }
             />
           </Route>
+          <Route
+            path={routePaths.securityLog}
+            element={
+              <Suspense fallback={<Spin />}>
+                <SecurityLogPage />
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
       <Route
