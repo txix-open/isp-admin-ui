@@ -55,19 +55,19 @@ const LayoutComponent = () => {
     {
       label: 'Доступы приложений',
       key: 'appAccess',
-      className: hideItem([PermissionKeys.user_view]),
+      className: hideItem([PermissionKeys.read]),
       icon: <LockOutlined />
     },
     {
       label: 'Пользователи и роли',
       key: 'sessionManagement',
-      className: hideItem([PermissionKeys.user_view]),
+      className: hideItem([PermissionKeys.read]),
       icon: <ProfileOutlined />,
       children: [
         {
           label: 'Пользователи',
           key: 'users',
-          className: hideItem(PermissionKeys.user_view)
+          className: hideItem(PermissionKeys.read)
         }
       ]
     }
