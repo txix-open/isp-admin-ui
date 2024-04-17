@@ -2,6 +2,7 @@ import { MenuProps } from 'antd'
 
 export enum MenuItemKeysType {
   users = 'users',
+  securityLog = 'securityLog',
   appAccess = 'appAccess'
 }
 
@@ -12,6 +13,10 @@ interface MenuItem {
 export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   [MenuItemKeysType.users]: {
     key: MenuItemKeysType.users,
+    parent: ['sessionManagement']
+  },
+  [MenuItemKeysType.securityLog]: {
+    key: MenuItemKeysType.securityLog,
     parent: ['sessionManagement']
   },
   [MenuItemKeysType.appAccess]: {

@@ -3,3 +3,8 @@ export interface MSPError {
   errorCode: string
   errorMessage: string
 }
+
+export interface LimitOffsetRequestType {
+  limit: number
+  offset: number
+}
