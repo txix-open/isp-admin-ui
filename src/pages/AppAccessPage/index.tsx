@@ -24,7 +24,7 @@ import appApi from '@services/appService.ts'
 import { routePaths } from '@routes/routePaths.ts'
 
 import { SystemTreeAppType } from '@type/app.type.ts'
-import { PermissionKeys } from '@type/roles.type.ts'
+import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './app-access-page.scss'
 
@@ -48,7 +48,7 @@ const AppAccessPage = () => {
   const { id: selectedItemId = '' } = useParams()
   const [searchParams, setSearchParams] = useSearchParams()
   const searchValue = searchParams.get(firstColumnSearchParam) || ''
-  const canRead = hasPermission(PermissionKeys.read)
+  const canRead = hasPermission(PermissionKeysType.read)
 
   useEffect(() => {
     if (!canRead) {

@@ -1,21 +1,21 @@
 import { MenuProps } from 'antd'
 
-export enum MenuItemKeys {
+export enum MenuItemKeysType {
   users = 'users',
   appAccess = 'appAccess'
 }
 
-type MenuItem = {
-  key: MenuItemKeys
+interface MenuItem {
+  key: MenuItemKeysType
   parent: string[]
 }
-export const menuKeys: Record<MenuItemKeys, MenuItem> = {
-  [MenuItemKeys.users]: {
-    key: MenuItemKeys.users,
+export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
+  [MenuItemKeysType.users]: {
+    key: MenuItemKeysType.users,
     parent: ['sessionManagement']
   },
-  [MenuItemKeys.appAccess]: {
-    key: MenuItemKeys.appAccess,
+  [MenuItemKeysType.appAccess]: {
+    key: MenuItemKeysType.appAccess,
     parent: []
   }
 }
