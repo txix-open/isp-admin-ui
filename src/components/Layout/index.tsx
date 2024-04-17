@@ -68,6 +68,11 @@ const LayoutComponent = () => {
           label: 'Пользователи',
           key: 'users',
           className: hideItem(PermissionKeysType.read)
+        },
+        {
+          label: 'Просмотр журналов ИБ',
+          key: 'securityLog',
+          className: hideItem(PermissionKeysType.read)
         }
       ]
     }
@@ -104,6 +109,9 @@ const LayoutComponent = () => {
     switch (key) {
       case MenuItemKeysType.users:
         navigate(routePaths.users)
+        break
+      case MenuItemKeysType.securityLog:
+        navigate(routePaths.securityLog)
         break
       case MenuItemKeysType.appAccess:
         navigate(routePaths.appAccess)
