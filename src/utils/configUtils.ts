@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    config?: any
+    config: { [key: string]: any };
   }
 }
 
