@@ -29,14 +29,13 @@ import './layout.scss'
 const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
-  const navigate = useNavigate()
-
   const [collapsed, setCollapsed] = useState<boolean>(false)
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>([])
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const dispatch = useAppDispatch()
   const { status } = useAppSelector((state) => state.profileReducer)
   const location = useLocation()
+  const navigate = useNavigate()
   const { hasPermission } = useRole()
   const { theme } = useContext(ConfigProvider.ConfigContext)
 
@@ -103,6 +102,9 @@ const LayoutComponent = () => {
 
   const handlerOnClickMenu = ({ key }: any): void => {
     switch (key) {
+      case MenuItemKeysType.users:
+        navigate(routePaths.users)
+        break
       case MenuItemKeysType.appAccess:
         navigate(routePaths.appAccess)
         break

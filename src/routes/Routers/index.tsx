@@ -12,6 +12,7 @@ import { routePaths } from '@routes/routePaths.ts'
 const LoginPage = lazy(() => import('@pages/LoginPage'))
 const ErrorPage = lazy(() => import('@components/ErrorPage'))
 const ProfilePage = lazy(() => import('@pages/ProfilePage'))
+const UsersPage = lazy(() => import('@pages/UsersPage'))
 const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
 
 const Routers = () => {
@@ -52,6 +53,14 @@ const Routers = () => {
               }
             />
           </Route>
+          <Route
+            path={routePaths.users}
+            element={
+              <Suspense fallback={<Spin />}>
+                <UsersPage />
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
       <Route
