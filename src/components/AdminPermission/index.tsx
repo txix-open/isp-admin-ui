@@ -7,7 +7,7 @@ import { PermissionKeys } from '@type/roles.type.ts'
 const AdminPermission = ({ children }: PropsWithChildren) => {
   const { hasPermission } = useRole()
 
-  if (hasPermission(PermissionKeys.admin_view)) {
+  if (hasPermission(PermissionKeys.read)) {
     return <>{children}</>
   }
   return null

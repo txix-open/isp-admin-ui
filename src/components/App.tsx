@@ -1,4 +1,5 @@
 import { ConfigProvider } from 'antd'
+import ruRu from 'antd/locale/ru_RU'
 import { useState } from 'react'
 
 import { lightTheme } from '@constants/theme.ts'
@@ -15,7 +16,7 @@ const App = () => {
   return (
     <div className="app">
       <Context.Provider value={{ setTheme }}>
-        <ConfigProvider theme={themes}>
+        <ConfigProvider theme={themes} locale={ruRu}>
           <Routers />
         </ConfigProvider>
       </Context.Provider>

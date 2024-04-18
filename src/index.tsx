@@ -7,6 +7,9 @@ import App from './components/App.tsx'
 
 import { setupStore } from './stores'
 
+import 'simplebar-react/dist/simplebar.min.css'
+
+
 const store = setupStore()
 setupListeners(store.dispatch)
 const root = createRoot(document.getElementById('root') as HTMLElement)

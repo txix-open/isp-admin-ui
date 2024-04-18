@@ -1,7 +1,7 @@
-import { ProfileOutlined } from '@ant-design/icons'
+import { LockOutlined, ProfileOutlined } from '@ant-design/icons'
 import { Divider, Layout, Menu, Spin } from 'antd'
 import { useEffect, useState } from 'react'
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { localStorageKeys } from '@constants/localStorageKeys.ts'
 
@@ -26,10 +26,11 @@ import { PermissionKeys } from '@type/roles.type.ts'
 
 import './layout.scss'
 
-
 const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
+  const navigate = useNavigate()
+
   const [collapsed, setCollapsed] = useState<boolean>(false)
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeys[]>([])
   const [openKeys, setOpenKeys] = useState<string[]>([])
@@ -52,15 +53,21 @@ const LayoutComponent = () => {
   }
   const menuItems: MenuItemType[] = [
     {
+      label: 'Доступы приложений',
+      key: 'appAccess',
+      className: hideItem([PermissionKeys.read]),
+      icon: <LockOutlined />
+    },
+    {
       label: 'Пользователи и роли',
       key: 'sessionManagement',
-      className: hideItem([PermissionKeys.user_view]),
+      className: hideItem([PermissionKeys.read]),
       icon: <ProfileOutlined />,
       children: [
         {
           label: 'Пользователи',
           key: 'users',
-          className: hideItem(PermissionKeys.user_view)
+          className: hideItem(PermissionKeys.read)
         }
       ]
     }
@@ -85,6 +92,9 @@ const LayoutComponent = () => {
 
   const handlerOnClickMenu = ({ key }: any): void => {
     switch (key) {
+      case MenuItemKeys.appAccess:
+        navigate(routePaths.appAccess)
+        break
       default:
     }
   }
