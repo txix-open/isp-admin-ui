@@ -1,6 +1,6 @@
 import { LockOutlined, ProfileOutlined } from '@ant-design/icons'
-import { Divider, Layout, Menu, Spin } from 'antd'
-import { useEffect, useState } from 'react'
+import { ConfigProvider, Divider, Layout, Menu, Spin } from 'antd'
+import { useContext, useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { localStorageKeys } from '@constants/localStorageKeys.ts'
@@ -38,6 +38,7 @@ const LayoutComponent = () => {
   const { status } = useAppSelector((state) => state.profileReducer)
   const location = useLocation()
   const { hasPermission } = useRole()
+  const { theme } = useContext(ConfigProvider.ConfigContext)
 
   const userToken = LocalStorage.get(localStorageKeys.USER_TOKEN)
 
@@ -72,6 +73,16 @@ const LayoutComponent = () => {
       ]
     }
   ]
+
+  useEffect(() => {
+    ConfigProvider.config({
+      holderRender: (children) => (
+        <ConfigProvider prefixCls="static" theme={theme}>
+          {children}
+        </ConfigProvider>
+      ),
+    })
+  }, [theme])
 
   useEffect(() => {
     if (userToken) {
