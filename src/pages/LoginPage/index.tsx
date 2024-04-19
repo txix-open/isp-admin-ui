@@ -105,7 +105,7 @@ const LoginPage = () => {
   }
 
   return (
-    <main className="login-page">
+    <section className="login-page">
       <form className="login-page__content">
         <h1 data-cy="login-title" className="login-page__content__title">
           Вход в систему
@@ -113,7 +113,7 @@ const LoginPage = () => {
         <Divider />
         {renderInternalAuthForm()}
       </form>
-    </main>
+    </section>
   )
 }
 

@@ -7,7 +7,7 @@ import { AccessListTreePropsType } from '@widgets/AccessListTree/access-list-tre
 import useRole from '@hooks/useRole.tsx'
 
 import { EndpointType } from '@type/accessList.type.ts'
-import { PermissionKeys } from '@type/roles.type.ts'
+import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './access-list-tree.scss'
 
@@ -123,7 +123,7 @@ const AccessListTree: FC<AccessListTreePropsType> = ({
     <div className="access-list-tree">
       <Tree
         className="app-access-content__main__tree"
-        checkable={hasPermission(PermissionKeys.write)}
+        checkable={hasPermission(PermissionKeysType.write)}
         checkedKeys={filteredKeys}
         expandedKeys={expandedKeys}
         onExpand={(keys) => setExpandedKeys(keys as string[])}

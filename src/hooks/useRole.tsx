@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { PermissionKeys } from '@type/roles.type.ts'
+import { PermissionKeysType } from '@type/roles.type.ts'
 
 import { useAppSelector } from './redux.ts'
 
@@ -8,7 +8,7 @@ export const useRole = () => {
   const { profile } = useAppSelector((state: any) => state.profileReducer)
   const role: string = useMemo(() => profile && profile.role, [profile])
 
-  const hasPermission = (permission: PermissionKeys) => {
+  const hasPermission = (permission: PermissionKeysType) => {
     const userPermission = profile.permissions || []
     return userPermission.includes(permission)
   }

@@ -3,13 +3,15 @@ import { theme } from 'antd'
 import { MapToken, SeedToken } from 'antd/es/theme/interface'
 import { createContext, Dispatch, SetStateAction } from 'react'
 
+import sessionServiceApi from '@services/sessionService.ts'
 import accessListApi from '@services/accessListService.ts'
 import appApi from '@services/appService.ts'
 import roleApi from '@services/roleService.ts'
+import securityLogServiceApi from '@services/securityLogService.ts'
+import userServiceApi from '@services/userService.ts'
 import routeApi from '@services/routeService.ts'
 
 import profileReducer from './redusers/ProfileSlice.ts'
-
 
 export interface ContextProps {
   setTheme: Dispatch<
@@ -24,6 +26,9 @@ export const Context = createContext<ContextProps>({
 const rootReducer = combineReducers({
   profileReducer,
   [roleApi.reducerPath]: roleApi.reducer,
+  [userServiceApi.reducerPath]: userServiceApi.reducer,
+  [sessionServiceApi.reducerPath]: sessionServiceApi.reducer,
+  [securityLogServiceApi.reducerPath]: securityLogServiceApi.reducer,
   [appApi.reducerPath]: appApi.reducer,
   [accessListApi.reducerPath]: accessListApi.reducer,
   [routeApi.reducerPath]: routeApi.reducer
@@ -35,9 +40,13 @@ export const setupStore = () =>
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         roleApi.middleware,
+        userServiceApi.middleware,
+        securityLogServiceApi.middleware,
         appApi.middleware,
         accessListApi.middleware,
-        routeApi.middleware
+        routeApi.middleware,
+        userServiceApi.middleware,
+        sessionServiceApi.middleware
       )
   })
 

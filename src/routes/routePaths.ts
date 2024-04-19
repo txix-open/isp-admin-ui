@@ -4,6 +4,10 @@ type RoutePaths =
   | 'error'
   | 'login'
   | 'profile'
+  | 'users'
+  | 'sessions'
+  | 'securityLog'
+  | 'roles'
   | 'appAccess'
 
 export const routePaths: Record<RoutePaths, string> = {
@@ -12,5 +16,9 @@ export const routePaths: Record<RoutePaths, string> = {
   notFound: '*',
   login: '/login',
   profile: '/profile',
+  users: '/users',
+  sessions: '/sessions',
+  securityLog: '/securityLog',
+  roles: '/roles',
   appAccess: '/appAccess'
 }

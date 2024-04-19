@@ -12,6 +12,11 @@ import { routePaths } from '@routes/routePaths.ts'
 const LoginPage = lazy(() => import('@pages/LoginPage'))
 const ErrorPage = lazy(() => import('@components/ErrorPage'))
 const ProfilePage = lazy(() => import('@pages/ProfilePage'))
+const UsersPage = lazy(() => import('@pages/UsersPage'))
+const RolesPage = lazy(() => import('@pages/RolesPage'))
+const UserEditor = lazy(() => import('src/pages/UserEditor'))
+const SessionsPage = lazy(() => import('@pages/SessionsPage'))
+const SecurityLogPage = lazy(() => import('@pages/SecurityLogPage'))
 const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
 
 const Routers = () => {
@@ -32,6 +37,55 @@ const Routers = () => {
             element={
               <Suspense fallback={<Spin />}>
                 <ProfilePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={routePaths.users}
+            element={
+              <Suspense fallback={<Spin />}>
+                <UsersPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${routePaths.users}/:id`}
+            element={
+              <Suspense fallback={<Spin />}>
+                <UserEditor />
+              </Suspense>
+            }
+          />
+          <Route
+            path={routePaths.roles}
+            element={
+              <Suspense fallback={<Spin />}>
+                <RolesPage />
+              </Suspense>
+            }
+          >
+            <Route
+              path=":id"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <RolesPage />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route
+            path={routePaths.sessions}
+            element={
+              <Suspense fallback={<Spin />}>
+                <SessionsPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={routePaths.securityLog}
+            element={
+              <Suspense fallback={<Spin />}>
+                <SecurityLogPage />
               </Suspense>
             }
           />

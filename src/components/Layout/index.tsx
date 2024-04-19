@@ -1,12 +1,12 @@
 import { LockOutlined, ProfileOutlined } from '@ant-design/icons'
-import { Divider, Layout, Menu, Spin } from 'antd'
-import { useEffect, useState } from 'react'
+import { ConfigProvider, Divider, Layout, Menu, Spin } from 'antd'
+import { useContext, useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { localStorageKeys } from '@constants/localStorageKeys.ts'
 
 import {
-  MenuItemKeys,
+  MenuItemKeysType,
   MenuItemType,
   menuKeys
 } from '@components/Layout/layout.type.ts'
@@ -22,26 +22,28 @@ import { StateProfileStatus } from '@stores/redusers/ProfileSlice.ts'
 
 import { routePaths } from '@routes/routePaths.ts'
 
-import { PermissionKeys } from '@type/roles.type.ts'
+import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './layout.scss'
 
 const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
-  const navigate = useNavigate()
-
   const [collapsed, setCollapsed] = useState<boolean>(false)
-  const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeys[]>([])
+  const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
+    []
+  )
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const dispatch = useAppDispatch()
   const { status } = useAppSelector((state) => state.profileReducer)
   const location = useLocation()
+  const navigate = useNavigate()
+  const { hasPermission } = useRole()
+  const { theme } = useContext(ConfigProvider.ConfigContext)
+
   const userToken = LocalStorage.get(localStorageKeys.USER_TOKEN)
 
-  const { hasPermission } = useRole()
-
-  const hideItem = (permission: PermissionKeys | PermissionKeys[]) => {
+  const hideItem = (permission: PermissionKeysType | PermissionKeysType[]) => {
     if (Array.isArray(permission)) {
       const result = permission.reduce((acc, currentValue) => {
         const hasPermissionFunc = hasPermission(currentValue)
@@ -55,23 +57,48 @@ const LayoutComponent = () => {
     {
       label: 'Доступы приложений',
       key: 'appAccess',
-      className: hideItem([PermissionKeys.read]),
+      className: hideItem([PermissionKeysType.read]),
       icon: <LockOutlined />
     },
     {
       label: 'Пользователи и роли',
       key: 'sessionManagement',
-      className: hideItem([PermissionKeys.read]),
+      className: hideItem([PermissionKeysType.read]),
       icon: <ProfileOutlined />,
       children: [
         {
           label: 'Пользователи',
           key: 'users',
-          className: hideItem(PermissionKeys.read)
+          className: hideItem(PermissionKeysType.read)
+        },
+        {
+          label: 'Пользовательские сессии',
+          key: 'sessions',
+          className: hideItem(PermissionKeysType.read)
+        },
+        {
+          label: 'Просмотр журналов ИБ',
+          key: 'securityLog',
+          className: hideItem(PermissionKeysType.read)
+        },
+        {
+          label: 'Роли',
+          key: 'roles',
+          className: hideItem(PermissionKeysType.read)
         }
       ]
     }
   ]
+
+  useEffect(() => {
+    ConfigProvider.config({
+      holderRender: (children) => (
+        <ConfigProvider prefixCls="static" theme={theme}>
+          {children}
+        </ConfigProvider>
+      )
+    })
+  }, [theme])
 
   useEffect(() => {
     if (userToken) {
@@ -80,7 +107,7 @@ const LayoutComponent = () => {
   }, [])
 
   useEffect(() => {
-    const menuKey = location.pathname.split('/')[1] as MenuItemKeys
+    const menuKey = location.pathname.split('/')[1] as MenuItemKeysType
 
     const menuItem = menuKeys[menuKey]
 
@@ -92,8 +119,20 @@ const LayoutComponent = () => {
 
   const handlerOnClickMenu = ({ key }: any): void => {
     switch (key) {
-      case MenuItemKeys.appAccess:
+      case MenuItemKeysType.users:
+        navigate(routePaths.users)
+        break
+      case MenuItemKeysType.sessions:
+        navigate(routePaths.sessions)
+        break
+      case MenuItemKeysType.securityLog:
+        navigate(routePaths.securityLog)
+        break
+      case MenuItemKeysType.appAccess:
         navigate(routePaths.appAccess)
+        break
+      case MenuItemKeysType.roles:
+        navigate(routePaths.roles)
         break
       default:
     }

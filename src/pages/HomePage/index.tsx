@@ -1,5 +1,7 @@
 import './home-page.scss'
 
-export default function HomePage() {
+const HomePage = () => {
   return <div className="home-page">Добро пожаловать!</div>
 }
+
+export default HomePage

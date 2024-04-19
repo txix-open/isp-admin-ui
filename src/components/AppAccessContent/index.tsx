@@ -18,7 +18,7 @@ import routeApi from '@services/routeService.ts'
 import { routePaths } from '@routes/routePaths.ts'
 
 import { AccessListMethodType, EndpointType } from '@type/accessList.type.ts'
-import { PermissionKeys } from '@type/roles.type.ts'
+import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './app-access-content.scss'
 
@@ -32,7 +32,7 @@ const AppAccessContent: FC<AppAccessContentPropsType> = ({
   const [messageApi, contextHolder] = message.useMessage()
   const { hasPermission } = useRole()
   
-  const canWrite = hasPermission(PermissionKeys.write)
+  const canWrite = hasPermission(PermissionKeysType.write)
 
   const {
     data: methods = [],
