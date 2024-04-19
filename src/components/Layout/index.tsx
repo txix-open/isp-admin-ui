@@ -30,7 +30,9 @@ const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false)
-  const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>([])
+  const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
+    []
+  )
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const dispatch = useAppDispatch()
   const { status } = useAppSelector((state) => state.profileReducer)
@@ -78,6 +80,11 @@ const LayoutComponent = () => {
           label: 'Просмотр журналов ИБ',
           key: 'securityLog',
           className: hideItem(PermissionKeysType.read)
+        },
+        {
+          label: 'Роли',
+          key: 'roles',
+          className: hideItem(PermissionKeysType.read)
         }
       ]
     }
@@ -89,7 +96,7 @@ const LayoutComponent = () => {
         <ConfigProvider prefixCls="static" theme={theme}>
           {children}
         </ConfigProvider>
-      ),
+      )
     })
   }, [theme])
 
@@ -123,6 +130,9 @@ const LayoutComponent = () => {
         break
       case MenuItemKeysType.appAccess:
         navigate(routePaths.appAccess)
+        break
+      case MenuItemKeysType.roles:
+        navigate(routePaths.roles)
         break
       default:
     }
