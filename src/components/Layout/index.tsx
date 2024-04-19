@@ -1,20 +1,25 @@
-import { LockOutlined, ProfileOutlined } from '@ant-design/icons'
-import { ConfigProvider, Divider, Layout, Menu, Spin } from 'antd'
+import {
+  LockOutlined,
+  LogoutOutlined,
+  ProfileOutlined
+} from '@ant-design/icons'
+import { ConfigProvider, Layout, Menu, Spin } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { localStorageKeys } from '@constants/localStorageKeys.ts'
 
+import DefaultUser from '@components/Icons/DefaultUser.tsx'
 import {
   MenuItemKeysType,
   MenuItemType,
   menuKeys
 } from '@components/Layout/layout.type.ts'
-import UserMenu from '@components/UserMenu'
 
 import { LocalStorage } from '@utils/localStorageUtils.ts'
 
 import { useAppDispatch, useAppSelector } from '@hooks/redux.ts'
+import useLogout from '@hooks/useLogout.tsx'
 import useRole from '@hooks/useRole.tsx'
 
 import { fetchProfile } from '@stores/redusers/ActionCreators.ts'
@@ -35,13 +40,17 @@ const LayoutComponent = () => {
   )
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const dispatch = useAppDispatch()
-  const { status } = useAppSelector((state) => state.profileReducer)
+  const {
+    status,
+    profile: { firstName }
+  } = useAppSelector((state) => state.profileReducer)
   const location = useLocation()
   const navigate = useNavigate()
   const { hasPermission } = useRole()
   const { theme } = useContext(ConfigProvider.ConfigContext)
 
   const userToken = LocalStorage.get(localStorageKeys.USER_TOKEN)
+  const { logoutUser } = useLogout()
 
   const hideItem = (permission: PermissionKeysType | PermissionKeysType[]) => {
     if (Array.isArray(permission)) {
@@ -54,6 +63,24 @@ const LayoutComponent = () => {
     return hasPermission(permission) ? '' : 'hide-item'
   }
   const menuItems: MenuItemType[] = [
+    {
+      label: firstName || '',
+      key: 'userManagement',
+      className: 'user-item',
+      icon: <DefaultUser />,
+      children: [
+        {
+          label: 'Профиль',
+          key: 'profile',
+          icon: <ProfileOutlined />
+        },
+        {
+          label: 'Выход',
+          key: 'logout',
+          icon: <LogoutOutlined />
+        }
+      ]
+    },
     {
       label: 'Доступы приложений',
       key: 'appAccess',
@@ -119,6 +146,14 @@ const LayoutComponent = () => {
 
   const handlerOnClickMenu = ({ key }: any): void => {
     switch (key) {
+      case MenuItemKeysType.logout: {
+        logoutUser()
+        break
+      }
+      case MenuItemKeysType.profile: {
+        navigate(routePaths.profile)
+        break
+      }
       case MenuItemKeysType.users:
         navigate(routePaths.users)
         break
@@ -156,8 +191,6 @@ const LayoutComponent = () => {
             collapsed={collapsed}
             onCollapse={(value) => setCollapsed(value)}
           >
-            <UserMenu />
-            <Divider />
             <Menu
               onOpenChange={(keys) => setOpenKeys(keys)}
               openKeys={openKeys}
