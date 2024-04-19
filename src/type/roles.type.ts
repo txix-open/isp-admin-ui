@@ -1,6 +1,6 @@
 export enum PermissionKeysType {
   read = 'read', // Просмотр страниц
-  write = 'write', // Редактирование страниц
+  write = 'write' // Редактирование страниц
 }
 
 export interface RoleType {

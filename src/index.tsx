@@ -7,8 +7,8 @@ import App from './components/App.tsx'
 
 import { setupStore } from './stores'
 
+import 'react-resizable/css/styles.css'
 import 'simplebar-react/dist/simplebar.min.css'
-
 
 const store = setupStore()
 setupListeners(store.dispatch)

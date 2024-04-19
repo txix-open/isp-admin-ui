@@ -18,7 +18,7 @@ const ProfilePage = () => {
   const { logoutUser, isLoading } = useLogout()
 
   return (
-    <section className="profile-page">
+    <section className="profile-page wrap">
       <ChangePasswordModal
         onClose={() => setIsModalOpen(false)}
         open={isModalOpen}

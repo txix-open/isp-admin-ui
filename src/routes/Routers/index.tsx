@@ -13,6 +13,7 @@ const LoginPage = lazy(() => import('@pages/LoginPage'))
 const ErrorPage = lazy(() => import('@components/ErrorPage'))
 const ProfilePage = lazy(() => import('@pages/ProfilePage'))
 const UsersPage = lazy(() => import('@pages/UsersPage'))
+const RolesPage = lazy(() => import('@pages/RolesPage'))
 const UserEditor = lazy(() => import('src/pages/UserEditor'))
 const SessionsPage = lazy(() => import('@pages/SessionsPage'))
 const SecurityLogPage = lazy(() => import('@pages/SecurityLogPage'))
@@ -55,6 +56,23 @@ const Routers = () => {
               </Suspense>
             }
           />
+          <Route
+            path={routePaths.roles}
+            element={
+              <Suspense fallback={<Spin />}>
+                <RolesPage />
+              </Suspense>
+            }
+          >
+            <Route
+              path=":id"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <RolesPage />
+                </Suspense>
+              }
+            />
+          </Route>
           <Route
             path={routePaths.sessions}
             element={

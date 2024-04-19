@@ -1,0 +1,11 @@
+@import "../../constants/style/styleConst";
+
+.roles-content {
+  padding: $basic-padding*3;
+  min-width: 400px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
