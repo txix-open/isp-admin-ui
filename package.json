@@ -17,6 +17,8 @@
     "@reduxjs/toolkit": "^2.2.3",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.8",
+    "compare-versions": "^6.1.0",
+    "moment": "^2.30.1",
     "isp-ui-kit": "github:txix-open/isp-ui-kit",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
