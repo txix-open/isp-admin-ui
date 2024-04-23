@@ -121,6 +121,12 @@ const LayoutComponent = () => {
           className: hideItem(PermissionKeysType.read)
         }
       ]
+    },
+    {
+      label: 'Модули',
+      key: 'modules',
+      className: hideItem(PermissionKeysType.read),
+      icon: <ProfileOutlined />
     }
   ]
 
@@ -175,6 +181,9 @@ const LayoutComponent = () => {
         break
       case MenuItemKeysType.roles:
         navigate(routePaths.roles)
+        break
+      case MenuItemKeysType.modules:
+        navigate(routePaths.modules)
         break
       case MenuItemKeysType.applications:
         navigate(routePaths.applications)
