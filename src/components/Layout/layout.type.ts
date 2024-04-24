@@ -7,7 +7,8 @@ export enum MenuItemKeysType {
   appAccess = 'appAccess',
   roles = 'roles',
   logout = 'logout',
-  profile = 'profile'
+  profile = 'profile',
+  applications = 'applications',
 }
 
 interface MenuItem {
@@ -41,6 +42,10 @@ export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   },
   [MenuItemKeysType.profile]: {
     key: MenuItemKeysType.profile,
+    parent: ['']
+  },
+  [MenuItemKeysType.applications]: {
+    key: MenuItemKeysType.applications,
     parent: ['']
   }
 }
