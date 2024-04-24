@@ -19,6 +19,7 @@ const SessionsPage = lazy(() => import('@pages/SessionsPage'))
 const SecurityLogPage = lazy(() => import('@pages/SecurityLogPage'))
 const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
 const ModulesPage = lazy(() => import('@pages/ModulesPage'))
+const Connections = lazy(() => import('@components/Connections'))
 const ApplicationsPage = lazy(() => import('@pages/ApplicationsPage'))
 
 const Routers = () => {
@@ -146,7 +147,7 @@ const Routers = () => {
                 path="connections"
                 element={
                   <Suspense fallback={<Spin />}>
-                    <div>Connections</div>
+                    <Connections />
                   </Suspense>
                 }
               />
