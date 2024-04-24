@@ -17,7 +17,7 @@
     "@reduxjs/toolkit": "^2.2.3",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.8",
-    "isp-ui-kit": "https://github.com/txix-open/isp-ui-kit",
+    "isp-ui-kit": "github:txix-open/isp-ui-kit",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.2",
