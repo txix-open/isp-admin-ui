@@ -1,0 +1,70 @@
+@import "src/constants/style/styleConst";
+
+.users-page {
+  height: 100%;
+  background: #fff;
+  border: 1px solid $border-color;
+
+
+  &__header {
+    border-bottom: 1px solid $border-color;
+    padding: 0 3 * $basic-padding;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__title {
+      padding: 3 * $basic-padding 0;
+      display: inline-block;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 28px;
+    }
+  }
+
+  &__content {
+    padding: 2 * $basic-padding 3 * $basic-padding;
+    overflow-x: scroll;
+
+    &__wrap-table {
+      overflow-x: scroll;
+      height: calc(100vh - 200px);
+    }
+
+    &__table {
+      &__actions {
+        justify-content: flex-end;
+        display: flex;
+        gap: $basic-margin;
+
+        &__delete-btn {
+          color: $blue-color;
+          background: $blue-light;
+        }
+
+        &__edit-btn {
+          cursor: pointer;
+          background: $blue-light;
+          padding: 4px 10px;
+          border-radius: 8px;
+
+          &:hover {
+            path:first-child {
+              fill: $blue-color;
+            }
+
+            path:last-child {
+              fill: #fff;
+            }
+
+            background: $blue-color;
+          }
+        }
+      }
+    }
+
+    &__pagination {
+      margin-top: 20px;
+    }
+  }
+}
