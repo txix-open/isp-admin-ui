@@ -10,6 +10,8 @@ import { ColumnsType } from 'antd/es/table'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import CanEdit from '@components/CanEdit'
+
 import { getUserFullName } from '@utils/userUtils/getFullNameUtil.ts'
 
 import useRole from '@hooks/useRole.tsx'
@@ -37,9 +39,6 @@ const UsersPage = () => {
   const isLoading = isRolesLoading || isUsersLoading
 
   const isPageAvailable = hasPermission(PermissionKeysType.read)
-  const hasBlockUserPermission = hasPermission(PermissionKeysType.write)
-  const hasDeleteUserPermission = hasPermission(PermissionKeysType.write)
-  const hasUpdateUserPermission = hasPermission(PermissionKeysType.write)
   const hasCreateUserPermission = hasPermission(PermissionKeysType.write)
 
   useEffect(() => {
@@ -136,7 +135,7 @@ const UsersPage = () => {
           : 'Вы действительно хотите заблокировать этого пользователя?'
         return (
           <div className="users-page__content__table__actions">
-            {hasBlockUserPermission && (
+            <CanEdit>
               <Popconfirm
                 title={blockTitle}
                 onConfirm={() => handleBlockUser(record.id)}
@@ -149,8 +148,6 @@ const UsersPage = () => {
                   icon={record.blocked ? <LockOutlined /> : <UnlockOutlined />}
                 />
               </Popconfirm>
-            )}
-            {hasUpdateUserPermission && (
               <div
                 data-cy={`users-page__content__table__actions__edit-btn ${record.id}`}
                 className="users-page__content__table__actions__edit-btn"
@@ -162,9 +159,6 @@ const UsersPage = () => {
               >
                 <EditTwoTone />
               </div>
-            )}
-
-            {hasDeleteUserPermission && (
               <Popconfirm
                 title="Вы действительно хотите удалить этого пользователя?"
                 onConfirm={() => handleDeleteUser(record.id)}
@@ -176,7 +170,7 @@ const UsersPage = () => {
                   icon={<DeleteOutlined />}
                 />
               </Popconfirm>
-            )}
+            </CanEdit>
           </div>
         )
       }
