@@ -105,7 +105,7 @@ const UsersPage = () => {
       dataIndex: 'roles',
       key: 'roles',
       render: (values: number[]) => {
-        const labels: any[] = []
+        const labels: string[] = []
         values.forEach((value: number) => {
           const roleLabel = roles?.find((el) => el.id === value)
           if (roleLabel) {

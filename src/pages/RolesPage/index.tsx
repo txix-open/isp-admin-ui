@@ -111,7 +111,7 @@ const RolesPage = () => {
       })
   }
 
-  const handleRemoveRole = (id: any) => {
+  const handleRemoveRole = (id: string) => {
     const idAsNumber = parseInt(id, 10)
     removeRole(idAsNumber)
       .unwrap()

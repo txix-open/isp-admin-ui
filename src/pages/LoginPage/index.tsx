@@ -61,7 +61,7 @@ const LoginPage = () => {
         navigate(redirectUrl, { replace: true })
         localStorage.removeItem('redirectUrl')
       })
-      .catch((err: any) => handleError(err))
+      .catch((err: AxiosError<MSPError>) => handleError(err))
   }
 
   const renderInternalAuthForm = () => {

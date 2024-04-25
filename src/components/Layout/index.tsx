@@ -6,6 +6,7 @@ import {
   ProfileOutlined
 } from '@ant-design/icons'
 import { ConfigProvider, Layout, Menu, Spin } from 'antd'
+import type { MenuProps } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
@@ -166,7 +167,7 @@ const LayoutComponent = () => {
     }
   }, [location])
 
-  const handlerOnClickMenu = ({ key }: any): void => {
+  const handlerOnClickMenu: MenuProps['onClick'] = ({ key }): void => {
     switch (key) {
       case MenuItemKeysType.logout: {
         logoutUser()
