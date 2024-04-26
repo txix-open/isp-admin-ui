@@ -3,13 +3,14 @@ import { theme } from 'antd'
 import { MapToken, SeedToken } from 'antd/es/theme/interface'
 import { createContext, Dispatch, SetStateAction } from 'react'
 
-import sessionServiceApi from '@services/sessionService.ts'
 import accessListApi from '@services/accessListService.ts'
 import appApi from '@services/appService.ts'
+import modulesServiceApi from '@services/modulesService.ts'
 import roleApi from '@services/roleService.ts'
-import securityLogServiceApi from '@services/securityLogService.ts'
-import userServiceApi from '@services/userService.ts'
 import routeApi from '@services/routeService.ts'
+import securityLogServiceApi from '@services/securityLogService.ts'
+import sessionServiceApi from '@services/sessionService.ts'
+import userServiceApi from '@services/userService.ts'
 
 import profileReducer from './redusers/ProfileSlice.ts'
 import applicationsGroupApi from '@services/applicationsGroupService.ts'
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   [appApi.reducerPath]: appApi.reducer,
   [accessListApi.reducerPath]: accessListApi.reducer,
   [routeApi.reducerPath]: routeApi.reducer,
+  [modulesServiceApi.reducerPath]: modulesServiceApi.reducer,
   [applicationsGroupApi.reducerPath]: applicationsGroupApi.reducer,
   [applicationsApi.reducerPath]: applicationsApi.reducer,
 })
@@ -51,6 +53,7 @@ export const setupStore = () =>
         routeApi.middleware,
         userServiceApi.middleware,
         sessionServiceApi.middleware,
+        modulesServiceApi.middleware,
         applicationsGroupApi.middleware,
         applicationsApi.middleware
       )

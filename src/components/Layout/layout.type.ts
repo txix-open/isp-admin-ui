@@ -8,6 +8,7 @@ export enum MenuItemKeysType {
   roles = 'roles',
   logout = 'logout',
   profile = 'profile',
+  modules = 'modules',
   applications = 'applications',
 }
 
@@ -43,6 +44,10 @@ export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   [MenuItemKeysType.profile]: {
     key: MenuItemKeysType.profile,
     parent: ['']
+  },
+  [MenuItemKeysType.modules]: {
+    key: MenuItemKeysType.modules,
+    parent: []
   },
   [MenuItemKeysType.applications]: {
     key: MenuItemKeysType.applications,

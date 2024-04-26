@@ -28,6 +28,8 @@ type PathKeys =
   | 'setList'
   | 'setOne'
   | 'getAllRoutes'
+  | 'getModules'
+  | 'deleteModule'
   | 'createUpdateService'
   | 'deleteService'
   | 'getAllService'
@@ -86,6 +88,9 @@ export const apiPaths: Record<PathKeys, string> = {
   setList: '/access_list/set_list',
   setOne: '/access_list/set_one',
   getAllRoutes: '/routing/get_routes',
+  // ======= MODULES ======
+  getModules: '/module/get_modules_info',
+  deleteModule: '/module/delete_module',
   // ======= SERVICE ======
   getServiceById: '/service/get_service_by_id',
   getAllService: '/service/get_service',

@@ -9,6 +9,7 @@ type RoutePaths =
   | 'securityLog'
   | 'roles'
   | 'appAccess'
+  | 'modules'
   | 'applications'
 
 export const routePaths: Record<RoutePaths, string> = {
@@ -22,5 +23,6 @@ export const routePaths: Record<RoutePaths, string> = {
   securityLog: '/securityLog',
   roles: '/roles',
   appAccess: '/appAccess',
+  modules: '/modules',
   applications: '/applications'
 }
