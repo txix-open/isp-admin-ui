@@ -3,10 +3,9 @@ import {
   DeleteOutlined,
   PlusSquareOutlined
 } from '@ant-design/icons'
-import { Button, message, Spin, Table } from 'antd'
+import {Button, message, Spin, Table} from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import { FormComponents } from 'isp-ui-kit'
-import { EmptyData } from 'isp-ui-kit/dist/Layout'
+import { FormComponents, Layout } from 'isp-ui-kit'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -31,6 +30,7 @@ import tokensApi from '@services/tokensService.ts'
 import './applications-content.scss'
 
 const { FormInput, FormSelect } = FormComponents
+const { EmptyData } = Layout
 
 interface ApplicationsContentPropTypes {
   id: number
@@ -38,14 +38,14 @@ interface ApplicationsContentPropTypes {
 
 const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
   const { data: applications, isLoading: isLoadingApplicationsContent = [] } =
-    applicationsApi.useGetApplicationsByServiceIdQuery(id)
+      applicationsApi.useGetApplicationsByServiceIdQuery(id)
 
   const [createApplicationService] =
-    applicationsApi.useCreateApplicationServiceMutation()
+      applicationsApi.useCreateApplicationServiceMutation()
   const [updateApplication] =
-    applicationsApi.useUpdateApplicationsServiceMutation()
+      applicationsApi.useUpdateApplicationsServiceMutation()
   const [removeApplicationsService] =
-    applicationsApi.useRemoveApplicationsServiceMutation()
+      applicationsApi.useRemoveApplicationsServiceMutation()
   const [createToken] = tokensApi.useCreateTokenMutation()
   const [showApplicationsModal, setShowApplicationsModal] = useState({
     addModal: false,
@@ -53,7 +53,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
     addToken: false
   })
   const [currentApplicationsApp, setCurrentApplicationsApp] =
-    useState<ApplicationAppType>()
+      useState<ApplicationAppType>()
 
   const {
     handleSubmit,
@@ -64,9 +64,9 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
   })
 
   const { handleSubmit: handleSubmitTokens, control: controlTokens } =
-    useForm<ApplicationTokenType>({
-      mode: 'onChange'
-    })
+      useForm<ApplicationTokenType>({
+        mode: 'onChange'
+      })
 
   const handleShowUpdateModalApplicationApp = (data: ApplicationAppType) => {
     setShowApplicationsModal({
@@ -95,22 +95,22 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
         id: currentApplicationsApp.id,
         name: data.name,
         description: data.description
-          ? data.description
-          : currentApplicationsApp.description,
+            ? data.description
+            : currentApplicationsApp.description,
         serviceId: id.id,
         type: 'SYSTEM'
       }
       updateApplication({ ...currentApplicationsApp, ...updateApplications })
-        .unwrap()
-        .then(() => {
-          setShowApplicationsModal({
-            ...showApplicationsModal,
-            updateModal: false
+          .unwrap()
+          .then(() => {
+            setShowApplicationsModal({
+              ...showApplicationsModal,
+              updateModal: false
+            })
+            reset()
+            message.info('Элемент сохранен')
           })
-          reset()
-          message.info('Элемент сохранен')
-        })
-        .catch(() => message.error('Ошибка обновления элемента'))
+          .catch(() => message.error('Ошибка обновления элемента'))
     }
   }
 
@@ -123,9 +123,9 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
     }
 
     createApplicationService(newApplicationApp)
-      .unwrap()
-      .then(message.info('Элемент сохранен'))
-      .catch((e) => message.error(e))
+        .unwrap()
+        .then(message.info('Элемент сохранен'))
+        .catch((e) => message.error(e))
     setShowApplicationsModal({
       ...showApplicationsModal,
       addModal: false
@@ -133,11 +133,11 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
     reset()
   }
   const handleRemoveApplicationApp = (id: number) =>
-    removeApplicationsService([id])
-      .then(() => {
-        message.info('Элемент удален')
-      })
-      .catch(message.error('Ошибка добавления элемента'))
+      removeApplicationsService([id])
+          .then(() => {
+            message.info('Элемент удален')
+          })
+          .catch(message.error('Ошибка добавления элемента'))
 
   const handleCreateToken = (data: NewApplicationTokenType) => {
     if (currentApplicationsApp) {
@@ -147,17 +147,17 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
       }
 
       createToken(newToken)
-        .then(() => {
-          setShowApplicationsModal({
-            ...showApplicationsModal,
-            addToken: false
+          .then(() => {
+            setShowApplicationsModal({
+              ...showApplicationsModal,
+              addToken: false
+            })
+            reset()
+            message.info('Элемент добавлен')
           })
-          reset()
-          message.info('Элемент добавлен')
-        })
-        .catch(() => {
-          message.error('Ошибка добавления элемента')
-        })
+          .catch(() => {
+            message.error('Ошибка добавления элемента')
+          })
     }
   }
 
@@ -196,20 +196,20 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
       key: 'actions',
       render: (record) => {
         return (
-          <CanEdit>
-            <Button
-              danger
-              className="applications-content__update-btn"
-              onClick={() => {
-                handleShowUpdateModalApplicationApp(record)
-              }}
-              icon={<EditOutlined />}
-            />
-            <Button
-              onClick={() => handleRemoveApplicationApp(record.id)}
-              icon={<DeleteOutlined />}
-            />
-          </CanEdit>
+            <CanEdit>
+              <Button
+                  danger
+                  className="applications-content__update-btn"
+                  onClick={() => {
+                    handleShowUpdateModalApplicationApp(record)
+                  }}
+                  icon={<EditOutlined />}
+              />
+              <Button
+                  onClick={() => handleRemoveApplicationApp(record.id)}
+                  icon={<DeleteOutlined />}
+              />
+            </CanEdit>
         )
       }
     }
@@ -247,113 +247,113 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
   }
 
   return (
-    <section className="applications-content">
-      <CanEdit>
-        <Button
-          className="applications-content__add-btn"
-          type="primary"
-          onClick={handleShowCreateModalApplicationApp}
+      <section className="applications-content">
+        <CanEdit>
+          <Button
+              className="applications-content__add-btn"
+              type="primary"
+              onClick={handleShowCreateModalApplicationApp}
+          >
+            Добавить
+          </Button>
+        </CanEdit>
+        <Table
+            expandable={{
+              expandedRowRender: (record) => (
+                  <CanEdit>
+                    <Button
+                        className="applications-content__addToken-btn"
+                        onClick={() => handleShowAddModalToken(record.app)}
+                    >
+                      <PlusSquareOutlined /> Добавить токен
+                    </Button>
+                  </CanEdit>
+              )
+            }}
+            className="appliactions-content__table"
+            rowKey={(record) => record.app.id}
+            pagination={false}
+            dataSource={applications}
+            columns={columns}
+        />
+
+        <Modal
+            onOk={handleSubmit(handleUpdateApplicationApp)}
+            title="Редактировать"
+            open={showApplicationsModal.updateModal}
+            footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+            onClose={() =>
+                setShowApplicationsModal({
+                  ...showApplicationsModal,
+                  updateModal: false
+                })
+            }
         >
-          Добавить
-        </Button>
-      </CanEdit>
-      <Table
-        expandable={{
-          expandedRowRender: (record) => (
-            <CanEdit>
-              <Button
-                className="applications-content__addToken-btn"
-                onClick={() => handleShowAddModalToken(record.app)}
-              >
-                <PlusSquareOutlined /> Добавить токен
-              </Button>
-            </CanEdit>
-          )
-        }}
-        className="appliactions-content__table"
-        rowKey={(record) => record.app.id}
-        pagination={false}
-        dataSource={applications}
-        columns={columns}
-      />
+          <form>
+            <FormInput
+                control={controlApplicationApp}
+                name="name"
+                label="Наименование"
+                rules={{ required: ValidationRules.required }}
+            />
+            <FormInput
+                control={controlApplicationApp}
+                label="Описание"
+                name="description"
+            />
+          </form>
+        </Modal>
 
-      <Modal
-        onOk={handleSubmit(handleUpdateApplicationApp)}
-        title="Редактировать"
-        open={showApplicationsModal.updateModal}
-        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-        onClose={() =>
-          setShowApplicationsModal({
-            ...showApplicationsModal,
-            updateModal: false
-          })
-        }
-      >
-        <form>
-          <FormInput
-            control={controlApplicationApp}
-            name="name"
-            label="Наименование"
-            rules={{ required: ValidationRules.required }}
-          />
-          <FormInput
-            control={controlApplicationApp}
-            label="Описание"
-            name="description"
-          />
-        </form>
-      </Modal>
+        <Modal
+            onOk={handleSubmit(handleCreateApplicationApp)}
+            title="Добавить"
+            open={showApplicationsModal.addModal}
+            footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+            onClose={() =>
+                setShowApplicationsModal({
+                  ...showApplicationsModal,
+                  addModal: false
+                })
+            }
+        >
+          <form>
+            <FormInput
+                control={controlApplicationApp}
+                name="name"
+                label="Наименование"
+                rules={{ required: ValidationRules.required }}
+            />
+            <FormInput
+                control={controlApplicationApp}
+                label="Описание"
+                name="description"
+            />
+          </form>
+        </Modal>
 
-      <Modal
-        onOk={handleSubmit(handleCreateApplicationApp)}
-        title="Добавить"
-        open={showApplicationsModal.addModal}
-        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-        onClose={() =>
-          setShowApplicationsModal({
-            ...showApplicationsModal,
-            addModal: false
-          })
-        }
-      >
-        <form>
-          <FormInput
-            control={controlApplicationApp}
-            name="name"
-            label="Наименование"
-            rules={{ required: ValidationRules.required }}
-          />
-          <FormInput
-            control={controlApplicationApp}
-            label="Описание"
-            name="description"
-          />
-        </form>
-      </Modal>
-
-      <Modal
-        onOk={handleSubmitTokens(handleCreateToken)}
-        title="Добавить"
-        open={showApplicationsModal.addToken}
-        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-        onClose={() =>
-          setShowApplicationsModal({
-            ...showApplicationsModal,
-            addToken: false
-          })
-        }
-      >
-        <form>
-          <FormSelect
-            options={tokensOptions}
-            name="expireTimeMs"
-            control={controlTokens}
-            label="Время действия"
-            rules={{ required: ValidationRules.required }}
-          />
-        </form>
-      </Modal>
-    </section>
+        <Modal
+            onOk={handleSubmitTokens(handleCreateToken)}
+            title="Добавить"
+            open={showApplicationsModal.addToken}
+            footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+            onClose={() =>
+                setShowApplicationsModal({
+                  ...showApplicationsModal,
+                  addToken: false
+                })
+            }
+        >
+          <form>
+            <FormSelect
+                options={tokensOptions}
+                name="expireTimeMs"
+                control={controlTokens}
+                label="Время действия"
+                rules={{ required: ValidationRules.required }}
+            />
+          </form>
+        </Modal>
+      </section>
   )
 }
 
