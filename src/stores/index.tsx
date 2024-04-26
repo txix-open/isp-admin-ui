@@ -12,6 +12,8 @@ import userServiceApi from '@services/userService.ts'
 import routeApi from '@services/routeService.ts'
 
 import profileReducer from './redusers/ProfileSlice.ts'
+import applicationsGroupApi from '@services/applicationsGroupService.ts'
+import applicationsApi from '@services/applicationsService.ts'
 
 export interface ContextProps {
   setTheme: Dispatch<
@@ -31,7 +33,9 @@ const rootReducer = combineReducers({
   [securityLogServiceApi.reducerPath]: securityLogServiceApi.reducer,
   [appApi.reducerPath]: appApi.reducer,
   [accessListApi.reducerPath]: accessListApi.reducer,
-  [routeApi.reducerPath]: routeApi.reducer
+  [routeApi.reducerPath]: routeApi.reducer,
+  [applicationsGroupApi.reducerPath]: applicationsGroupApi.reducer,
+  [applicationsApi.reducerPath]: applicationsApi.reducer,
 })
 
 export const setupStore = () =>
@@ -46,7 +50,9 @@ export const setupStore = () =>
         accessListApi.middleware,
         routeApi.middleware,
         userServiceApi.middleware,
-        sessionServiceApi.middleware
+        sessionServiceApi.middleware,
+        applicationsGroupApi.middleware,
+        applicationsApi.middleware
       )
   })
 

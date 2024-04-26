@@ -1,7 +1,8 @@
 import {
   LockOutlined,
   LogoutOutlined,
-  ProfileOutlined
+  ProfileOutlined,
+  AppstoreAddOutlined
 } from '@ant-design/icons'
 import { ConfigProvider, Layout, Menu, Spin } from 'antd'
 import { useContext, useEffect, useState } from 'react'
@@ -80,6 +81,12 @@ const LayoutComponent = () => {
           icon: <LogoutOutlined />
         }
       ]
+    },
+    {
+      label: 'Группа приложений',
+      key: 'applications',
+      className: hideItem([PermissionKeysType.read]),
+      icon: <AppstoreAddOutlined />
     },
     {
       label: 'Доступы приложений',
@@ -168,6 +175,9 @@ const LayoutComponent = () => {
         break
       case MenuItemKeysType.roles:
         navigate(routePaths.roles)
+        break
+      case MenuItemKeysType.applications:
+        navigate(routePaths.applications)
         break
       default:
     }

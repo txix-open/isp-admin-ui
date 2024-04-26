@@ -18,6 +18,7 @@ const UserEditor = lazy(() => import('src/pages/UserEditor'))
 const SessionsPage = lazy(() => import('@pages/SessionsPage'))
 const SecurityLogPage = lazy(() => import('@pages/SecurityLogPage'))
 const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
+const ApplicationsPage = lazy(() => import('@pages/ApplicationsPage'))
 
 const Routers = () => {
   return (
@@ -73,6 +74,23 @@ const Routers = () => {
               }
             />
           </Route>
+            <Route
+                path={routePaths.applications}
+                element={
+                    <Suspense fallback={<Spin />}>
+                        <ApplicationsPage />
+                    </Suspense>
+                }
+            >
+                <Route
+                    path=":id"
+                    element={
+                        <Suspense fallback={<Spin />}>
+                            <ApplicationsPage />
+                        </Suspense>
+                    }
+                />
+            </Route>
           <Route
             path={routePaths.sessions}
             element={

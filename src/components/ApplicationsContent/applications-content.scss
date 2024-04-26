@@ -1,0 +1,19 @@
+@import "src/constants/style/styleConst";
+
+.applications-content {
+  padding: $basic-padding *2 $basic-padding;
+  display: flex;
+  flex-direction: column;
+  &__add-btn {
+    max-width: 240px;
+    margin-left: auto;
+    margin-bottom: $basic-margin * 2;
+  }
+  &__update-btn {
+    margin-right: $basic-margin;
+  }
+  &__addToken-btn {
+    display: flex;
+    margin: 0 auto;
+  }
+}
