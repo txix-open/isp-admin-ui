@@ -5,6 +5,8 @@ import { createContext, Dispatch, SetStateAction } from 'react'
 
 import accessListApi from '@services/accessListService.ts'
 import appApi from '@services/appService.ts'
+import applicationsGroupApi from '@services/applicationsGroupService.ts'
+import applicationsApi from '@services/applicationsService.ts'
 import modulesServiceApi from '@services/modulesService.ts'
 import roleApi from '@services/roleService.ts'
 import routeApi from '@services/routeService.ts'
@@ -13,8 +15,7 @@ import sessionServiceApi from '@services/sessionService.ts'
 import userServiceApi from '@services/userService.ts'
 
 import profileReducer from './redusers/ProfileSlice.ts'
-import applicationsGroupApi from '@services/applicationsGroupService.ts'
-import applicationsApi from '@services/applicationsService.ts'
+import UIReducer from './redusers/UISlice.ts'
 
 export interface ContextProps {
   setTheme: Dispatch<
@@ -28,6 +29,7 @@ export const Context = createContext<ContextProps>({
 
 const rootReducer = combineReducers({
   profileReducer,
+  UIReducer,
   [roleApi.reducerPath]: roleApi.reducer,
   [userServiceApi.reducerPath]: userServiceApi.reducer,
   [sessionServiceApi.reducerPath]: sessionServiceApi.reducer,
@@ -37,7 +39,7 @@ const rootReducer = combineReducers({
   [routeApi.reducerPath]: routeApi.reducer,
   [modulesServiceApi.reducerPath]: modulesServiceApi.reducer,
   [applicationsGroupApi.reducerPath]: applicationsGroupApi.reducer,
-  [applicationsApi.reducerPath]: applicationsApi.reducer,
+  [applicationsApi.reducerPath]: applicationsApi.reducer
 })
 
 export const setupStore = () =>
