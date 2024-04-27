@@ -1,0 +1,136 @@
+@import "../../constants/style/styleConst";
+
+.modules-page {
+  height: 100%;
+
+  &__tabs {
+    overflow-x: scroll;
+    width: 100%;
+  }
+
+  .ant-list-item {
+    padding-bottom: 20px;
+
+  }
+
+  .ant-tag {
+    height: 22px;
+    margin: 0;
+  }
+
+  .module-item {
+    width: 100%;
+
+    &__name {
+      display: flex;
+      padding-bottom: 5px;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &__content {
+      display: flex;
+      justify-content: space-between;
+
+      &__description {
+        color: $grey;
+        display: inline-block;
+      }
+
+      &__status {
+        border: 1px solid #15d1e6;
+        border-radius: 12px;
+        padding: 0 4px;
+        font-family: sans-serif;
+        opacity: .7;
+        height: 22px;
+        width: 22px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+      }
+
+      &__status_zero {
+        border: 1px solid red;
+      }
+    }
+  }
+
+
+  &__content {
+    overflow-x: scroll;
+    width: 100%;
+  }
+}
+
+.three-columns {
+  display: flex;
+  background: #fff;
+  box-shadow: inset -1px 0px 0px $border-color;
+
+  height: 100%;
+
+  .column__header {
+    padding: $basic-padding * 2 $basic-padding;
+
+    svg {
+      fill: $blue-color;
+    }
+  }
+
+  .ant-input-affix-wrapper {
+    .ant-input-prefix {
+      margin-left: auto;
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      cursor: pointer;
+    }
+  }
+
+  .ant-input-affix-wrapper-focused {
+    .ant-input-prefix {
+      .anticon-search {
+        svg {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .ant-list-items {
+    .column__items__item {
+      .ant-list-item-meta-title {
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 400;
+        color: $text-color-gray;
+        margin-left: 5px;
+      }
+
+      &.active {
+        background: $blue-light !important;
+
+        .ant-list-item-meta-title {
+          color: $text-color-blue;
+        }
+      }
+    }
+  }
+
+  .ant-tabs-nav-list {
+    padding-top: 50px;
+  }
+
+  .ant-tabs-tab {
+    justify-content: flex-end;
+    margin: 10px 0 0 0;
+  }
+}
+
+.column .column__items__item span {
+  width: fit-content;
+}

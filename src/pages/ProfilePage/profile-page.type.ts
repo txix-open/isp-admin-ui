@@ -15,3 +15,14 @@ export type ProfileType = {
   status: StateProfileStatus
   error: string
 }
+
+export type UIDataType = {
+  name: string
+  primaryColor: string
+}
+
+export type UIType = {
+  ui: UIDataType
+  status: StateProfileStatus
+  error: string
+}

@@ -1,7 +1,7 @@
 {
   "name": "isp-admin-ui",
   "private": true,
-  "version": "0.8.1",
+  "version": "0.10.1",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -17,7 +17,9 @@
     "@reduxjs/toolkit": "^2.2.3",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.8",
-    "isp-ui-kit": "https://github.com/txix-open/isp-ui-kit",
+    "compare-versions": "^6.1.0",
+    "moment": "^2.30.1",
+    "isp-ui-kit": "github:txix-open/isp-ui-kit",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.2",

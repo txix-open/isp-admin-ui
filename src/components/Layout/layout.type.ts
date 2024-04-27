@@ -7,7 +7,20 @@ export enum MenuItemKeysType {
   appAccess = 'appAccess',
   roles = 'roles',
   logout = 'logout',
-  profile = 'profile'
+  profile = 'profile',
+  modules = 'modules',
+  applications = 'applications'
+}
+export enum MenuItemLabelsType {
+  users = 'Пользователи',
+  sessions = 'Пользовательские сессии',
+  securityLog = 'Просмотр журналов ИБ',
+  appAccess = 'Доступы приложений',
+  roles = 'Роли',
+  profile = 'Профиль',
+  modules = 'Модули',
+  applications = 'Группа приложений',
+  logout = 'Выход',
 }
 
 interface MenuItem {
@@ -41,6 +54,14 @@ export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   },
   [MenuItemKeysType.profile]: {
     key: MenuItemKeysType.profile,
+    parent: ['']
+  },
+  [MenuItemKeysType.modules]: {
+    key: MenuItemKeysType.modules,
+    parent: []
+  },
+  [MenuItemKeysType.applications]: {
+    key: MenuItemKeysType.applications,
     parent: ['']
   }
 }

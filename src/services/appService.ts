@@ -10,7 +10,7 @@ import { AppApiResponseType, DomainType } from '@type/app.type.ts'
 const appApi = createApi({
   reducerPath: 'appService',
   refetchOnFocus: true,
-  tagTypes: ['SystemTreeApps'],
+  tagTypes: ['SystemTreeApps' , 'Application'],
   baseQuery: axiosBaseQuery({ baseUrl: apiPaths.baseSystemUrl }),
   endpoints: (builder) => ({
     getSystemTree: builder.query<AppApiResponseType, void>({
