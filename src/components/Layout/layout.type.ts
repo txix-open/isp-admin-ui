@@ -9,7 +9,18 @@ export enum MenuItemKeysType {
   logout = 'logout',
   profile = 'profile',
   modules = 'modules',
-  applications = 'applications',
+  applications = 'applications'
+}
+export enum MenuItemLabelsType {
+  users = 'Пользователи',
+  sessions = 'Пользовательские сессии',
+  securityLog = 'Просмотр журналов ИБ',
+  appAccess = 'Доступы приложений',
+  roles = 'Роли',
+  profile = 'Профиль',
+  modules = 'Модули',
+  applications = 'Группа приложений',
+  logout = 'Выход',
 }
 
 interface MenuItem {

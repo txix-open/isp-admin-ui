@@ -1,7 +1,7 @@
 @import 'src/constants/style/styleConst';
 
 .layout {
-  min-height: 100vh !important;
+  min-height: calc(100vh - 65px) !important;
   position: relative;
 
   .hide-item {

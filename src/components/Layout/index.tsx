@@ -13,6 +13,7 @@ import { localStorageKeys } from '@constants/localStorageKeys.ts'
 import DefaultUser from '@components/Icons/DefaultUser.tsx'
 import {
   MenuItemKeysType,
+  MenuItemLabelsType,
   MenuItemType,
   menuKeys
 } from '@components/Layout/layout.type.ts'
@@ -23,12 +24,14 @@ import { useAppDispatch, useAppSelector } from '@hooks/redux.ts'
 import useLogout from '@hooks/useLogout.tsx'
 import useRole from '@hooks/useRole.tsx'
 
-import { fetchProfile } from '@stores/redusers/ActionCreators.ts'
+import { fetchProfile, fetchUI } from '@stores/redusers/ActionCreators.ts'
 import { StateProfileStatus } from '@stores/redusers/ProfileSlice.ts'
 
 import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeysType } from '@type/roles.type.ts'
+
+import Header from 'src/widgets/Header'
 
 import './layout.scss'
 
@@ -39,6 +42,7 @@ const LayoutComponent = () => {
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
     []
   )
+  const [title, setTitle] = useState('')
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const dispatch = useAppDispatch()
   const {
@@ -143,6 +147,7 @@ const LayoutComponent = () => {
   useEffect(() => {
     if (userToken) {
       dispatch(fetchProfile())
+      dispatch(fetchUI())
     }
   }, [])
 
@@ -152,6 +157,7 @@ const LayoutComponent = () => {
     const menuItem = menuKeys[menuKey]
 
     if (menuItem) {
+      setTitle(MenuItemLabelsType[menuItem.key])
       setSelectedMenuKeys([menuItem.key])
       setOpenKeys(menuItem.parent)
     }
@@ -197,37 +203,40 @@ const LayoutComponent = () => {
   }
 
   return (
-    <Layout className="layout" data-cy="homePage">
-      {status === StateProfileStatus.pending ? (
-        <Spin size="large" />
-      ) : (
-        <>
-          <Sider
-            width="250px"
-            data-cy="aside"
-            theme="light"
-            collapsible
-            collapsed={collapsed}
-            onCollapse={(value) => setCollapsed(value)}
-          >
-            <Menu
-              onOpenChange={(keys) => setOpenKeys(keys)}
-              openKeys={openKeys}
-              selectedKeys={selectedMenuKeys}
-              onClick={handlerOnClickMenu}
+    <section>
+      <Header title={title} />
+      <Layout className="layout" data-cy="homePage">
+        {status === StateProfileStatus.pending ? (
+          <Spin size="large" />
+        ) : (
+          <>
+            <Sider
+              width="250px"
+              data-cy="aside"
               theme="light"
-              mode="inline"
-              items={menuItems}
-            />
-          </Sider>
-          <Layout className="site-layout">
-            <Content className="site-layout__content">
-              <Outlet />
-            </Content>
-          </Layout>
-        </>
-      )}
-    </Layout>
+              collapsible
+              collapsed={collapsed}
+              onCollapse={(value) => setCollapsed(value)}
+            >
+              <Menu
+                onOpenChange={(keys) => setOpenKeys(keys)}
+                openKeys={openKeys}
+                selectedKeys={selectedMenuKeys}
+                onClick={handlerOnClickMenu}
+                theme="light"
+                mode="inline"
+                items={menuItems}
+              />
+            </Sider>
+            <Layout className="site-layout">
+              <Content className="site-layout__content">
+                <Outlet />
+              </Content>
+            </Layout>
+          </>
+        )}
+      </Layout>
+    </section>
   )
 }
 
