@@ -7,6 +7,7 @@ import accessListApi from '@services/accessListService.ts'
 import appApi from '@services/appService.ts'
 import applicationsGroupApi from '@services/applicationsGroupService.ts'
 import applicationsApi from '@services/applicationsService.ts'
+import configServiceApi from '@services/configService.ts'
 import modulesServiceApi from '@services/modulesService.ts'
 import roleApi from '@services/roleService.ts'
 import routeApi from '@services/routeService.ts'
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   [modulesServiceApi.reducerPath]: modulesServiceApi.reducer,
   [applicationsGroupApi.reducerPath]: applicationsGroupApi.reducer,
   [applicationsApi.reducerPath]: applicationsApi.reducer,
+  [configServiceApi.reducerPath]: configServiceApi.reducer,
   [tokensApi.reducerPath]: tokensApi.reducer
 })
 
@@ -60,7 +62,8 @@ export const setupStore = () =>
         modulesServiceApi.middleware,
         applicationsGroupApi.middleware,
         applicationsApi.middleware,
-        tokensApi.middleware
+        tokensApi.middleware,
+        configServiceApi.middleware
       )
   })
 
