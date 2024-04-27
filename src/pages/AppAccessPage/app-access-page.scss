@@ -3,12 +3,13 @@
 .app-access-page {
   display: flex;
   height: 100%;
+  background: #fff;
 
   .ant-tree {
     background: none;
   }
 
-  &__content-wrap{
+  &__content-wrap {
     width: 100%;
     overflow-x: scroll;
   }
