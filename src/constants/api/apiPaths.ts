@@ -44,6 +44,7 @@ type PathKeys =
   | 'getTokensByAppId'
   | 'revokeTokens'
   | 'revokeTokensForApp'
+  | 'getUI'
 
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/kkd-configuration-service',
@@ -61,6 +62,7 @@ export const apiPaths: Record<PathKeys, string> = {
   logout: '/api/admin/auth/logout',
   // ======= PROFILE ======
   getProfile: '/api/admin/user/get_profile',
+  getUI: '/api/admin/user/get_design',
   // ======= USERS ======
   getUsers: '/get_users',
   createUser: '/create_user',
@@ -99,7 +101,7 @@ export const apiPaths: Record<PathKeys, string> = {
   getServicesByDomainId: '/service/get_services_by_domain_id',
   // ======= TOKENS ======
   createToken: '/token/create_token',
-  getTokensByAppId:  '/token/get_tokens_by_app_id',
+  getTokensByAppId: '/token/get_tokens_by_app_id',
   revokeTokens: '/token/revoke_tokens',
   revokeTokensForApp: '/token/revoke_tokens_for_app'
 }
