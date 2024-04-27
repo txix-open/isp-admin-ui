@@ -1,0 +1,36 @@
+@import "src/constants/style/styleConst";
+
+
+.active-configurations-table {
+  &__title {
+    margin-bottom: $basic-margin*2;
+    font-size: 20px;
+  }
+
+  &__table {
+    &__name-field {
+      input {
+        width: 100%;
+      }
+
+      display: flex;
+      justify-content: space-between;
+      gap: $basic-margin;
+
+      &__actions {
+        display: flex;
+        gap: $basic-margin
+      }
+    }
+  }
+
+  .active-config {
+    tr {
+      background: $blue-light;
+    }
+
+    .ant-table-cell-row-hover {
+      background: $blue-color-2 !important;
+    }
+  }
+}
