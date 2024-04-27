@@ -55,7 +55,6 @@ const ApplicationsPage = () => {
     applicationsGroupApi.useRemoveApplicationsGroupMutation()
 
   const isPageAvailable = hasPermission(PermissionKeysType.read)
-  const hasRevokePermission = hasPermission(PermissionKeysType.write)
 
   useEffect(() => {
     if (!isPageAvailable) {
