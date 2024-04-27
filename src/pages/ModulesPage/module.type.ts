@@ -87,3 +87,9 @@ export interface ModuleType {
   status: ModuleStatusType[]
   configSchema: JSONSchema
 }
+
+export interface ConfigResponse {
+  originalResponse: ConfigType[]
+  activeConfigs: ConfigType[]
+  inactiveConfigs:ConfigType[]
+}
