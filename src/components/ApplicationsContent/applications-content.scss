@@ -1,9 +1,11 @@
 @import "src/constants/style/styleConst";
 
 .applications-content {
-  padding: $basic-padding *2 $basic-padding;
   display: flex;
-  flex-direction: column;
+  height: 100vh;
+  .column-content {
+    margin-left: $basic-margin;
+  }
   &__add-btn {
     max-width: 240px;
     margin-left: auto;
@@ -15,5 +17,11 @@
   &__addToken-btn {
     display: flex;
     margin: 0 auto;
+  }
+  .link-btn {
+    color: $blue-color;
+    &:hover {
+      color: $text-color-blue;
+    }
   }
 }

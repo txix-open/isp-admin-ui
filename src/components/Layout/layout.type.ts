@@ -9,7 +9,7 @@ export enum MenuItemKeysType {
   logout = 'logout',
   profile = 'profile',
   modules = 'modules',
-  applications = 'applications'
+  applicationsGroup = 'applications_group'
 }
 export enum MenuItemLabelsType {
   users = 'Пользователи',
@@ -19,14 +19,15 @@ export enum MenuItemLabelsType {
   roles = 'Роли',
   profile = 'Профиль',
   modules = 'Модули',
-  applications = 'Группа приложений',
   logout = 'Выход',
+  applications_group = 'Группа приложений'
 }
 
 interface MenuItem {
   key: MenuItemKeysType
   parent: string[]
 }
+
 export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   [MenuItemKeysType.users]: {
     key: MenuItemKeysType.users,
@@ -60,8 +61,8 @@ export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
     key: MenuItemKeysType.modules,
     parent: []
   },
-  [MenuItemKeysType.applications]: {
-    key: MenuItemKeysType.applications,
+  [MenuItemKeysType.applicationsGroup]: {
+    key: MenuItemKeysType.applicationsGroup,
     parent: ['']
   }
 }

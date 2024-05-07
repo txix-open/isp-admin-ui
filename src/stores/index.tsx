@@ -12,6 +12,7 @@ import roleApi from '@services/roleService.ts'
 import routeApi from '@services/routeService.ts'
 import securityLogServiceApi from '@services/securityLogService.ts'
 import sessionServiceApi from '@services/sessionService.ts'
+import tokensApi from '@services/tokensService.ts'
 import userServiceApi from '@services/userService.ts'
 
 import profileReducer from './redusers/ProfileSlice.ts'
@@ -39,7 +40,8 @@ const rootReducer = combineReducers({
   [routeApi.reducerPath]: routeApi.reducer,
   [modulesServiceApi.reducerPath]: modulesServiceApi.reducer,
   [applicationsGroupApi.reducerPath]: applicationsGroupApi.reducer,
-  [applicationsApi.reducerPath]: applicationsApi.reducer
+  [applicationsApi.reducerPath]: applicationsApi.reducer,
+  [tokensApi.reducerPath]: tokensApi.reducer
 })
 
 export const setupStore = () =>
@@ -57,7 +59,8 @@ export const setupStore = () =>
         sessionServiceApi.middleware,
         modulesServiceApi.middleware,
         applicationsGroupApi.middleware,
-        applicationsApi.middleware
+        applicationsApi.middleware,
+        tokensApi.middleware
       )
   })
 

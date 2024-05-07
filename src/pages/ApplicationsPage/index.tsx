@@ -39,6 +39,7 @@ const ApplicationsPage = () => {
   const { id: selectedItemId = '' } = useParams()
   const [searchParams, setSearchParams] = useSearchParams('')
   const { hasPermission } = useRole()
+  const [currentApplicationsApp, setCurrentApplicationsApp] = useState(0)
 
   const {
     data: applicationsGroup = [],
@@ -55,6 +56,7 @@ const ApplicationsPage = () => {
     applicationsGroupApi.useRemoveApplicationsGroupMutation()
 
   const isPageAvailable = hasPermission(PermissionKeysType.read)
+  // const hasRevokePermission = hasPermission(PermissionKeysType.write)
 
   useEffect(() => {
     if (!isPageAvailable) {
@@ -128,21 +130,36 @@ const ApplicationsPage = () => {
     message.info('Сервис успешно отредактирован')
   }
 
+  const handleRemoveApplicationsGtoup = () => {
+    deleteApplicationsGroup([Number(selectedItemId)])
+      .unwrap()
+      .then(() => message.success('Элемент удален'))
+      .catch(() => message.info('Ошибка удаления элемента'))
+  }
+
   const renderMainContent = () => {
     if (!selectedItemId) {
       return <EmptyData />
     }
-    return <ApplicationsContent id={Number(selectedItemId)} />
+
+    return (
+      <ApplicationsContent
+        selectedItemId={Number(selectedItemId)}
+        currentApplicationsApp={currentApplicationsApp}
+        setCurrentApplicationsApp={setCurrentApplicationsApp}
+      />
+    )
   }
 
   return (
-    <main className="applications-page ">
+    <main className="applications-page">
       <div className="applications-page__wrap three-columns">
         <Column
+          title="Группа приложений"
           onUpdateItem={updateApplicationModal}
           showUpdateBtn={!!selectedItemId}
           onAddItem={addApplicationModal}
-          onRemoveItem={() => deleteApplicationsGroup([Number(selectedItemId)])}
+          onRemoveItem={handleRemoveApplicationsGtoup}
           items={filterFirstColumnItems(
             applicationsGroup as unknown as ColumnItem<ApplicationsGroupType>[],
             searchValue
@@ -151,8 +168,9 @@ const ApplicationsPage = () => {
           searchValue={searchValue}
           selectedItemId={selectedItemId}
           setSelectedItemId={(itemId) => {
+            setCurrentApplicationsApp(0)
             setSelectedItemId(
-              `${routePaths.applications}`,
+              `${routePaths.applicationsGroup}`,
               itemId,
               searchValue,
               navigate
