@@ -1,59 +1,66 @@
-import {
-  EditOutlined,
-  DeleteOutlined,
-  PlusSquareOutlined
-} from '@ant-design/icons'
-import {Button, message, Spin, Table} from 'antd'
-import { ColumnsType } from 'antd/es/table'
+import { LinkOutlined } from '@ant-design/icons'
+import { List, message, Spin, Tooltip } from 'antd'
 import { FormComponents, Layout } from 'isp-ui-kit'
-import { FC, useState } from 'react'
+import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { ValidationRules } from '@constants/form/validationRules.ts'
 
 import Modal from '@widgets/Modal'
 
-import CanEdit from '@components/CanEdit'
+import TokenContent from '@components/TokenContent'
 
 import {
   ApplicationAppType,
   ApplicationsServiceType,
-  ApplicationTokenType,
   NewApplicationAppType,
-  NewApplicationTokenType,
   UpdateApplicationAppType
 } from '@pages/ApplicationsPage/applications.type.ts'
 
+import { setSearchValue, setSelectedItemId } from '@utils/columnLayoutUtils.ts'
+import { filterFirstColumnItems } from '@utils/firstColumnUtils.ts'
+
 import applicationsApi from '@services/applicationsService.ts'
-import tokensApi from '@services/tokensService.ts'
+
+import { routePaths } from '@routes/routePaths.ts'
 
 import './applications-content.scss'
 
-const { FormInput, FormSelect } = FormComponents
-const { EmptyData } = Layout
+const { FormInput } = FormComponents
+const { EmptyData, Column, ContentColumn } = Layout
 
 interface ApplicationsContentPropTypes {
-  id: number
+  selectedItemId: number
+  currentApplicationsApp: number
+  setCurrentApplicationsApp: Dispatch<SetStateAction<number>>
 }
 
-const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
+const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
+  selectedItemId,
+  currentApplicationsApp,
+  setCurrentApplicationsApp
+}) => {
   const { data: applications, isLoading: isLoadingApplicationsContent = [] } =
-      applicationsApi.useGetApplicationsByServiceIdQuery(id)
+    applicationsApi.useGetApplicationsByServiceIdQuery({
+      id: selectedItemId
+    })
 
   const [createApplicationService] =
-      applicationsApi.useCreateApplicationServiceMutation()
+    applicationsApi.useCreateApplicationServiceMutation()
   const [updateApplication] =
-      applicationsApi.useUpdateApplicationsServiceMutation()
+    applicationsApi.useUpdateApplicationsServiceMutation()
   const [removeApplicationsService] =
-      applicationsApi.useRemoveApplicationsServiceMutation()
-  const [createToken] = tokensApi.useCreateTokenMutation()
+    applicationsApi.useRemoveApplicationsServiceMutation()
   const [showApplicationsModal, setShowApplicationsModal] = useState({
     addModal: false,
-    updateModal: false,
-    addToken: false
+    updateModal: false
   })
-  const [currentApplicationsApp, setCurrentApplicationsApp] =
-      useState<ApplicationAppType>()
+  const [searchParams, setSearchParams] = useSearchParams('')
+  const searchAppValue = searchParams.get('appSearch') || ''
+  const navigate = useNavigate()
+  const { appId } = useParams()
 
   const {
     handleSubmit,
@@ -62,55 +69,53 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
   } = useForm<ApplicationAppType>({
     mode: 'onChange'
   })
-
-  const { handleSubmit: handleSubmitTokens, control: controlTokens } =
-      useForm<ApplicationTokenType>({
-        mode: 'onChange'
-      })
-
-  const handleShowUpdateModalApplicationApp = (data: ApplicationAppType) => {
+  const updateApplicationModal = () => {
     setShowApplicationsModal({
       ...showApplicationsModal,
       updateModal: true
     })
-    setCurrentApplicationsApp(data)
   }
-  const handleShowCreateModalApplicationApp = () => {
+  const addApplicationModal = () => {
     setShowApplicationsModal({
       ...showApplicationsModal,
       addModal: true
     })
   }
-  const handleShowAddModalToken = (data: ApplicationAppType) => {
-    setShowApplicationsModal({
-      ...showApplicationsModal,
-      addToken: true
-    })
-    setCurrentApplicationsApp(data)
+  const renderTokenContent = () => {
+    if (!currentApplicationsApp) {
+      return <EmptyData />
+    }
+
+    return (
+      <TokenContent key={currentApplicationsApp} id={currentApplicationsApp} />
+    )
   }
 
   const handleUpdateApplicationApp = (data: UpdateApplicationAppType) => {
-    if (currentApplicationsApp) {
+    const currentElement = applications?.filter(
+      (el) => el.app.id === Number(appId)
+    )[0].app
+    if (currentElement) {
       const updateApplications: UpdateApplicationAppType = {
-        id: currentApplicationsApp.id,
+        id: currentElement.id,
         name: data.name,
         description: data.description
-            ? data.description
-            : currentApplicationsApp.description,
-        serviceId: id.id,
+          ? data.description
+          : currentElement.description,
+        serviceId: selectedItemId,
         type: 'SYSTEM'
       }
-      updateApplication({ ...currentApplicationsApp, ...updateApplications })
-          .unwrap()
-          .then(() => {
-            setShowApplicationsModal({
-              ...showApplicationsModal,
-              updateModal: false
-            })
-            reset()
-            message.info('Элемент сохранен')
+      updateApplication({ ...currentElement, ...updateApplications })
+        .unwrap()
+        .then(() => {
+          setShowApplicationsModal({
+            ...showApplicationsModal,
+            updateModal: false
           })
-          .catch(() => message.error('Ошибка обновления элемента'))
+          reset()
+          message.info('Элемент сохранен')
+        })
+        .catch(() => message.error('Ошибка обновления элемента'))
     }
   }
 
@@ -118,14 +123,14 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
     const newApplicationApp: NewApplicationAppType = {
       name: data.name,
       description: data.description,
-      serviceId: id.id,
+      serviceId: selectedItemId,
       type: 'SYSTEM'
     }
 
     createApplicationService(newApplicationApp)
-        .unwrap()
-        .then(message.info('Элемент сохранен'))
-        .catch((e) => message.error(e))
+      .unwrap()
+      .then(message.info('Элемент сохранен'))
+      .catch((e) => message.error(e))
     setShowApplicationsModal({
       ...showApplicationsModal,
       addModal: false
@@ -133,227 +138,128 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = (id) => {
     reset()
   }
   const handleRemoveApplicationApp = (id: number) =>
-      removeApplicationsService([id])
-          .then(() => {
-            message.info('Элемент удален')
-          })
-          .catch(message.error('Ошибка добавления элемента'))
+    removeApplicationsService([id])
+      .unwrap()
+      .then(() => message.success('Элемент удален'))
+      .catch(() => message.info('Ошибка удаления элемента'))
 
-  const handleCreateToken = (data: NewApplicationTokenType) => {
-    if (currentApplicationsApp) {
-      const newToken: NewApplicationTokenType = {
-        expireTimeMs: data.expireTimeMs,
-        appId: currentApplicationsApp.id
-      }
-
-      createToken(newToken)
-          .then(() => {
-            setShowApplicationsModal({
-              ...showApplicationsModal,
-              addToken: false
-            })
-            reset()
-            message.info('Элемент добавлен')
-          })
-          .catch(() => {
-            message.error('Ошибка добавления элемента')
-          })
-    }
+  const renderColumnItems = (item: ColumnItem<any>) => {
+    return (
+      <List.Item>
+        <Tooltip mouseEnterDelay={1} title={item.name}>
+          <List.Item.Meta title={item.name} />
+          <div
+            className="link-btn"
+            onClick={(e) => {
+              e.stopPropagation()
+              navigate(`/appAccess/${item.id}`)
+            }}
+          >
+            <LinkOutlined />
+          </div>
+        </Tooltip>
+      </List.Item>
+    )
   }
 
-  const columns: ColumnsType<ApplicationsServiceType> = [
-    {
-      title: 'id',
-      dataIndex: ['app', 'id'],
-      key: 'id'
-    },
-    {
-      title: 'Наименование',
-      dataIndex: ['app', 'name'],
-      key: 'name'
-    },
-    {
-      title: 'Описание',
-      dataIndex: ['app', 'description'],
-      key: 'description'
-    },
-    {
-      title: 'Type',
-      dataIndex: ['app', 'type'],
-      key: 'Type'
-    },
-    {
-      title: 'Количество токенов',
-      dataIndex: 'tokens',
-      key: 'tokensAmount',
-      render: (value) => {
-        return value.length
-      }
-    },
-    {
-      title: 'Действия',
-      dataIndex: 'app',
-      key: 'actions',
-      render: (record) => {
-        return (
-            <CanEdit>
-              <Button
-                  danger
-                  className="applications-content__update-btn"
-                  onClick={() => {
-                    handleShowUpdateModalApplicationApp(record)
-                  }}
-                  icon={<EditOutlined />}
-              />
-              <Button
-                  onClick={() => handleRemoveApplicationApp(record.id)}
-                  icon={<DeleteOutlined />}
-              />
-            </CanEdit>
-        )
-      }
-    }
-  ]
-
-  const tokensOptions = [
-    {
-      value: -1,
-      label: 'Бессрочно'
-    },
-    {
-      value: 3600000,
-      label: 'Один час'
-    },
-    {
-      value: 86400000,
-      label: 'Один день'
-    },
-    {
-      value: 2592000000,
-      label: '30 дней'
-    },
-    {
-      value: 31536000000,
-      label: 'Один год'
-    }
-  ]
-
-  if (!id) {
+  if (!selectedItemId) {
     return <EmptyData />
   }
-
-  if (isLoadingApplicationsContent) {
-    return <Spin className="spin" />
-  }
+  if (selectedItemId)
+    if (isLoadingApplicationsContent) {
+      return <Spin className="spin" />
+    }
 
   return (
-      <section className="applications-content">
-        <CanEdit>
-          <Button
-              className="applications-content__add-btn"
-              type="primary"
-              onClick={handleShowCreateModalApplicationApp}
-          >
-            Добавить
-          </Button>
-        </CanEdit>
-        <Table
-            expandable={{
-              expandedRowRender: (record) => (
-                  <CanEdit>
-                    <Button
-                        className="applications-content__addToken-btn"
-                        onClick={() => handleShowAddModalToken(record.app)}
-                    >
-                      <PlusSquareOutlined /> Добавить токен
-                    </Button>
-                  </CanEdit>
-              )
-            }}
-            className="appliactions-content__table"
-            rowKey={(record) => record.app.id}
-            pagination={false}
-            dataSource={applications}
-            columns={columns}
-        />
+    <section className="applications-content">
+      <Column
+        title="Приложения"
+        onUpdateItem={updateApplicationModal}
+        showUpdateBtn={!!appId}
+        onAddItem={addApplicationModal}
+        onRemoveItem={() => handleRemoveApplicationApp(Number(appId))}
+        items={filterFirstColumnItems(
+          applications?.map((el) => {
+            return el.app
+          }) as unknown as ColumnItem<ApplicationsServiceType>[],
+          searchAppValue
+        )}
+        renderItems={renderColumnItems}
+        searchValue={searchAppValue}
+        selectedItemId={currentApplicationsApp.toString()}
+        setSelectedItemId={(itemId: string) => {
+          setCurrentApplicationsApp(Number(itemId))
+          setSelectedItemId(
+            `${routePaths.applicationsGroup}/${selectedItemId}/${routePaths.application}`,
+            itemId.toString(),
+            searchAppValue,
+            navigate
+          )
+        }}
+        onChangeSearchValue={(value: string) => {
+          setSearchValue(
+            value.trim().toLowerCase(),
+            setSearchParams,
+            'appSearch'
+          )
+        }}
+      />
+      <ContentColumn>{renderTokenContent()}</ContentColumn>
 
-        <Modal
-            onOk={handleSubmit(handleUpdateApplicationApp)}
-            title="Редактировать"
-            open={showApplicationsModal.updateModal}
-            footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-            onClose={() =>
-                setShowApplicationsModal({
-                  ...showApplicationsModal,
-                  updateModal: false
-                })
-            }
-        >
-          <form>
-            <FormInput
-                control={controlApplicationApp}
-                name="name"
-                label="Наименование"
-                rules={{ required: ValidationRules.required }}
-            />
-            <FormInput
-                control={controlApplicationApp}
-                label="Описание"
-                name="description"
-            />
-          </form>
-        </Modal>
+      <Modal
+        onOk={handleSubmit(handleUpdateApplicationApp)}
+        title="Редактировать"
+        open={showApplicationsModal.updateModal}
+        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+        onClose={() =>
+          setShowApplicationsModal({
+            ...showApplicationsModal,
+            updateModal: false
+          })
+        }
+      >
+        <form>
+          <FormInput
+            control={controlApplicationApp}
+            name="name"
+            label="Наименование"
+            rules={{ required: ValidationRules.required }}
+          />
+          <FormInput
+            control={controlApplicationApp}
+            label="Описание"
+            name="description"
+          />
+        </form>
+      </Modal>
 
-        <Modal
-            onOk={handleSubmit(handleCreateApplicationApp)}
-            title="Добавить"
-            open={showApplicationsModal.addModal}
-            footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-            onClose={() =>
-                setShowApplicationsModal({
-                  ...showApplicationsModal,
-                  addModal: false
-                })
-            }
-        >
-          <form>
-            <FormInput
-                control={controlApplicationApp}
-                name="name"
-                label="Наименование"
-                rules={{ required: ValidationRules.required }}
-            />
-            <FormInput
-                control={controlApplicationApp}
-                label="Описание"
-                name="description"
-            />
-          </form>
-        </Modal>
-
-        <Modal
-            onOk={handleSubmitTokens(handleCreateToken)}
-            title="Добавить"
-            open={showApplicationsModal.addToken}
-            footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-            onClose={() =>
-                setShowApplicationsModal({
-                  ...showApplicationsModal,
-                  addToken: false
-                })
-            }
-        >
-          <form>
-            <FormSelect
-                options={tokensOptions}
-                name="expireTimeMs"
-                control={controlTokens}
-                label="Время действия"
-                rules={{ required: ValidationRules.required }}
-            />
-          </form>
-        </Modal>
-      </section>
+      <Modal
+        onOk={handleSubmit(handleCreateApplicationApp)}
+        title="Добавить"
+        open={showApplicationsModal.addModal}
+        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+        onClose={() =>
+          setShowApplicationsModal({
+            ...showApplicationsModal,
+            addModal: false
+          })
+        }
+      >
+        <form>
+          <FormInput
+            control={controlApplicationApp}
+            name="name"
+            label="Наименование"
+            rules={{ required: ValidationRules.required }}
+          />
+          <FormInput
+            control={controlApplicationApp}
+            label="Описание"
+            name="description"
+          />
+        </form>
+      </Modal>
+    </section>
   )
 }
 

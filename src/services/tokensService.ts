@@ -1,9 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
+
 import { apiPaths } from '@constants/api/apiPaths.ts'
 
 import {
   ApplicationTokenType,
   NewApplicationTokenType,
+  RevokeTokenType
 } from '@pages/ApplicationsPage/applications.type.ts'
 
 import { axiosBaseQuery } from '@utils/apiUtils.ts'
@@ -15,15 +17,30 @@ const tokensApi = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: apiPaths.baseSystemUrl }),
   endpoints: (builder) => ({
     createToken: builder.mutation<
-        ApplicationTokenType,
-        NewApplicationTokenType
+      ApplicationTokenType,
+      NewApplicationTokenType
     >({
-      query: ( NewApplicationTokenType) => ({
+      query: (NewApplicationTokenType) => ({
         url: apiPaths.createToken,
-        data:  NewApplicationTokenType
+        data: NewApplicationTokenType
       }),
       invalidatesTags: ['Tokens']
     }),
+
+    getTokensByAppId: builder.query<ApplicationTokenType[], { id: number }>({
+      query: (id) => ({
+        url: apiPaths.getTokensByAppId,
+        data: id
+      }),
+      providesTags: ['Tokens']
+    }),
+    revokeTokens: builder.mutation<void, RevokeTokenType>({
+      query: (el) => ({
+        url: apiPaths.revokeTokens,
+        data: el
+      }),
+      invalidatesTags: ['Tokens']
+    })
   })
 })
 
