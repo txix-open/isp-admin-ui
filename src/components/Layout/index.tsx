@@ -40,7 +40,7 @@ const { Content, Sider } = Layout
 const LayoutComponent = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false)
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
-    []
+      []
   )
   const [title, setTitle] = useState('')
   const [openKeys, setOpenKeys] = useState<string[]>([])
@@ -88,7 +88,7 @@ const LayoutComponent = () => {
     },
     {
       label: 'Группа приложений',
-      key: 'applications',
+      key: 'applications_group',
       className: hideItem([PermissionKeysType.read]),
       icon: <AppstoreAddOutlined />
     },
@@ -137,9 +137,9 @@ const LayoutComponent = () => {
   useEffect(() => {
     ConfigProvider.config({
       holderRender: (children) => (
-        <ConfigProvider prefixCls="static" theme={theme}>
-          {children}
-        </ConfigProvider>
+          <ConfigProvider prefixCls="static" theme={theme}>
+            {children}
+          </ConfigProvider>
       )
     })
   }, [theme])
@@ -191,8 +191,8 @@ const LayoutComponent = () => {
       case MenuItemKeysType.modules:
         navigate(routePaths.modules)
         break
-      case MenuItemKeysType.applications:
-        navigate(routePaths.applications)
+      case MenuItemKeysType.applicationsGroup:
+        navigate(routePaths.applicationsGroup)
         break
       default:
     }
@@ -203,40 +203,40 @@ const LayoutComponent = () => {
   }
 
   return (
-    <section>
-      <Header title={title} />
-      <Layout className="layout" data-cy="homePage">
-        {status === StateProfileStatus.pending ? (
-          <Spin size="large" />
-        ) : (
-          <>
-            <Sider
-              width="250px"
-              data-cy="aside"
-              theme="light"
-              collapsible
-              collapsed={collapsed}
-              onCollapse={(value) => setCollapsed(value)}
-            >
-              <Menu
-                onOpenChange={(keys) => setOpenKeys(keys)}
-                openKeys={openKeys}
-                selectedKeys={selectedMenuKeys}
-                onClick={handlerOnClickMenu}
-                theme="light"
-                mode="inline"
-                items={menuItems}
-              />
-            </Sider>
-            <Layout className="site-layout">
-              <Content className="site-layout__content">
-                <Outlet />
-              </Content>
-            </Layout>
-          </>
-        )}
-      </Layout>
-    </section>
+      <section>
+        <Header title={title} />
+        <Layout className="layout" data-cy="homePage">
+          {status === StateProfileStatus.pending ? (
+              <Spin size="large" />
+          ) : (
+              <>
+                <Sider
+                    width="250px"
+                    data-cy="aside"
+                    theme="light"
+                    collapsible
+                    collapsed={collapsed}
+                    onCollapse={(value) => setCollapsed(value)}
+                >
+                  <Menu
+                      onOpenChange={(keys) => setOpenKeys(keys)}
+                      openKeys={openKeys}
+                      selectedKeys={selectedMenuKeys}
+                      onClick={handlerOnClickMenu}
+                      theme="light"
+                      mode="inline"
+                      items={menuItems}
+                  />
+                </Sider>
+                <Layout className="site-layout">
+                  <Content className="site-layout__content">
+                    <Outlet />
+                  </Content>
+                </Layout>
+              </>
+          )}
+        </Layout>
+      </section>
   )
 }
 

@@ -1,9 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
+
 import { apiPaths } from '@constants/api/apiPaths.ts'
 
 import {
   ApplicationAppType,
-  ApplicationsServiceType, NewApplicationAppType,
+  ApplicationsServiceType,
+  NewApplicationAppType,
   UpdateApplicationAppType
 } from '@pages/ApplicationsPage/applications.type.ts'
 
@@ -15,52 +17,61 @@ const applicationsApi = createApi({
   tagTypes: ['Applications'],
   baseQuery: axiosBaseQuery({ baseUrl: apiPaths.baseSystemUrl }),
   endpoints: (builder) => ({
-
     getAllApplicationsService: builder.query<
-        ApplicationsServiceType[],
-        { id: string }
+      ApplicationsServiceType[],
+      { id: string }
     >({
       query: () => ({ url: apiPaths.getAllApplications }),
       providesTags: () => ['Applications']
     }),
 
     createApplicationService: builder.mutation<
-        ApplicationAppType,
-        NewApplicationAppType
+      ApplicationAppType,
+      NewApplicationAppType
     >({
-      query: ( NewApplicationsService) => ({
+      query: (NewApplicationsService) => ({
         url: apiPaths.createUpdateApplication,
-        data:  NewApplicationsService
+        data: NewApplicationsService
       }),
       invalidatesTags: ['Applications']
     }),
 
-    getApplicationsServiceById: builder.query<ApplicationsServiceType, { id : number}>({
+    getApplicationsServiceById: builder.query<
+      ApplicationsServiceType,
+      { id: number }
+    >({
       query: (id) => ({
         url: apiPaths.getApplicationById,
         data: id
       }),
+      providesTags: () => ['Applications']
     }),
 
-    getApplicationsByServiceId: builder.query<ApplicationsServiceType[], { id : number}>({
+    getApplicationsByServiceId: builder.query<
+      ApplicationsServiceType[],
+      { id: number }
+    >({
       query: (id) => ({
         url: apiPaths.getApplicationsByServiceId,
         data: id
       }),
+      providesTags: () => ['Applications']
     }),
 
-    updateApplicationsService: builder.mutation<void, UpdateApplicationAppType>({
-      query: (updateApplications) => ({
-        url: apiPaths.createUpdateApplication,
-        data: updateApplications
-      }),
-      invalidatesTags: ['Applications']
-    }),
+    updateApplicationsService: builder.mutation<void, UpdateApplicationAppType>(
+      {
+        query: (updateApplications) => ({
+          url: apiPaths.createUpdateApplication,
+          data: updateApplications
+        }),
+        invalidatesTags: ['Applications']
+      }
+    ),
 
     removeApplicationsService: builder.mutation<void, number[]>({
       query: ([id]) => ({
         url: apiPaths.deleteApplication,
-        data: [ id]
+        data: [id]
       }),
       invalidatesTags: ['Applications']
     })

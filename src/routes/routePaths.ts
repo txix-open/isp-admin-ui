@@ -9,8 +9,10 @@ type RoutePaths =
   | 'securityLog'
   | 'roles'
   | 'appAccess'
+  | 'applicationsGroup'
+  | 'configuration'
   | 'modules'
-  | 'applications'
+  | 'application'
 
 export const routePaths: Record<RoutePaths, string> = {
   home: '/',
@@ -23,6 +25,8 @@ export const routePaths: Record<RoutePaths, string> = {
   securityLog: '/securityLog',
   roles: '/roles',
   appAccess: '/appAccess',
+  applicationsGroup: '/applications_group',
+  configuration: '/configuration',
   modules: '/modules',
-  applications: '/applications'
+  application: 'application'
 }

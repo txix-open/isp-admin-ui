@@ -1,0 +1,7 @@
+@import "src/constants/style/styleConst";
+.token-content {
+  padding: $basic-padding *2 $basic-padding;
+  .copy-btn {
+    cursor: pointer;
+  }
+}

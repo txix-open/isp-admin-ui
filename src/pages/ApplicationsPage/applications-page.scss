@@ -1,7 +1,10 @@
 @import "src/constants/style/styleConst";
 
 .applications-page {
-  height: 100%;
+  height: 100vh;
+  .column-content {
+    max-height: 100vh;
+  }
   .three-columns {
     display: flex;
     background: #fff;
