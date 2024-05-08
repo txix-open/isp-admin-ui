@@ -1,4 +1,4 @@
-import { message, Spin } from 'antd'
+import { List, message, Spin } from 'antd'
 import { Layout, FormComponents } from 'isp-ui-kit'
 import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
 import { useEffect, useState } from 'react'
@@ -7,7 +7,6 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { ValidationRules } from '@constants/form/validationRules.ts'
 
-import ListItem from '@widgets/ListItem'
 import Modal from '@widgets/Modal'
 
 import ApplicationsContent from '@components/ApplicationsContent'
@@ -81,7 +80,18 @@ const ApplicationsPage = () => {
     return <Spin className="spin" />
   }
 
-  const renderColumnItems = (item: ColumnItem<any>) => <ListItem item={item} />
+  const renderColumnItems = (item: ColumnItem<any>) => {
+    return (
+      <div className="applications-page__list">
+        <List.Item>
+          <span>{item.name}</span>
+          <span className="applications-page__list__desc">
+            {item.description}
+          </span>
+        </List.Item>
+      </div>
+    )
+  }
 
   const addApplicationModal = () => {
     setShowApplicationsModal({
