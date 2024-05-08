@@ -1,16 +1,9 @@
-import { Spin, Table, Tooltip } from 'antd'
+import { Spin, Table, Tag, Tooltip } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import moment from 'moment'
-import 'moment/dist/locale/ru'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import {
-  AddressType,
-  EndpointType,
-  ModuleStatusType,
-  ModuleType
-} from '@pages/ModulesPage/module.type.ts'
+import { AddressType, EndpointType, ModuleStatusType, ModuleType } from '@pages/ModulesPage/module.type.ts'
 
 import useRole from '@hooks/useRole.tsx'
 
@@ -21,6 +14,8 @@ import { routePaths } from '@routes/routePaths.ts'
 import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './connections.scss'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 const Connections = () => {
   const { data: ConnectionsList = [], isLoading: isModulesLoading } =
@@ -56,12 +51,12 @@ const Connections = () => {
   }
 
   const formatFullDate = (obj: string) =>
-    moment(obj).format('YYYY-MM-DD, HH:mm:ss')
+    dayjs(obj).format('YYYY-MM-DD, HH:mm:ss')
 
   const keySelector = ({
-    address: { ip, port },
-    establishedAt
-  }: ModuleStatusType) => ip + port + establishedAt
+                         address: { ip, port },
+                         establishedAt
+                       }: ModuleStatusType) => ip + port + establishedAt
 
   const renderEndpoints = ({ endpoints }: ModuleStatusType) => {
     if (endpoints && endpoints.length) {
@@ -71,9 +66,9 @@ const Connections = () => {
             <li className="connection-page__endpoint-list__item" key={path}>
               {path}
               {inner && (
-                <span className="connection-page__endpoint-list__inner-marker">
+                <Tag className="connection-page__inner-tag" color="processing" bordered={false}>
                   Внутренний
-                </span>
+                </Tag>
               )}
             </li>
           ))}
@@ -117,9 +112,13 @@ const Connections = () => {
       title: 'Соединение установлено',
       dataIndex: 'establishedAt',
       key: 'establishedAt',
-      render: (val: string) => (
-        <Tooltip title={formatFullDate(val)}>{moment(val).fromNow()}</Tooltip>
-      )
+      render: (val: string) => {
+        dayjs.extend(relativeTime)
+
+        return (
+          <Tooltip title={formatFullDate(val)}>{dayjs(val).fromNow()}</Tooltip>
+        )
+      }
     },
     {
       title: 'Реализованные методы',

@@ -6,10 +6,13 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './components/App.tsx'
 
 import { setupStore } from './stores'
+import 'dayjs/locale/ru'
 
 import 'react-resizable/css/styles.css'
 import 'simplebar-react/dist/simplebar.min.css'
+import dayjs from 'dayjs'
 
+dayjs.locale('ru')
 const store = setupStore()
 setupListeners(store.dispatch)
 const root = createRoot(document.getElementById('root') as HTMLElement)

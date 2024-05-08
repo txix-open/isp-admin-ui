@@ -44,6 +44,13 @@ type PathKeys =
   | 'getTokensByAppId'
   | 'revokeTokens'
   | 'revokeTokensForApp'
+  | 'getConfigsByModuleId'
+  | 'getConfigById'
+  | 'getAllVersions'
+  | 'createUpdateConfig'
+  | 'deleteVersion'
+  | 'deleteConfig'
+  | 'markConfigAsActive'
   | 'getUI'
 
 export const apiPaths: Record<PathKeys, string> = {
@@ -103,5 +110,13 @@ export const apiPaths: Record<PathKeys, string> = {
   createToken: '/token/create_token',
   getTokensByAppId: '/token/get_tokens_by_app_id',
   revokeTokens: '/token/revoke_tokens',
-  revokeTokensForApp: '/token/revoke_tokens_for_app'
+  revokeTokensForApp: '/token/revoke_tokens_for_app',
+  // ======= CONFIGS ======
+  getConfigsByModuleId: '/config/get_configs_by_module_id',
+  getConfigById: '/config/get_config_by_id',
+  getAllVersions: '/config/get_all_version',
+  createUpdateConfig: '/config/create_update_config',
+  deleteVersion: '/config/delete_version',
+  deleteConfig: '/config/delete_config',
+  markConfigAsActive: '/config/mark_config_as_active'
 }
