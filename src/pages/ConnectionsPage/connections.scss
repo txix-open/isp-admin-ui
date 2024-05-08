@@ -43,4 +43,7 @@
     white-space: nowrap;
     color: rgba(0, 0, 0, 0.45);
   }
+  &__inner-tag{
+    margin-left: $basic-margin !important;
+  }
 }

@@ -53,7 +53,7 @@ const AccessListTree: FC<AccessListTreePropsType> = ({
         <span className={`${unknown ? 'unknown-label' : ''}`}>
           {obj.path}
           {obj.inner ? (
-            <Tag color="processing" bordered={false}>
+            <Tag className="access-list-tree__inner-tag" color="processing" bordered={false}>
               Внутренний
             </Tag>
           ) : null}

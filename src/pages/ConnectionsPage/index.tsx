@@ -66,7 +66,7 @@ const Connections = () => {
             <li className="connection-page__endpoint-list__item" key={path}>
               {path}
               {inner && (
-                <Tag color="processing" bordered={false}>
+                <Tag className="connection-page__inner-tag" color="processing" bordered={false}>
                   Внутренний
                 </Tag>
               )}
