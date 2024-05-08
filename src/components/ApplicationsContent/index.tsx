@@ -29,7 +29,7 @@ import { routePaths } from '@routes/routePaths.ts'
 import './applications-content.scss'
 
 const { FormInput } = FormComponents
-const { EmptyData, Column, ContentColumn } = Layout
+const { EmptyData, Column } = Layout
 
 interface ApplicationsContentPropTypes {
   selectedItemId: number
@@ -201,7 +201,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
           )
         }}
       />
-      <ContentColumn>{renderTokenContent()}</ContentColumn>
+      {renderTokenContent()}
 
       <Modal
         onOk={handleSubmit(handleUpdateApplicationApp)}

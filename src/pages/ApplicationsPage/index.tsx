@@ -30,7 +30,7 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './applications-page.scss'
 
-const { Column, ContentColumn, EmptyData } = Layout
+const { Column, EmptyData } = Layout
 const { FormInput } = FormComponents
 
 const ApplicationsPage = () => {
@@ -162,8 +162,7 @@ const ApplicationsPage = () => {
   }
 
   return (
-    <main className="applications-page">
-      <div className="applications-page__wrap three-columns">
+    <main className="applications-page three-columns">
         <Column
           title="Группа приложений"
           onUpdateItem={updateApplicationModal}
@@ -190,8 +189,7 @@ const ApplicationsPage = () => {
             setSearchValue(value, setSearchParams)
           }
         />
-
-        <ContentColumn>{renderMainContent()}</ContentColumn>
+        {renderMainContent()}
 
         <Modal
           onOk={handleSubmit(handleAddApplicationGroup)}
@@ -238,7 +236,6 @@ const ApplicationsPage = () => {
             <FormInput control={control} label="Описание" name="description" />
           </form>
         </Modal>
-      </div>
     </main>
   )
 }

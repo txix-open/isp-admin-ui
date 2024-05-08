@@ -2,6 +2,8 @@
 
 .applications-page {
   height: 100%;
+  display: flex;
+  background: #fff;
 
   &__list {
     .ant-list-item {
@@ -24,7 +26,6 @@
     background: #fff;
     box-shadow: inset -1px 0px 0px $border-color;
 
-    height: 100%;
 
     .column__header {
       padding: $basic-padding * 2 $basic-padding;
