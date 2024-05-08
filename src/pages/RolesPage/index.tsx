@@ -170,6 +170,7 @@ const RolesPage = () => {
   return (
     <section className="roles-page three-columns">
       <Column
+        showUpdateBtn={false}
         items={filterFirstColumnItems(data, searchValue)}
         showAddBtn={isAddRolePermissions}
         showRemoveBtn={isRemoveRolePermissions}
