@@ -1,12 +1,11 @@
 import {
   AppstoreAddOutlined,
   LockOutlined,
-  LogoutOutlined,
   ProductOutlined,
   ProfileOutlined
 } from '@ant-design/icons'
-import { ConfigProvider, Layout, Menu, Spin } from 'antd'
 import type { MenuProps } from 'antd'
+import { ConfigProvider, Layout, Menu, Spin } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
@@ -24,7 +23,6 @@ import {
 import { LocalStorage } from '@utils/localStorageUtils.ts'
 
 import { useAppDispatch, useAppSelector } from '@hooks/redux.ts'
-import useLogout from '@hooks/useLogout.tsx'
 import useRole from '@hooks/useRole.tsx'
 
 import { fetchProfile, fetchUI } from '@stores/redusers/ActionCreators.ts'
@@ -55,7 +53,6 @@ const LayoutComponent = () => {
   const { theme } = useContext(ConfigProvider.ConfigContext)
 
   const userToken = LocalStorage.get(localStorageKeys.USER_TOKEN)
-  const { logoutUser } = useLogout()
 
   const hideItem = (permission: PermissionKeysType | PermissionKeysType[]) => {
     if (Array.isArray(permission)) {
@@ -70,21 +67,9 @@ const LayoutComponent = () => {
   const menuItems: MenuItemType[] = [
     {
       label: firstName || '',
-      key: 'userManagement',
+      key: 'profile',
       className: 'user-item',
-      icon: <DefaultUser />,
-      children: [
-        {
-          label: 'Профиль',
-          key: 'profile',
-          icon: <ProfileOutlined />
-        },
-        {
-          label: 'Выход',
-          key: 'logout',
-          icon: <LogoutOutlined />
-        }
-      ]
+      icon: <DefaultUser />
     },
     {
       label: 'Группы приложений',
@@ -164,10 +149,6 @@ const LayoutComponent = () => {
 
   const handlerOnClickMenu: MenuProps['onClick'] = ({ key }): void => {
     switch (key) {
-      case MenuItemKeysType.logout: {
-        logoutUser()
-        break
-      }
       case MenuItemKeysType.profile: {
         navigate(routePaths.profile)
         break
