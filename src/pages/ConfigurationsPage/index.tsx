@@ -81,7 +81,7 @@ const Configurations = () => {
         onClose={() => setisShowModalOpen(false)}
       />
       <ConfigSchemaModal
-        schema={currentModule?.configSchema}
+        schema={currentModule?.configSchema || {}}
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
