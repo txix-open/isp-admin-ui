@@ -4,8 +4,9 @@
   height: 100%;
 
   &__tabs {
-    overflow-x: scroll;
+    padding: $basic-padding*3 $basic-padding*2;
     width: 100%;
+    overflow-x: scroll;
   }
 
   .ant-list-item {
@@ -119,15 +120,6 @@
         }
       }
     }
-  }
-
-  .ant-tabs-nav-list {
-    padding-top: 50px;
-  }
-
-  .ant-tabs-tab {
-    justify-content: flex-end;
-    margin: 10px 0 0 0;
   }
 }
 

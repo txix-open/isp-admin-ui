@@ -1,8 +1,9 @@
 import {
+  AppstoreAddOutlined,
   LockOutlined,
   LogoutOutlined,
-  ProfileOutlined,
-  AppstoreAddOutlined
+  ProductOutlined,
+  ProfileOutlined
 } from '@ant-design/icons'
 import { ConfigProvider, Layout, Menu, Spin } from 'antd'
 import { useContext, useEffect, useState } from 'react'
@@ -32,6 +33,8 @@ import { routePaths } from '@routes/routePaths.ts'
 import { PermissionKeysType } from '@type/roles.type.ts'
 
 import Header from 'src/widgets/Header'
+
+
 
 import './layout.scss'
 
@@ -130,7 +133,7 @@ const LayoutComponent = () => {
       label: 'Модули',
       key: 'modules',
       className: hideItem(PermissionKeysType.read),
-      icon: <ProfileOutlined />
+      icon: <ProductOutlined />
     }
   ]
 

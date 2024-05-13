@@ -220,7 +220,6 @@ const ModulesPage = () => {
           navigate(path)
         }}
         className="modules-page__tabs"
-        tabPosition={'left'}
         items={secondColumnItems.map((item) => {
           return {
             disabled: selectedItemId === '',

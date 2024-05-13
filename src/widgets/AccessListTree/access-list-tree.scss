@@ -1,5 +1,9 @@
+@import "../../constants/style/styleConst";
+
 .access-list-tree{
   overflow-y: scroll;
   height: calc(100vh - 250px);
-  
+  &__inner-tag{
+    margin-left: $basic-margin;
+  }
 }
