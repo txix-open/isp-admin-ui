@@ -219,41 +219,45 @@ const TokenContent = ({ id }: TokenPropTypes) => {
 
   return (
     <section className="token-content">
-      <CanEdit>
-      <Button
-        className="applications-content__add-btn"
-        type="primary"
-        onClick={handleShowAddModalToken}
-      >
-        Добавить токен
-      </Button>
-      </CanEdit>
-
-      <Table
-        className="appliactions-tokent__table"
-        rowKey={(record) => record.createdAt}
-        pagination={false}
-        columns={columns}
-        dataSource={data}
-      />
-
-      <Modal
-        onOk={handleSubmitTokens(handleCreateToken)}
-        title="Добавить"
-        open={showApplicationsModal}
-        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-        onClose={() => setShowApplicationsModal(false)}
-      >
-        <form>
-          <FormSelect
-            options={tokensOptions}
-            name="expireTime"
-            control={controlTokens}
-            label="Время действия"
-            rules={{ required: ValidationRules.required }}
+      <div className="token-content__wrap">
+        <header className="token-content__header">
+          <CanEdit>
+            <Button
+              className="applications-content__add-btn"
+              type="primary"
+              onClick={handleShowAddModalToken}
+            >
+              Добавить токен
+            </Button>
+          </CanEdit>
+        </header>
+        <div className="token-content__table">
+          <Table
+            className="appliactions-tokent__table"
+            rowKey={(record) => record.createdAt}
+            pagination={false}
+            columns={columns}
+            dataSource={data}
           />
-        </form>
-      </Modal>
+        </div>
+        <Modal
+          onOk={handleSubmitTokens(handleCreateToken)}
+          title="Добавить"
+          open={showApplicationsModal}
+          footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+          onClose={() => setShowApplicationsModal(false)}
+        >
+          <form>
+            <FormSelect
+              options={tokensOptions}
+              name="expireTime"
+              control={controlTokens}
+              label="Время действия"
+              rules={{ required: ValidationRules.required }}
+            />
+          </form>
+        </Modal>
+      </div>
     </section>
   )
 }

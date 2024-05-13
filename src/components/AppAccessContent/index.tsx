@@ -22,7 +22,6 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './app-access-content.scss'
 
-
 const unknownMethodKey = 'неизвестные методы'
 
 const AppAccessContent: FC<AppAccessContentPropsType> = ({
@@ -31,7 +30,7 @@ const AppAccessContent: FC<AppAccessContentPropsType> = ({
 }) => {
   const [messageApi, contextHolder] = message.useMessage()
   const { hasPermission } = useRole()
-  
+
   const canWrite = hasPermission(PermissionKeysType.write)
 
   const {
@@ -171,7 +170,8 @@ const AppAccessContent: FC<AppAccessContentPropsType> = ({
           onChange={onChange}
         />
         <div className="app-access-content__header__action-buttons">
-          <Button disabled={!canWrite}
+          <Button
+            disabled={!canWrite}
             onClick={() => {
               setAllMethods(false)
             }}

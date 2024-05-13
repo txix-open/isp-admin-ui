@@ -4,14 +4,13 @@
   height: 100%;
 
   &__tabs {
-    padding: $basic-padding*3 $basic-padding*2;
+    padding: 0 $basic-padding*2 $basic-padding*2;
     width: 100%;
     overflow-x: scroll;
   }
 
   .ant-list-item {
     padding-bottom: 20px;
-
   }
 
   .ant-tag {
@@ -57,10 +56,13 @@
     }
   }
 
-
   &__content {
     overflow-x: scroll;
     width: 100%;
+  }
+
+  .column .column__items__item span {
+    width: fit-content;
   }
 }
 
@@ -121,8 +123,4 @@
       }
     }
   }
-}
-
-.column .column__items__item span {
-  width: fit-content;
 }

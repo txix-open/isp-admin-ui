@@ -29,7 +29,7 @@ import { routePaths } from '@routes/routePaths.ts'
 import './applications-content.scss'
 
 const { FormInput } = FormComponents
-const { EmptyData, Column, ContentColumn } = Layout
+const { EmptyData, Column } = Layout
 
 interface ApplicationsContentPropTypes {
   selectedItemId: number
@@ -39,7 +39,6 @@ interface ApplicationsContentPropTypes {
 
 const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
   selectedItemId,
-  currentApplicationsApp,
   setCurrentApplicationsApp
 }) => {
   const { data: applications, isLoading: isLoadingApplicationsContent = [] } =
@@ -60,7 +59,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
   const [searchParams, setSearchParams] = useSearchParams('')
   const searchAppValue = searchParams.get('appSearch') || ''
   const navigate = useNavigate()
-  const { appId } = useParams()
+  const { appId = '' } = useParams()
 
   const {
     handleSubmit,
@@ -82,13 +81,11 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
     })
   }
   const renderTokenContent = () => {
-    if (!currentApplicationsApp) {
+    if (!appId) {
       return <EmptyData />
     }
 
-    return (
-      <TokenContent key={currentApplicationsApp} id={currentApplicationsApp} />
-    )
+    return <TokenContent key={appId} id={Number(appId)} />
   }
 
   const handleUpdateApplicationApp = (data: UpdateApplicationAppType) => {
@@ -186,7 +183,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
         )}
         renderItems={renderColumnItems}
         searchValue={searchAppValue}
-        selectedItemId={currentApplicationsApp.toString()}
+        selectedItemId={appId}
         setSelectedItemId={(itemId: string) => {
           setCurrentApplicationsApp(Number(itemId))
           setSelectedItemId(
@@ -204,7 +201,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
           )
         }}
       />
-      <ContentColumn>{renderTokenContent()}</ContentColumn>
+      {renderTokenContent()}
 
       <Modal
         onOk={handleSubmit(handleUpdateApplicationApp)}
