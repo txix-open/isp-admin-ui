@@ -144,6 +144,9 @@ const LayoutComponent = () => {
     if (menuItem) {
       setSelectedMenuKeys([menuItem.key])
       setOpenKeys(menuItem.parent)
+    } else {
+      setSelectedMenuKeys([])
+      setOpenKeys([])
     }
   }, [location])
 
