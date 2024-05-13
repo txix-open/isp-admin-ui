@@ -93,7 +93,7 @@ const RolesContent = ({
             dataSource={permissions}
             pagination={{ pageSize: 10 }}
             scroll={{
-              y: 'calc(100vh - 450px)',
+              y: 'calc(100vh - 500px)',
             }}
             rowSelection={{
               selectedRowKeys: value,

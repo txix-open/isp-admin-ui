@@ -2,12 +2,11 @@
 
 .connection-page {
   &__content {
-    padding: 2 * $basic-padding 3 * $basic-padding 2 * $basic-padding 0;
     width: 100%;
 
     &__wrap-table {
       overflow-x: scroll;
-      height: calc(100vh - 100px);
+      height: calc(100vh - 150px);
     }
   }
 

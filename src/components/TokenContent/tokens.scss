@@ -1,6 +1,19 @@
 @import "src/constants/style/styleConst";
+
 .token-content {
-  padding: $basic-padding *2 $basic-padding;
+  overflow-x: scroll;
+  width: 100%;
+
+  &__wrap {
+    padding: $basic-padding*2 $basic-padding*3;
+    min-width: 700px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .copy-btn {
     cursor: pointer;
   }

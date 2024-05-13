@@ -111,7 +111,7 @@ const RolesPage = () => {
       })
   }
 
-  const handleRemoveRole = (id: any) => {
+  const handleRemoveRole = (id: string) => {
     const idAsNumber = parseInt(id, 10)
     removeRole(idAsNumber)
       .unwrap()
@@ -170,6 +170,7 @@ const RolesPage = () => {
   return (
     <section className="roles-page three-columns">
       <Column
+        showUpdateBtn={false}
         items={filterFirstColumnItems(data, searchValue)}
         showAddBtn={isAddRolePermissions}
         showRemoveBtn={isRemoveRolePermissions}

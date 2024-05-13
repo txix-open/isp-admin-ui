@@ -1,7 +1,7 @@
 @import "../../constants/style/styleConst";
 
 .roles-content {
-  padding: $basic-padding*3;
+  padding: $basic-padding*2 $basic-padding*3;
   min-width: 400px;
 
   &__header {
