@@ -24,6 +24,7 @@ import tokensApi from '@services/tokensService.ts'
 
 import './tokens.scss'
 import CanEdit from '@components/CanEdit'
+import { dateFormats } from '@constants/date.ts'
 
 const { FormSelect } = FormComponents
 const { EmptyData } = Layout
@@ -120,8 +121,7 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (record) => {
-        const FULL_DATE_FORMAT = 'DD-MM-YYYY/HH:mm'
-        const formatTime = dayjs(record.createdAt).format(FULL_DATE_FORMAT)
+        const formatTime = dayjs(record.createdAt).format(dateFormats.fullFormat)
         return <div>{formatTime}</div>
       }
     },
@@ -142,10 +142,9 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       dataIndex: 'expireTime',
       key: 'expireTime',
       render: (value, record) => {
-        const FULL_DATE_FORMAT = 'DD-MM-YYYY, HH:mm'
         const formatTime = dayjs(record.createdAt)
           .add(record.expireTime)
-          .format(FULL_DATE_FORMAT)
+          .format(dateFormats.fullFormat)
 
         return value > 0 ? <span>{formatTime}</span> : <span> Никогда </span>
       }

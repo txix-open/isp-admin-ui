@@ -25,6 +25,8 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { UserType } from '@type/user.type.ts'
 
 import './users-page.scss'
+import dayjs from 'dayjs'
+import { dateFormats } from '@constants/date.ts'
 
 const UsersPage = () => {
   const { data: allUsers = [], isLoading: isUsersLoading } =
@@ -124,7 +126,7 @@ const UsersPage = () => {
       dataIndex: 'lastSessionCreatedAt',
       key: 'lastSessionCreatedAt',
       render: (value: string) =>
-        value ? new Date(value).toLocaleDateString() : ''
+        value ?  dayjs(value).format(dateFormats.fullFormat) : ''
     },
     {
       dataIndex: 'actions',

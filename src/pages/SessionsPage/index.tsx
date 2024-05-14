@@ -29,6 +29,8 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { SessionType } from '@type/session.type'
 
 import './sessions-page.scss'
+import dayjs from 'dayjs'
+import { dateFormats } from '@constants/date.ts'
 
 const limit = 10
 
@@ -96,8 +98,7 @@ const SessionsPage = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (value) => {
-        const date = new Date(value)
-        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+        return  dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {
@@ -105,8 +106,7 @@ const SessionsPage = () => {
       dataIndex: 'expiredAt',
       key: 'expiredAt',
       render: (value) => {
-        const date = new Date(value)
-        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+        return  dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {

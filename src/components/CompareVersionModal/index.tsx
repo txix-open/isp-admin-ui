@@ -19,6 +19,7 @@ import { VersionType } from '@type/version.type'
 
 import './compare-version-modal.scss'
 import dayjs from 'dayjs'
+import { dateFormats } from '@constants/date.ts'
 
 
 const Original = CodeMirrorMerge.Original
@@ -52,7 +53,7 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
       title: 'Создано',
       dataIndex: 'createdAt',
       render: (value: string) => {
-        return dayjs(value).format('HH:mm:ss DD.MM.YYYY')
+        return dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {
