@@ -20,7 +20,7 @@ export enum MenuItemLabelsType {
   profile = 'Профиль',
   modules = 'Модули',
   logout = 'Выход',
-  applications_group = 'Группа приложений'
+  applications_group = 'Группы приложений'
 }
 
 interface MenuItem {
