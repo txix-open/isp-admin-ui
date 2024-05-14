@@ -44,6 +44,6 @@ export default defineConfig(({ mode }) => {
         '/api': env.PROXY_URL
       }
     },
-    plugins: [react(), svgr(), legacy(), tsconfigPaths()]
+    plugins: [react(), svgr(), tsconfigPaths()]
   }
 })
