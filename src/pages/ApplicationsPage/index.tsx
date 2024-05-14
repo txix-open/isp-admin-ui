@@ -12,8 +12,8 @@ import Modal from '@widgets/Modal'
 import ApplicationsContent from '@components/ApplicationsContent'
 
 import {
-  NewApplicationsGroupType,
   ApplicationsGroupType,
+  NewApplicationsGroupType,
   UpdateApplicationsGroupType
 } from '@pages/ApplicationsPage/applications.type.ts'
 
@@ -72,6 +72,15 @@ const ApplicationsPage = () => {
   const { handleSubmit, control, reset } = useForm<ApplicationsGroupType>({
     mode: 'onChange'
   })
+
+  useEffect(() => {
+    const currentItem = applicationsGroup.find(
+      (group) => group.id.toString() === selectedItemId
+    )
+    if (currentItem) {
+      reset(currentItem)
+    }
+  }, [selectedItemId,applicationsGroup])
 
   if (isErrorApplicationsGroup) {
     return <EmptyData />

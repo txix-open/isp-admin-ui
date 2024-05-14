@@ -2,7 +2,7 @@ import { LinkOutlined } from '@ant-design/icons'
 import { List, message, Spin, Tooltip } from 'antd'
 import { FormComponents, Layout } from 'isp-ui-kit'
 import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
@@ -42,10 +42,12 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
   selectedItemId,
   setCurrentApplicationsApp
 }) => {
-  const { data: applications, isLoading: isLoadingApplicationsContent = [] } =
-    applicationsApi.useGetApplicationsByServiceIdQuery({
-      id: selectedItemId
-    })
+  const {
+    data: applications = [],
+    isLoading: isLoadingApplicationsContent = []
+  } = applicationsApi.useGetApplicationsByServiceIdQuery({
+    id: selectedItemId
+  })
 
   const [createApplicationService] =
     applicationsApi.useCreateApplicationServiceMutation()
@@ -69,6 +71,16 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
   } = useForm<ApplicationAppType>({
     mode: 'onChange'
   })
+
+  useEffect(() => {
+    const currentItem = applications.find(
+      (application) => application.app.id.toString() === appId
+    )
+    if (currentItem) {
+      reset(currentItem.app)
+    }
+  }, [appId, applications])
+
   const updateApplicationModal = () => {
     setShowApplicationsModal({
       ...showApplicationsModal,
