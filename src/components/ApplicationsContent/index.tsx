@@ -28,7 +28,8 @@ import { routePaths } from '@routes/routePaths.ts'
 
 import './applications-content.scss'
 
-const { FormInput } = FormComponents
+
+const { FormInput, FormTextArea } = FormComponents
 const { EmptyData, Column } = Layout
 
 interface ApplicationsContentPropTypes {
@@ -222,7 +223,8 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
             label="Наименование"
             rules={{ required: ValidationRules.required }}
           />
-          <FormInput
+          <FormTextArea
+            autoSize={{ minRows: 2, maxRows: 6 }}
             control={controlApplicationApp}
             label="Описание"
             name="description"
@@ -249,7 +251,8 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
             label="Наименование"
             rules={{ required: ValidationRules.required }}
           />
-          <FormInput
+          <FormTextArea
+            autoSize={{ minRows: 2, maxRows: 6 }}
             control={controlApplicationApp}
             label="Описание"
             name="description"

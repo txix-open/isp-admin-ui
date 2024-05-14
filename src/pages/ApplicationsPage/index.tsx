@@ -1,5 +1,5 @@
 import { List, message, Spin, Tooltip } from 'antd'
-import { Layout, FormComponents } from 'isp-ui-kit'
+import { FormComponents, Layout } from 'isp-ui-kit'
 import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -30,8 +30,9 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './applications-page.scss'
 
+
 const { Column, EmptyData } = Layout
-const { FormInput } = FormComponents
+const { FormInput, FormTextArea } = FormComponents
 
 const ApplicationsPage = () => {
   const navigate = useNavigate()
@@ -208,7 +209,9 @@ const ApplicationsPage = () => {
             label="Наименование"
             rules={{ required: ValidationRules.required }}
           />
-          <FormInput control={control} label="Описание" name="description" />
+          <FormTextArea
+            autoSize={{ minRows: 2, maxRows: 6 }}
+            control={control} label="Описание" name="description" />
         </form>
       </Modal>
 
@@ -231,7 +234,9 @@ const ApplicationsPage = () => {
             label="Наименование"
             rules={{ required: ValidationRules.required }}
           />
-          <FormInput control={control} label="Описание" name="description" />
+          <FormTextArea
+            autoSize={{ minRows: 2, maxRows: 6 }}
+            control={control} label="Описание" name="description" />
         </form>
       </Modal>
     </main>
