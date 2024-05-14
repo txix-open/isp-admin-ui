@@ -1,15 +1,11 @@
 import { LinkOutlined } from '@ant-design/icons'
 import { List, message, Spin, Tooltip } from 'antd'
-import { FormComponents, Layout } from 'isp-ui-kit'
+import { Layout } from 'isp-ui-kit'
 import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
-import { ValidationRules } from '@constants/form/validationRules.ts'
-
-import Modal from '@widgets/Modal'
-
+import AppModal from '@components/AppModal'
 import TokenContent from '@components/TokenContent'
 
 import {
@@ -29,7 +25,6 @@ import { routePaths } from '@routes/routePaths.ts'
 import './applications-content.scss'
 
 
-const { FormInput, FormTextArea } = FormComponents
 const { EmptyData, Column } = Layout
 
 interface ApplicationsContentPropTypes {
@@ -64,22 +59,12 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
   const navigate = useNavigate()
   const { appId = '' } = useParams()
 
-  const {
-    handleSubmit,
-    control: controlApplicationApp,
-    reset
-  } = useForm<ApplicationAppType>({
-    mode: 'onChange'
-  })
-
-  useEffect(() => {
-    const currentItem = applications.find(
+  const currentApp = useMemo(() => {
+    const element = applications.find(
       (application) => application.app.id.toString() === appId
     )
-    if (currentItem) {
-      reset(currentItem.app)
-    }
-  }, [appId, applications])
+    return element ? element.app : undefined
+  }, [applications, appId])
 
   const updateApplicationModal = () => {
     setShowApplicationsModal({
@@ -101,35 +86,31 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
     return <TokenContent key={appId} id={Number(appId)} />
   }
 
-  const handleUpdateApplicationApp = (data: UpdateApplicationAppType) => {
-    const currentElement = applications?.filter(
-      (el) => el.app.id === Number(appId)
-    )[0].app
-    if (currentElement) {
+  const handleUpdateApplicationApp = (data: ApplicationAppType) => {
+    if (currentApp) {
       const updateApplications: UpdateApplicationAppType = {
-        id: currentElement.id,
+        id: currentApp.id,
         name: data.name,
         description: data.description
           ? data.description
-          : currentElement.description,
+          : currentApp.description,
         serviceId: selectedItemId,
         type: 'SYSTEM'
       }
-      updateApplication({ ...currentElement, ...updateApplications })
+      updateApplication({ ...currentApp, ...updateApplications })
         .unwrap()
         .then(() => {
           setShowApplicationsModal({
             ...showApplicationsModal,
             updateModal: false
           })
-          reset()
           message.info('Элемент сохранен')
         })
         .catch(() => message.error('Ошибка обновления элемента'))
     }
   }
 
-  const handleCreateApplicationApp = (data: NewApplicationAppType) => {
+  const handleCreateApplicationApp = (data: ApplicationAppType) => {
     const newApplicationApp: NewApplicationAppType = {
       name: data.name,
       description: data.description,
@@ -145,7 +126,6 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
       ...showApplicationsModal,
       addModal: false
     })
-    reset()
   }
   const handleRemoveApplicationApp = (id: number) =>
     removeApplicationsService([id])
@@ -215,62 +195,29 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
         }}
       />
       {renderTokenContent()}
-
-      <Modal
-        onOk={handleSubmit(handleUpdateApplicationApp)}
+      <AppModal
+        app={currentApp}
+        onOk={handleUpdateApplicationApp}
         title="Редактировать приложение"
         open={showApplicationsModal.updateModal}
-        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
         onClose={() =>
           setShowApplicationsModal({
             ...showApplicationsModal,
             updateModal: false
           })
         }
-      >
-        <form>
-          <FormInput
-            control={controlApplicationApp}
-            name="name"
-            label="Наименование"
-            rules={{ required: ValidationRules.required }}
-          />
-          <FormTextArea
-            autoSize={{ minRows: 2, maxRows: 6 }}
-            control={controlApplicationApp}
-            label="Описание"
-            name="description"
-          />
-        </form>
-      </Modal>
-
-      <Modal
-        onOk={handleSubmit(handleCreateApplicationApp)}
+      />
+      <AppModal
+        onOk={handleCreateApplicationApp}
         title="Добавить приложение"
         open={showApplicationsModal.addModal}
-        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
         onClose={() =>
           setShowApplicationsModal({
             ...showApplicationsModal,
             addModal: false
           })
         }
-      >
-        <form>
-          <FormInput
-            control={controlApplicationApp}
-            name="name"
-            label="Наименование"
-            rules={{ required: ValidationRules.required }}
-          />
-          <FormTextArea
-            autoSize={{ minRows: 2, maxRows: 6 }}
-            control={controlApplicationApp}
-            label="Описание"
-            name="description"
-          />
-        </form>
-      </Modal>
+      />
     </section>
   )
 }
