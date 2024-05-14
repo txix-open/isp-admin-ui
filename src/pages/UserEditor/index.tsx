@@ -78,7 +78,7 @@ const UserEditor = () => {
         const exclusiveRole = findExclusiveRole(roles, value.roles as number[])
         if (exclusiveRole) {
           if (value.roles && value.roles.length > 1) {
-            message.info(
+            message.error(
               <>
                 Роль: <strong>{exclusiveRole.name}</strong> несовместима с
                 другими ролями

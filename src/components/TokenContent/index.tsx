@@ -77,7 +77,7 @@ const TokenContent = ({ id }: TokenPropTypes) => {
         .then(() => {
           setShowApplicationsModal(false)
           reset()
-          message.info('Элемент добавлен')
+          message.success('Элемент добавлен')
         })
         .catch(() => {
           message.error('Ошибка добавления элемента')
@@ -106,7 +106,7 @@ const TokenContent = ({ id }: TokenPropTypes) => {
     revokeToken(currentRemoveToken)
       .unwrap()
       .then(() => message.success('Элемент удален'))
-      .catch(() => message.info('Ошибка удаления элемента'))
+      .catch(() => message.error('Ошибка удаления элемента'))
   }
 
   const columns: ColumnsType<ApplicationTokenType> = [

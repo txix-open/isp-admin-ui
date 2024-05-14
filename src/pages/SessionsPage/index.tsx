@@ -71,7 +71,7 @@ const SessionsPage = () => {
     revokeSession(id)
       .unwrap()
       .then(() => message.success('Сессия успешно завершена'))
-      .catch(() => message.info('Не удалось завершить сессию'))
+      .catch(() => message.error('Не удалось завершить сессию'))
   }
 
   if (isLoading || !data) {

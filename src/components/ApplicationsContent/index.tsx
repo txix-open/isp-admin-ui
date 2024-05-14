@@ -104,7 +104,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
             ...showApplicationsModal,
             updateModal: false
           })
-          message.info('Элемент сохранен')
+          message.success('Элемент сохранен')
         })
         .catch(() => message.error('Ошибка обновления элемента'))
     }
@@ -120,7 +120,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
 
     createApplicationService(newApplicationApp)
       .unwrap()
-      .then(message.info('Элемент сохранен'))
+      .then(message.success('Элемент сохранен'))
       .catch((e) => message.error(e))
     setShowApplicationsModal({
       ...showApplicationsModal,
@@ -131,7 +131,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
     removeApplicationsService([id])
       .unwrap()
       .then(() => message.success('Элемент удален'))
-      .catch(() => message.info('Ошибка удаления элемента'))
+      .catch(() => message.error('Ошибка удаления элемента'))
 
   const renderColumnItems = (item: ColumnItem<any>) => {
     return (
