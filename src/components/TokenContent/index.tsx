@@ -1,20 +1,22 @@
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Button, message, Popconfirm, Spin, Table } from 'antd'
+import { Button, message, Popconfirm, Spin, Table, Tooltip } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import ClipboardJS from 'clipboard'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 import duration from 'dayjs/plugin/duration'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { Layout, FormComponents } from 'isp-ui-kit'
+import { FormComponents, Layout } from 'isp-ui-kit'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { dateFormats } from '@constants/date.ts'
 import { ValidationRules } from '@constants/form/validationRules.ts'
 
 import Modal from '@widgets/Modal'
 
-// import CanEdit from '@components/CanEdit'
+import CanEdit from '@components/CanEdit'
+
 import {
   ApplicationTokenType,
   NewApplicationTokenType
@@ -22,9 +24,10 @@ import {
 
 import tokensApi from '@services/tokensService.ts'
 
-import './tokens.scss'
-import CanEdit from '@components/CanEdit'
-import { dateFormats } from '@constants/date.ts'
+
+
+import './tokens.scss';
+
 
 const { FormSelect } = FormComponents
 const { EmptyData } = Layout
@@ -111,6 +114,11 @@ const TokenContent = ({ id }: TokenPropTypes) => {
 
   const columns: ColumnsType<ApplicationTokenType> = [
     {
+      title: 'ID',
+      dataIndex: 'appId',
+      key: 'appId'
+    },
+    {
       title: 'Токен',
       dataIndex: 'token',
       key: 'token',
@@ -121,7 +129,9 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (record) => {
-        const formatTime = dayjs(record.createdAt).format(dateFormats.fullFormat)
+        const formatTime = dayjs(record.createdAt).format(
+          dateFormats.fullFormat
+        )
         return <div>{formatTime}</div>
       }
     },
@@ -150,33 +160,24 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       }
     },
     {
-      title: 'Скопировать',
+      title: 'Действия',
       dataIndex: 'token',
-      key: 'copyToken',
-      align: 'center',
-      render: (record) => {
+      key: 'actions',
+      render: (value) => {
         return (
-          <Button className="copy-btn" data-clipboard-text={record}>
-            <CopyOutlined />
-          </Button>
-        )
-      }
-    },
-    {
-      title: 'Отозвать',
-      dataIndex: 'appId',
-      key: 'recall',
-      align: 'center',
-      render: (_, record) => {
-        return (
-          <Popconfirm
-            title="Закончить эту сессию?"
-            onConfirm={() => handleRevokeToken(record)}
-          >
-            <Button danger>
-              <DeleteOutlined />
-            </Button>
-          </Popconfirm>
+          <Button.Group>
+            <Tooltip title="Скопировать">
+              <Button icon={<CopyOutlined />} data-clipboard-text={value} />
+            </Tooltip>
+            <Tooltip title="Удалить">
+              <Popconfirm
+                title="Закончить эту сессию?"
+                onConfirm={() => handleRevokeToken(value)}
+              >
+                <Button icon={<DeleteOutlined />} />
+              </Popconfirm>
+            </Tooltip>
+          </Button.Group>
         )
       }
     }
@@ -220,6 +221,7 @@ const TokenContent = ({ id }: TokenPropTypes) => {
     <section className="token-content">
       <div className="token-content__wrap">
         <header className="token-content__header">
+          <h3>Токены</h3>
           <CanEdit>
             <Button
               className="applications-content__add-btn"
