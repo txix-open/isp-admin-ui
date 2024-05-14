@@ -27,4 +27,8 @@
     box-shadow: inset -1px 0px 0px $border-color;
     height: 100%;
   }
+
+  .modal__wrap{
+    min-width: 350px;
+  }
 }

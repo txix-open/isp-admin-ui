@@ -205,7 +205,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
 
       <Modal
         onOk={handleSubmit(handleUpdateApplicationApp)}
-        title="Редактировать"
+        title="Редактировать приложение"
         open={showApplicationsModal.updateModal}
         footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
         onClose={() =>
@@ -232,7 +232,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
 
       <Modal
         onOk={handleSubmit(handleCreateApplicationApp)}
-        title="Добавить"
+        title="Добавить приложение"
         open={showApplicationsModal.addModal}
         footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
         onClose={() =>

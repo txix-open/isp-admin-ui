@@ -191,7 +191,7 @@ const ApplicationsPage = () => {
 
       <Modal
         onOk={handleSubmit(handleAddApplicationGroup)}
-        title="Добавить"
+        title="Добавить группу приложений"
         open={showApplicationsModal.addModal}
         footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
         onClose={() =>
@@ -214,7 +214,7 @@ const ApplicationsPage = () => {
 
       <Modal
         onOk={handleSubmit(handleUpdateApplicationsGroup)}
-        title="Редактировать"
+        title="Редактировать группу приложений"
         open={showApplicationsModal.updateModal}
         footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
         onClose={() =>
