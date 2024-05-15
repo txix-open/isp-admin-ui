@@ -1,4 +1,3 @@
-import { injectStyles } from '@stoplight/mosaic'
 import { Button, Spin } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
@@ -72,7 +71,7 @@ const Configurations = () => {
   if (configId) {
     return <Outlet />
   }
-  injectStyles()
+
   return (
     <section className="configurations">
       <ConfigurationPreviewModal
