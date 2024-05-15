@@ -172,7 +172,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
       <Column
         title="Приложения"
         onUpdateItem={updateApplicationModal}
-        showUpdateBtn={!!appId}
+        showUpdateBtn={true}
         onAddItem={addApplicationModal}
         onRemoveItem={() => handleRemoveApplicationApp(Number(appId))}
         items={filterFirstColumnItems(

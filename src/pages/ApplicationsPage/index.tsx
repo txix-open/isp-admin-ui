@@ -166,7 +166,7 @@ const ApplicationsPage = () => {
       <Column
         title="Группы приложений"
         onUpdateItem={updateApplicationModal}
-        showUpdateBtn={!!selectedItemId}
+        showUpdateBtn={true}
         onAddItem={addApplicationModal}
         onRemoveItem={handleRemoveApplicationsGtoup}
         items={filterFirstColumnItems(
