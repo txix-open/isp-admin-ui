@@ -179,10 +179,18 @@ const UserEditor = () => {
         <div className="user-editor__content__wrap">
           <div className="user-editor__content__name">
             <FormComponents.FormInput
-              label="Пользователь"
+              label="Имя"
               rules={{ required: ValidationRules.required }}
               control={control}
               name="firstName"
+            />
+          </div>
+          <div className="user-editor__content__name">
+            <FormComponents.FormInput
+              label="Фамилия"
+              rules={{ required: ValidationRules.required }}
+              control={control}
+              name="lastName"
             />
           </div>
           <div className="user-editor__content__description">
