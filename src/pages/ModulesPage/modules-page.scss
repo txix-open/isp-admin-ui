@@ -36,23 +36,6 @@
         color: $grey;
         display: inline-block;
       }
-
-      &__status {
-        border: 1px solid #15d1e6;
-        border-radius: 12px;
-        padding: 0 4px;
-        font-family: sans-serif;
-        opacity: .7;
-        height: 22px;
-        width: 22px;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-      }
-
-      &__status_zero {
-        border: 1px solid red;
-      }
     }
   }
 
@@ -75,10 +58,6 @@
 
   .column__header {
     padding: $basic-padding * 2 $basic-padding;
-
-    svg {
-      fill: $blue-color;
-    }
   }
 
   .ant-input-affix-wrapper {
@@ -103,22 +82,35 @@
     }
   }
 
+  .ant-input-outlined {
+    &:hover {
+      svg {
+        fill: #40a9ff;
+      }
+    }
+  }
+
   .ant-list-items {
     .column__items__item {
+      &:hover {
+        background: #FAFAFA !important;
+      }
+
       .ant-list-item-meta-title {
         font-family: 'Roboto', sans-serif;
         font-size: 14px;
         line-height: 22px;
         font-weight: 400;
         color: $text-color-gray;
-        margin-left: 5px;
       }
 
       &.active {
         background: $blue-light !important;
 
-        .ant-list-item-meta-title {
-          color: $text-color-blue;
+        svg {
+          path {
+            fill: $text-color-blue;
+          }
         }
       }
     }
