@@ -1,5 +1,13 @@
 import { LogoutOutlined } from '@ant-design/icons'
-import { Button, Popconfirm, Spin, Table, message, Pagination } from 'antd'
+import {
+  Button,
+  Popconfirm,
+  Spin,
+  Table,
+  message,
+  Pagination,
+  Tooltip
+} from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -121,12 +129,12 @@ const SessionsPage = () => {
                 title="Закончить эту сессию?"
                 onConfirm={() => handleRevokeSessions(record.id)}
               >
-                <Button
-                  data-cy="sessions-page__content__table__logout-btn"
-                  type="primary"
-                  className="sessions-page__content__table__logout-btn"
-                  icon={<LogoutOutlined />}
-                />
+                <Tooltip key="LogoutOutlined" title="Закончить сессию">
+                  <Button
+                    data-cy="sessions-page__content__table__logout-btn"
+                    icon={<LogoutOutlined />}
+                  />
+                </Tooltip>
               </Popconfirm>
             </CanEdit>
           </>

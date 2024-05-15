@@ -1,4 +1,4 @@
-import { List, message, Spin } from 'antd'
+import { List, message, Spin, Tooltip } from 'antd'
 import { Layout, FormComponents } from 'isp-ui-kit'
 import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
 import { useEffect, useState } from 'react'
@@ -82,14 +82,14 @@ const ApplicationsPage = () => {
 
   const renderColumnItems = (item: ColumnItem<any>) => {
     return (
-      <div className="applications-page__list">
-        <List.Item>
-          <span>{item.name}</span>
-          <span className="applications-page__list__desc">
-            {item.description}
-          </span>
-        </List.Item>
-      </div>
+      <List.Item>
+        <Tooltip mouseEnterDelay={1} title={item.name}>
+          <List.Item.Meta
+            title={item.name}
+            description={<span>{item.description}</span>}
+          />
+        </Tooltip>
+      </List.Item>
     )
   }
 
@@ -163,79 +163,77 @@ const ApplicationsPage = () => {
 
   return (
     <main className="applications-page three-columns">
-        <Column
-          title="Группа приложений"
-          onUpdateItem={updateApplicationModal}
-          showUpdateBtn={!!selectedItemId}
-          onAddItem={addApplicationModal}
-          onRemoveItem={handleRemoveApplicationsGtoup}
-          items={filterFirstColumnItems(
-            applicationsGroup as unknown as ColumnItem<ApplicationsGroupType>[],
-            searchValue
-          )}
-          renderItems={renderColumnItems}
-          searchValue={searchValue}
-          selectedItemId={selectedItemId}
-          setSelectedItemId={(itemId) => {
-            setCurrentApplicationsApp(0)
-            setSelectedItemId(
-              `${routePaths.applicationsGroup}`,
-              itemId,
-              searchValue,
-              navigate
-            )
-          }}
-          onChangeSearchValue={(value) =>
-            setSearchValue(value, setSearchParams)
-          }
-        />
-        {renderMainContent()}
+      <Column
+        title="Группы приложений"
+        onUpdateItem={updateApplicationModal}
+        showUpdateBtn={!!selectedItemId}
+        onAddItem={addApplicationModal}
+        onRemoveItem={handleRemoveApplicationsGtoup}
+        items={filterFirstColumnItems(
+          applicationsGroup as unknown as ColumnItem<ApplicationsGroupType>[],
+          searchValue
+        )}
+        renderItems={renderColumnItems}
+        searchValue={searchValue}
+        selectedItemId={selectedItemId}
+        setSelectedItemId={(itemId) => {
+          setCurrentApplicationsApp(0)
+          setSelectedItemId(
+            `${routePaths.applicationsGroup}`,
+            itemId,
+            searchValue,
+            navigate
+          )
+        }}
+        onChangeSearchValue={(value) => setSearchValue(value, setSearchParams)}
+      />
+      {renderMainContent()}
 
-        <Modal
-          onOk={handleSubmit(handleAddApplicationGroup)}
-          title="Добавить"
-          open={showApplicationsModal.addModal}
-          footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-          onClose={() =>
-            setShowApplicationsModal({
-              ...showApplicationsModal,
-              addModal: false
-            })
-          }
-        >
-          <form>
-            <FormInput
-              control={control}
-              name="name"
-              label="Наименование"
-              rules={{ required: ValidationRules.required }}
-            />
-            <FormInput control={control} label="Описание" name="description" />
-          </form>
-        </Modal>
+      <Modal
+        onOk={handleSubmit(handleAddApplicationGroup)}
+        title="Добавить"
+        open={showApplicationsModal.addModal}
+        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+        onClose={() =>
+          setShowApplicationsModal({
+            ...showApplicationsModal,
+            addModal: false
+          })
+        }
+      >
+        <form>
+          <FormInput
+            control={control}
+            name="name"
+            label="Наименование"
+            rules={{ required: ValidationRules.required }}
+          />
+          <FormInput control={control} label="Описание" name="description" />
+        </form>
+      </Modal>
 
-        <Modal
-          onOk={handleSubmit(handleUpdateApplicationsGroup)}
-          title="Редактировать"
-          open={showApplicationsModal.updateModal}
-          footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-          onClose={() =>
-            setShowApplicationsModal({
-              ...showApplicationsModal,
-              updateModal: false
-            })
-          }
-        >
-          <form>
-            <FormInput
-              control={control}
-              name="name"
-              label="Наименование"
-              rules={{ required: ValidationRules.required }}
-            />
-            <FormInput control={control} label="Описание" name="description" />
-          </form>
-        </Modal>
+      <Modal
+        onOk={handleSubmit(handleUpdateApplicationsGroup)}
+        title="Редактировать"
+        open={showApplicationsModal.updateModal}
+        footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
+        onClose={() =>
+          setShowApplicationsModal({
+            ...showApplicationsModal,
+            updateModal: false
+          })
+        }
+      >
+        <form>
+          <FormInput
+            control={control}
+            name="name"
+            label="Наименование"
+            rules={{ required: ValidationRules.required }}
+          />
+          <FormInput control={control} label="Описание" name="description" />
+        </form>
+      </Modal>
     </main>
   )
 }
