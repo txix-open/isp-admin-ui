@@ -49,7 +49,7 @@ const ModulesPage = () => {
 
   useEffect(() => {
     if (!isPageAvailable) {
-      navigate(routePaths.home)
+      navigate(routePaths.error)
     }
   }, [isPageAvailable])
 
