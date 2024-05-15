@@ -94,6 +94,7 @@ const Configurations = () => {
       )}
       <div className="configurations__buttons">
         <Button
+          disabled={!currentModule?.configSchema}
           className="configurations____buttons__show-schema-btn"
           onClick={() => setIsModalOpen(true)}
         >
