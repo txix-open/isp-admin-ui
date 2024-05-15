@@ -12,10 +12,11 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { localStorageKeys } from '@constants/localStorageKeys.ts'
 
+import Header from '@widgets/Header'
+
 import DefaultUser from '@components/Icons/DefaultUser.tsx'
 import {
   MenuItemKeysType,
-  MenuItemLabelsType,
   MenuItemType,
   menuKeys
 } from '@components/Layout/layout.type.ts'
@@ -33,20 +34,15 @@ import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeysType } from '@type/roles.type.ts'
 
-import Header from 'src/widgets/Header'
-
-
-
 import './layout.scss'
 
 const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [collapsed, setCollapsed] = useState<boolean>(true)
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
-      []
+    []
   )
-  const [title, setTitle] = useState('')
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const dispatch = useAppDispatch()
   const {
@@ -91,7 +87,7 @@ const LayoutComponent = () => {
       ]
     },
     {
-      label: 'Группа приложений',
+      label: 'Группы приложений',
       key: 'applications_group',
       className: hideItem([PermissionKeysType.read]),
       icon: <AppstoreAddOutlined />
@@ -101,6 +97,12 @@ const LayoutComponent = () => {
       key: 'appAccess',
       className: hideItem([PermissionKeysType.read]),
       icon: <LockOutlined />
+    },
+    {
+      label: 'Модули',
+      key: 'modules',
+      className: hideItem(PermissionKeysType.read),
+      icon: <ProductOutlined />
     },
     {
       label: 'Пользователи и роли',
@@ -129,21 +131,15 @@ const LayoutComponent = () => {
           className: hideItem(PermissionKeysType.read)
         }
       ]
-    },
-    {
-      label: 'Модули',
-      key: 'modules',
-      className: hideItem(PermissionKeysType.read),
-      icon: <ProductOutlined />
     }
   ]
 
   useEffect(() => {
     ConfigProvider.config({
       holderRender: (children) => (
-          <ConfigProvider prefixCls="static" theme={theme}>
-            {children}
-          </ConfigProvider>
+        <ConfigProvider prefixCls="static" theme={theme}>
+          {children}
+        </ConfigProvider>
       )
     })
   }, [theme])
@@ -161,7 +157,6 @@ const LayoutComponent = () => {
     const menuItem = menuKeys[menuKey]
 
     if (menuItem) {
-      setTitle(MenuItemLabelsType[menuItem.key])
       setSelectedMenuKeys([menuItem.key])
       setOpenKeys(menuItem.parent)
     }
@@ -207,40 +202,40 @@ const LayoutComponent = () => {
   }
 
   return (
-      <section>
-        <Header title={title} />
-        <Layout className="layout" data-cy="homePage">
-          {status === StateProfileStatus.pending ? (
-              <Spin size="large" />
-          ) : (
-              <>
-                <Sider
-                    width="250px"
-                    data-cy="aside"
-                    theme="light"
-                    collapsible
-                    collapsed={collapsed}
-                    onCollapse={(value) => setCollapsed(value)}
-                >
-                  <Menu
-                      onOpenChange={(keys) => setOpenKeys(keys)}
-                      openKeys={openKeys}
-                      selectedKeys={selectedMenuKeys}
-                      onClick={handlerOnClickMenu}
-                      theme="light"
-                      mode="inline"
-                      items={menuItems}
-                  />
-                </Sider>
-                <Layout className="site-layout">
-                  <Content className="site-layout__content">
-                    <Outlet />
-                  </Content>
-                </Layout>
-              </>
-          )}
-        </Layout>
-      </section>
+    <section>
+      <Layout className="layout" data-cy="homePage">
+        {status === StateProfileStatus.pending ? (
+          <Spin size="large" />
+        ) : (
+          <>
+            <Sider
+              width="250px"
+              data-cy="aside"
+              theme="light"
+              collapsible
+              collapsed={collapsed}
+              onCollapse={(value) => setCollapsed(value)}
+            >
+              <Header collapsed={collapsed} />
+              <Menu
+                onOpenChange={(keys) => setOpenKeys(keys)}
+                openKeys={openKeys}
+                selectedKeys={selectedMenuKeys}
+                onClick={handlerOnClickMenu}
+                theme="light"
+                mode="inline"
+                items={menuItems}
+              />
+            </Sider>
+            <Layout className="site-layout">
+              <Content className="site-layout__content">
+                <Outlet />
+              </Content>
+            </Layout>
+          </>
+        )}
+      </Layout>
+    </section>
   )
 }
 

@@ -31,23 +31,23 @@ interface MenuItem {
 export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   [MenuItemKeysType.users]: {
     key: MenuItemKeysType.users,
-    parent: ['sessionManagement']
+    parent: ['users']
   },
   [MenuItemKeysType.sessions]: {
     key: MenuItemKeysType.sessions,
-    parent: ['sessionManagement']
+    parent: ['users']
   },
   [MenuItemKeysType.securityLog]: {
     key: MenuItemKeysType.securityLog,
-    parent: ['sessionManagement']
+    parent: ['users']
   },
   [MenuItemKeysType.appAccess]: {
     key: MenuItemKeysType.appAccess,
-    parent: []
+    parent: ['appAccess']
   },
   [MenuItemKeysType.roles]: {
     key: MenuItemKeysType.roles,
-    parent: ['sessionManagement']
+    parent: ['users']
   },
   [MenuItemKeysType.logout]: {
     key: MenuItemKeysType.logout,
@@ -59,11 +59,11 @@ export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   },
   [MenuItemKeysType.modules]: {
     key: MenuItemKeysType.modules,
-    parent: []
+    parent: ['modules']
   },
   [MenuItemKeysType.applicationsGroup]: {
     key: MenuItemKeysType.applicationsGroup,
-    parent: ['']
+    parent: ['applicationsGroup']
   }
 }
 
