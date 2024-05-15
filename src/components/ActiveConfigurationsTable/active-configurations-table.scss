@@ -10,7 +10,15 @@
   &__table {
     &__name-field {
       input {
+        border: none;
+        background-color: transparent;
         width: 100%;
+
+        &:focus-visible {
+          padding: $basic-padding;
+          border-radius: 4px;
+          outline: 1px solid $blue-color;
+        }
       }
 
       display: flex;
