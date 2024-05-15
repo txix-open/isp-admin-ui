@@ -9,10 +9,6 @@
     overflow-x: scroll;
   }
 
-  .ant-list-item {
-    padding-bottom: 20px;
-  }
-
   .ant-tag {
     height: 22px;
     margin: 0;
@@ -31,6 +27,7 @@
     &__content {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       &__description {
         color: $grey;
@@ -45,7 +42,7 @@
   }
 
   .column .column__items__item span {
-    width: fit-content;
+    width: fit-content !important;
   }
 }
 
@@ -53,66 +50,5 @@
   display: flex;
   background: #fff;
   box-shadow: inset -1px 0px 0px $border-color;
-
   height: 100%;
-
-  .column__header {
-    padding: $basic-padding * 2 $basic-padding;
-  }
-
-  .ant-input-affix-wrapper {
-    .ant-input-prefix {
-      margin-left: auto;
-      position: absolute;
-      right: 5px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10;
-      cursor: pointer;
-    }
-  }
-
-  .ant-input-affix-wrapper-focused {
-    .ant-input-prefix {
-      .anticon-search {
-        svg {
-          display: none;
-        }
-      }
-    }
-  }
-
-  .ant-input-outlined {
-    &:hover {
-      svg {
-        fill: #40a9ff;
-      }
-    }
-  }
-
-  .ant-list-items {
-    .column__items__item {
-      &:hover {
-        background: #FAFAFA !important;
-      }
-
-      .ant-list-item-meta-title {
-        font-family: 'Roboto', sans-serif;
-        font-size: 14px;
-        line-height: 22px;
-        font-weight: 400;
-        color: $text-color-gray;
-      }
-
-      &.active {
-        background: $blue-light !important;
-
-        svg {
-          path {
-            fill: $text-color-blue;
-          }
-        }
-      }
-    }
-  }
 }
