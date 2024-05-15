@@ -1,9 +1,30 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 0 28px;
   width: 100%;
   height: 65px;
-  justify-content: space-between;
+  justify-content: center;
   box-sizing: border-box;
+  line-height: 18px;
+
+  &__text {
+    margin: auto;
+    background: inherit;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: invert(1) grayscale(1);
+    font-size: 19px;
+    font-weight: 600;
+    font-family: 'PT Sans', sans-serif;
+    padding-right: 120px;
+  }
+  &__text-closed {
+    margin: auto;
+    background: inherit;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: invert(1) grayscale(1);
+    font-weight: 600;
+    font-family: 'PT Sans', sans-serif;
+  }
 }
