@@ -210,6 +210,7 @@ const ModulesPage = () => {
       <Column
         items={filterFirstColumnItems(ModulesList, searchValue)}
         showAddBtn={false}
+        showUpdateBtn={false}
         showRemoveBtn={isRemoveModule}
         onRemoveItem={handleRemoveModule}
         onChangeSearchValue={handleOnChangeSearchValue}
