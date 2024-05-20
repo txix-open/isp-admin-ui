@@ -12,3 +12,7 @@
   min-height: 0;
   min-width: 500px;
 }
+
+.ant-btn:focus-visible{
+  outline: none !important;
+}
