@@ -88,24 +88,24 @@ const RolesContent = ({
       control={control}
       name="permissions"
       render={({ field: { value, onChange } }) => (
-          <Table
-            columns={columns}
-            dataSource={permissions}
-            pagination={{ pageSize: 10 }}
-            scroll={{
-              y: 'calc(100vh - 500px)',
-            }}
-            rowSelection={{
-              selectedRowKeys: value,
-              type: 'checkbox',
-              onChange: (selectedRowKeys) => {
-                onChange(selectedRowKeys)
-              },
-              getCheckboxProps: () => ({
-                disabled: immutable
-              })
-            }}
-          />
+        <Table
+          columns={columns}
+          dataSource={permissions}
+          pagination={{ pageSize: 10 }}
+          scroll={{
+            y: 'calc(100vh - 450px)'
+          }}
+          rowSelection={{
+            selectedRowKeys: value,
+            type: 'checkbox',
+            onChange: (selectedRowKeys) => {
+              onChange(selectedRowKeys)
+            },
+            getCheckboxProps: () => ({
+              disabled: immutable
+            })
+          }}
+        />
       )}
     />
   )

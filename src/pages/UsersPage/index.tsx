@@ -1,11 +1,11 @@
 import {
   DeleteOutlined,
-  EditTwoTone,
+  EditOutlined,
   LockOutlined,
   UnlockOutlined,
   PlusSquareOutlined
 } from '@ant-design/icons'
-import { Button, Popconfirm, Spin, Table, message } from 'antd'
+import { Button, Popconfirm, Spin, Table, message, Tooltip } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -25,6 +25,8 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { UserType } from '@type/user.type.ts'
 
 import './users-page.scss'
+import dayjs from 'dayjs'
+import { dateFormats } from '@constants/date.ts'
 
 const UsersPage = () => {
   const { data: allUsers = [], isLoading: isUsersLoading } =
@@ -124,7 +126,7 @@ const UsersPage = () => {
       dataIndex: 'lastSessionCreatedAt',
       key: 'lastSessionCreatedAt',
       render: (value: string) =>
-        value ? new Date(value).toLocaleDateString() : ''
+        value ?  dayjs(value).format(dateFormats.fullFormat) : ''
     },
     {
       dataIndex: 'actions',
@@ -136,40 +138,51 @@ const UsersPage = () => {
         return (
           <div className="users-page__content__table__actions">
             <CanEdit>
-              <Popconfirm
-                title={blockTitle}
-                onConfirm={() => handleBlockUser(record.id)}
-              >
-                <Button
-                  data-cy={`users-page__content__table__actions__lock-btn ${record.id}`}
-                  className="users-page__content__table__actions__lock-btn"
-                  type="primary"
-                  danger={record.blocked}
-                  icon={record.blocked ? <LockOutlined /> : <UnlockOutlined />}
-                />
-              </Popconfirm>
-              <div
-                data-cy={`users-page__content__table__actions__edit-btn ${record.id}`}
-                className="users-page__content__table__actions__edit-btn"
-                onClick={() => {
-                  navigate(`${routePaths.users}/${record.id}`, {
-                    state: { ...record }
-                  })
-                }}
-              >
-                <EditTwoTone />
-              </div>
-              <Popconfirm
-                title="Вы действительно хотите удалить этого пользователя?"
-                onConfirm={() => handleDeleteUser(record.id)}
-              >
-                <Button
-                  data-cy={`users-page__content__table__actions__delete-btn ${record.id}`}
-                  className="users-page__content__table__actions__delete-btn"
-                  type="primary"
-                  icon={<DeleteOutlined />}
-                />
-              </Popconfirm>
+              <Button.Group className="button_group">
+                <Popconfirm
+                  title={blockTitle}
+                  onConfirm={() => handleBlockUser(record.id)}
+                >
+                  <Tooltip
+                    key="LockOutlined"
+                    title="Заблокировать пользователя"
+                  >
+                    <Button
+                      data-cy={`users-page__content__table__actions__lock-btn ${record.id}`}
+                      className="users-page__content__table__actions__lock-btn"
+                      danger={record.blocked}
+                      icon={
+                        record.blocked ? <LockOutlined /> : <UnlockOutlined />
+                      }
+                    />
+                  </Tooltip>
+                </Popconfirm>
+                <Tooltip key="EditOutlined" title="Редактировать пользователя">
+                  <Button
+                    data-cy={`users-page__content__table__actions__edit-btn ${record.id}`}
+                    className="users-page__content__table__actions__edit-btn"
+                    icon={<EditOutlined />}
+                    onClick={() => {
+                      navigate(`${routePaths.users}/${record.id}`, {
+                        state: { ...record }
+                      })
+                    }}
+                  />
+                </Tooltip>
+
+                <Popconfirm
+                  title="Вы действительно хотите удалить этого пользователя?"
+                  onConfirm={() => handleDeleteUser(record.id)}
+                >
+                  <Tooltip key="DeleteOutlined" title="Удалить пользователя">
+                    <Button
+                      data-cy={`users-page__content__table__actions__delete-btn ${record.id}`}
+                      className="users-page__content__table__actions__delete-btn"
+                      icon={<DeleteOutlined />}
+                    />
+                  </Tooltip>
+                </Popconfirm>
+              </Button.Group>
             </CanEdit>
           </div>
         )

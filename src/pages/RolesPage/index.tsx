@@ -1,4 +1,4 @@
-import { List, Spin, message } from 'antd'
+import { List, Spin, message, Tooltip } from 'antd'
 import { Layout } from 'isp-ui-kit'
 import { useEffect } from 'react'
 import {
@@ -131,10 +131,12 @@ const RolesPage = () => {
     : null
   const renderItems = (item: RoleType) => (
     <List.Item data-cy="role-item">
-      <div className="role-item">
-        <span className="role-item__name">{item.name}</span>
-        <span className="role-item__id">id: {item.id}</span>
-      </div>
+      <Tooltip mouseEnterDelay={1} title={item.name}>
+        <List.Item.Meta
+          title={item.name}
+          description={<span>id: {item.id}</span>}
+        />
+      </Tooltip>
     </List.Item>
   )
 

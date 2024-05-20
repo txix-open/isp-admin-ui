@@ -1,19 +1,15 @@
-import { List, message, Spin } from 'antd'
-import { Layout, FormComponents } from 'isp-ui-kit'
+import { List, message, Spin, Tooltip } from 'antd'
+import { Layout } from 'isp-ui-kit'
 import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
-import { ValidationRules } from '@constants/form/validationRules.ts'
-
-import Modal from '@widgets/Modal'
-
 import ApplicationsContent from '@components/ApplicationsContent'
+import AppGroupModal from 'src/components/AppGroupModal'
 
 import {
-  NewApplicationsGroupType,
   ApplicationsGroupType,
+  NewApplicationsGroupType,
   UpdateApplicationsGroupType
 } from '@pages/ApplicationsPage/applications.type.ts'
 
@@ -30,8 +26,8 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './applications-page.scss'
 
+
 const { Column, EmptyData } = Layout
-const { FormInput } = FormComponents
 
 const ApplicationsPage = () => {
   const navigate = useNavigate()
@@ -68,9 +64,12 @@ const ApplicationsPage = () => {
     updateModal: false
   })
   const searchValue = searchParams.get('search') || ''
-  const { handleSubmit, control, reset } = useForm<ApplicationsGroupType>({
-    mode: 'onChange'
-  })
+
+  const currentAppGroup = useMemo(
+    () =>
+      applicationsGroup.find((group) => group.id.toString() === selectedItemId),
+    [applicationsGroup, selectedItemId]
+  )
 
   if (isErrorApplicationsGroup) {
     return <EmptyData />
@@ -82,14 +81,14 @@ const ApplicationsPage = () => {
 
   const renderColumnItems = (item: ColumnItem<any>) => {
     return (
-      <div className="applications-page__list">
-        <List.Item>
-          <span>{item.name}</span>
-          <span className="applications-page__list__desc">
-            {item.description}
-          </span>
-        </List.Item>
-      </div>
+      <List.Item>
+        <Tooltip mouseEnterDelay={1} title={item.name}>
+          <List.Item.Meta
+            title={item.name}
+            description={<span>{item.description}</span>}
+          />
+        </Tooltip>
+      </List.Item>
     )
   }
 
@@ -107,22 +106,31 @@ const ApplicationsPage = () => {
     })
   }
 
-  const handleAddApplicationGroup = (data: any) => {
+  const handleAddApplicationGroup = (data: ApplicationsGroupType) => {
     const newService: NewApplicationsGroupType = {
       name: data.name,
       description: data.description,
       domainId: 2
     }
     createApplicationsGroup(newService)
-    setShowApplicationsModal({
-      ...showApplicationsModal,
-      addModal: false
-    })
-    reset()
-    message.info('Сервис успешно создан')
+      .unwrap()
+      .then((res) => {
+        setSelectedItemId(
+          `${routePaths.applicationsGroup}`,
+          res.id.toString(),
+          searchValue,
+          navigate
+        )
+        setShowApplicationsModal({
+          ...showApplicationsModal,
+          addModal: false
+        })
+        message.success('Группа приложений успешно создана')
+      })
+      .catch(() => message.error('Не удалось создать группу приложений'))
   }
 
-  const handleUpdateApplicationsGroup = (data: NewApplicationsGroupType) => {
+  const handleUpdateApplicationsGroup = (data: ApplicationsGroupType) => {
     const updateService: UpdateApplicationsGroupType = {
       name: data.name,
       description: data.description,
@@ -130,21 +138,20 @@ const ApplicationsPage = () => {
       id: Number(selectedItemId)
     }
 
-    updateApplicationsGroup(updateService)
-    setShowApplicationsModal({
-      ...showApplicationsModal,
-      updateModal: false
-    })
-
-    reset()
-    message.info('Сервис успешно отредактирован')
+    updateApplicationsGroup(updateService).unwrap().then(()=>{
+      setShowApplicationsModal({
+        ...showApplicationsModal,
+        updateModal: false
+      })
+      message.success('Группа приложений успешно отредактирована')
+    }).catch(()=> message.error('Не удалось отредактировать группу приложений'))
   }
 
   const handleRemoveApplicationsGtoup = () => {
     deleteApplicationsGroup([Number(selectedItemId)])
       .unwrap()
       .then(() => message.success('Элемент удален'))
-      .catch(() => message.info('Ошибка удаления элемента'))
+      .catch(() => message.error('Ошибка удаления элемента'))
   }
 
   const renderMainContent = () => {
@@ -163,79 +170,54 @@ const ApplicationsPage = () => {
 
   return (
     <main className="applications-page three-columns">
-        <Column
-          title="Группа приложений"
-          onUpdateItem={updateApplicationModal}
-          showUpdateBtn={!!selectedItemId}
-          onAddItem={addApplicationModal}
-          onRemoveItem={handleRemoveApplicationsGtoup}
-          items={filterFirstColumnItems(
-            applicationsGroup as unknown as ColumnItem<ApplicationsGroupType>[],
-            searchValue
-          )}
-          renderItems={renderColumnItems}
-          searchValue={searchValue}
-          selectedItemId={selectedItemId}
-          setSelectedItemId={(itemId) => {
-            setCurrentApplicationsApp(0)
-            setSelectedItemId(
-              `${routePaths.applicationsGroup}`,
-              itemId,
-              searchValue,
-              navigate
-            )
-          }}
-          onChangeSearchValue={(value) =>
-            setSearchValue(value, setSearchParams)
-          }
-        />
-        {renderMainContent()}
-
-        <Modal
-          onOk={handleSubmit(handleAddApplicationGroup)}
-          title="Добавить"
-          open={showApplicationsModal.addModal}
-          footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-          onClose={() =>
-            setShowApplicationsModal({
-              ...showApplicationsModal,
-              addModal: false
-            })
-          }
-        >
-          <form>
-            <FormInput
-              control={control}
-              name="name"
-              label="Наименование"
-              rules={{ required: ValidationRules.required }}
-            />
-            <FormInput control={control} label="Описание" name="description" />
-          </form>
-        </Modal>
-
-        <Modal
-          onOk={handleSubmit(handleUpdateApplicationsGroup)}
-          title="Редактировать"
-          open={showApplicationsModal.updateModal}
-          footer={{ onCanselText: 'Отмена', onOkText: 'Сохранить' }}
-          onClose={() =>
-            setShowApplicationsModal({
-              ...showApplicationsModal,
-              updateModal: false
-            })
-          }
-        >
-          <form>
-            <FormInput
-              control={control}
-              name="name"
-              label="Наименование"
-              rules={{ required: ValidationRules.required }}
-            />
-            <FormInput control={control} label="Описание" name="description" />
-          </form>
-        </Modal>
+      <Column
+        title="Группы приложений"
+        onUpdateItem={updateApplicationModal}
+        showUpdateBtn={true}
+        onAddItem={addApplicationModal}
+        onRemoveItem={handleRemoveApplicationsGtoup}
+        items={filterFirstColumnItems(
+          applicationsGroup as unknown as ColumnItem<ApplicationsGroupType>[],
+          searchValue
+        )}
+        renderItems={renderColumnItems}
+        searchValue={searchValue}
+        selectedItemId={selectedItemId}
+        setSelectedItemId={(itemId) => {
+          setCurrentApplicationsApp(0)
+          setSelectedItemId(
+            `${routePaths.applicationsGroup}`,
+            itemId,
+            searchValue,
+            navigate
+          )
+        }}
+        onChangeSearchValue={(value) => setSearchValue(value, setSearchParams)}
+      />
+      {renderMainContent()}
+      <AppGroupModal
+        onOk={handleAddApplicationGroup}
+        title="Добавить группу приложений"
+        open={showApplicationsModal.addModal}
+        onClose={() =>
+          setShowApplicationsModal({
+            ...showApplicationsModal,
+            addModal: false
+          })
+        }
+      />
+      <AppGroupModal
+        appGroup={currentAppGroup}
+        title="Редактировать группу приложений"
+        onOk={handleUpdateApplicationsGroup}
+        open={showApplicationsModal.updateModal}
+        onClose={() =>
+          setShowApplicationsModal({
+            ...showApplicationsModal,
+            updateModal: false
+          })
+        }
+      />
     </main>
   )
 }

@@ -2,7 +2,7 @@
 
 .access-list-tree{
   overflow-y: scroll;
-  height: calc(100vh - 250px);
+  height: calc(100vh - 100px);
   &__inner-tag{
     margin-left: $basic-margin;
   }

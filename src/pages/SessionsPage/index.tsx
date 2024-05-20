@@ -1,5 +1,13 @@
 import { LogoutOutlined } from '@ant-design/icons'
-import { Button, Popconfirm, Spin, Table, message, Pagination } from 'antd'
+import {
+  Button,
+  Popconfirm,
+  Spin,
+  Table,
+  message,
+  Pagination,
+  Tooltip
+} from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -21,6 +29,8 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { SessionType } from '@type/session.type'
 
 import './sessions-page.scss'
+import dayjs from 'dayjs'
+import { dateFormats } from '@constants/date.ts'
 
 const limit = 10
 
@@ -61,7 +71,7 @@ const SessionsPage = () => {
     revokeSession(id)
       .unwrap()
       .then(() => message.success('Сессия успешно завершена'))
-      .catch(() => message.info('Не удалось завершить сессию'))
+      .catch(() => message.error('Не удалось завершить сессию'))
   }
 
   if (isLoading || !data) {
@@ -88,8 +98,7 @@ const SessionsPage = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (value) => {
-        const date = new Date(value)
-        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+        return  dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {
@@ -97,8 +106,7 @@ const SessionsPage = () => {
       dataIndex: 'expiredAt',
       key: 'expiredAt',
       render: (value) => {
-        const date = new Date(value)
-        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+        return  dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {
@@ -121,12 +129,12 @@ const SessionsPage = () => {
                 title="Закончить эту сессию?"
                 onConfirm={() => handleRevokeSessions(record.id)}
               >
-                <Button
-                  data-cy="sessions-page__content__table__logout-btn"
-                  type="primary"
-                  className="sessions-page__content__table__logout-btn"
-                  icon={<LogoutOutlined />}
-                />
+                <Tooltip key="LogoutOutlined" title="Закончить сессию">
+                  <Button
+                    data-cy="sessions-page__content__table__logout-btn"
+                    icon={<LogoutOutlined />}
+                  />
+                </Tooltip>
               </Popconfirm>
             </CanEdit>
           </>
