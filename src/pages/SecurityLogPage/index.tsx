@@ -16,6 +16,8 @@ import { LogType } from '@type/log.type'
 import { PermissionKeysType } from '@type/roles.type'
 
 import './security-log-page.scss'
+import dayjs from 'dayjs'
+import { dateFormats } from '@constants/date.ts'
 
 const limit = 10
 
@@ -75,8 +77,7 @@ const SecurityLogPage = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (value) => {
-        const date = new Date(value)
-        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+        return  dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {

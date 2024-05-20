@@ -1,21 +1,21 @@
 import {
   AppstoreAddOutlined,
   LockOutlined,
-  LogoutOutlined,
   ProductOutlined,
   ProfileOutlined
 } from '@ant-design/icons'
-import { ConfigProvider, Layout, Menu, Spin } from 'antd'
 import type { MenuProps } from 'antd'
+import { ConfigProvider, Layout, Menu, Spin } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { localStorageKeys } from '@constants/localStorageKeys.ts'
 
+import Header from '@widgets/Header'
+
 import DefaultUser from '@components/Icons/DefaultUser.tsx'
 import {
   MenuItemKeysType,
-  MenuItemLabelsType,
   MenuItemType,
   menuKeys
 } from '@components/Layout/layout.type.ts'
@@ -23,7 +23,6 @@ import {
 import { LocalStorage } from '@utils/localStorageUtils.ts'
 
 import { useAppDispatch, useAppSelector } from '@hooks/redux.ts'
-import useLogout from '@hooks/useLogout.tsx'
 import useRole from '@hooks/useRole.tsx'
 
 import { fetchProfile, fetchUI } from '@stores/redusers/ActionCreators.ts'
@@ -33,20 +32,15 @@ import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeysType } from '@type/roles.type.ts'
 
-import Header from 'src/widgets/Header'
-
-
-
 import './layout.scss'
 
 const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [collapsed, setCollapsed] = useState<boolean>(true)
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
-      []
+    []
   )
-  const [title, setTitle] = useState('')
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const dispatch = useAppDispatch()
   const {
@@ -59,7 +53,6 @@ const LayoutComponent = () => {
   const { theme } = useContext(ConfigProvider.ConfigContext)
 
   const userToken = LocalStorage.get(localStorageKeys.USER_TOKEN)
-  const { logoutUser } = useLogout()
 
   const hideItem = (permission: PermissionKeysType | PermissionKeysType[]) => {
     if (Array.isArray(permission)) {
@@ -74,24 +67,12 @@ const LayoutComponent = () => {
   const menuItems: MenuItemType[] = [
     {
       label: firstName || '',
-      key: 'userManagement',
+      key: 'profile',
       className: 'user-item',
-      icon: <DefaultUser />,
-      children: [
-        {
-          label: 'Профиль',
-          key: 'profile',
-          icon: <ProfileOutlined />
-        },
-        {
-          label: 'Выход',
-          key: 'logout',
-          icon: <LogoutOutlined />
-        }
-      ]
+      icon: <DefaultUser />
     },
     {
-      label: 'Группа приложений',
+      label: 'Группы приложений',
       key: 'applications_group',
       className: hideItem([PermissionKeysType.read]),
       icon: <AppstoreAddOutlined />
@@ -101,6 +82,12 @@ const LayoutComponent = () => {
       key: 'appAccess',
       className: hideItem([PermissionKeysType.read]),
       icon: <LockOutlined />
+    },
+    {
+      label: 'Модули',
+      key: 'modules',
+      className: hideItem(PermissionKeysType.read),
+      icon: <ProductOutlined />
     },
     {
       label: 'Пользователи и роли',
@@ -129,21 +116,15 @@ const LayoutComponent = () => {
           className: hideItem(PermissionKeysType.read)
         }
       ]
-    },
-    {
-      label: 'Модули',
-      key: 'modules',
-      className: hideItem(PermissionKeysType.read),
-      icon: <ProductOutlined />
     }
   ]
 
   useEffect(() => {
     ConfigProvider.config({
       holderRender: (children) => (
-          <ConfigProvider prefixCls="static" theme={theme}>
-            {children}
-          </ConfigProvider>
+        <ConfigProvider prefixCls="static" theme={theme}>
+          {children}
+        </ConfigProvider>
       )
     })
   }, [theme])
@@ -161,18 +142,16 @@ const LayoutComponent = () => {
     const menuItem = menuKeys[menuKey]
 
     if (menuItem) {
-      setTitle(MenuItemLabelsType[menuItem.key])
       setSelectedMenuKeys([menuItem.key])
       setOpenKeys(menuItem.parent)
+    } else {
+      setSelectedMenuKeys([])
+      setOpenKeys([])
     }
   }, [location])
 
   const handlerOnClickMenu: MenuProps['onClick'] = ({ key }): void => {
     switch (key) {
-      case MenuItemKeysType.logout: {
-        logoutUser()
-        break
-      }
       case MenuItemKeysType.profile: {
         navigate(routePaths.profile)
         break
@@ -207,40 +186,40 @@ const LayoutComponent = () => {
   }
 
   return (
-      <section>
-        <Header title={title} />
-        <Layout className="layout" data-cy="homePage">
-          {status === StateProfileStatus.pending ? (
-              <Spin size="large" />
-          ) : (
-              <>
-                <Sider
-                    width="250px"
-                    data-cy="aside"
-                    theme="light"
-                    collapsible
-                    collapsed={collapsed}
-                    onCollapse={(value) => setCollapsed(value)}
-                >
-                  <Menu
-                      onOpenChange={(keys) => setOpenKeys(keys)}
-                      openKeys={openKeys}
-                      selectedKeys={selectedMenuKeys}
-                      onClick={handlerOnClickMenu}
-                      theme="light"
-                      mode="inline"
-                      items={menuItems}
-                  />
-                </Sider>
-                <Layout className="site-layout">
-                  <Content className="site-layout__content">
-                    <Outlet />
-                  </Content>
-                </Layout>
-              </>
-          )}
-        </Layout>
-      </section>
+    <section>
+      <Layout className="layout" data-cy="homePage">
+        {status === StateProfileStatus.pending ? (
+          <Spin size="large" />
+        ) : (
+          <>
+            <Sider
+              width="250px"
+              data-cy="aside"
+              theme="light"
+              collapsible
+              collapsed={collapsed}
+              onCollapse={(value) => setCollapsed(value)}
+            >
+              <Header collapsed={collapsed} />
+              <Menu
+                onOpenChange={(keys) => setOpenKeys(keys)}
+                openKeys={openKeys}
+                selectedKeys={selectedMenuKeys}
+                onClick={handlerOnClickMenu}
+                theme="light"
+                mode="inline"
+                items={menuItems}
+              />
+            </Sider>
+            <Layout className="site-layout">
+              <Content className="site-layout__content">
+                <Outlet />
+              </Content>
+            </Layout>
+          </>
+        )}
+      </Layout>
+    </section>
   )
 }
 

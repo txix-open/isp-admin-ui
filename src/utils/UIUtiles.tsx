@@ -22,5 +22,5 @@ export const initUI = (ui: UIDataType) => {
   favicon = initSVG(ui.primaryColor)
   const titles = document.getElementsByTagName('title')
   document.head.insertBefore(favicon, titles[0])
-  document.title = `${ui.name} — MSP`
+  document.title = ui.name
 }

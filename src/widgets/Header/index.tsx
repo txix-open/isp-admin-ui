@@ -1,13 +1,10 @@
-import { HomeOutlined } from '@ant-design/icons'
-import { Breadcrumb } from 'antd'
-
 import { HeaderPropsType } from '@widgets/Header/header.type.ts'
 
 import { useAppSelector } from '@hooks/redux.ts'
 
 import './header.scss'
 
-const Header = ({ title }: HeaderPropsType) => {
+const Header = ({ collapsed }: HeaderPropsType) => {
   const {
     ui: { name, primaryColor }
   } = useAppSelector((state) => state.UIReducer)
@@ -19,25 +16,9 @@ const Header = ({ title }: HeaderPropsType) => {
         backgroundColor: primaryColor
       }}
     >
-      <div>
-        <Breadcrumb
-          items={[
-            {
-              href: '/',
-              title: (
-                <>
-                  <HomeOutlined />
-                  <span>Главная</span>
-                </>
-              )
-            },
-            {
-              title: <span>{title}</span>
-            }
-          ]}
-        />
-      </div>
-      <span>{name}</span>
+      <span className={collapsed ? 'header__text-closed' : 'header__text'}>
+        {name}
+      </span>
     </section>
   )
 }

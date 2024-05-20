@@ -16,6 +16,7 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import './connections.scss'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { dateFormats } from '@constants/date.ts'
 
 const Connections = () => {
   const { data: ConnectionsList = [], isLoading: isModulesLoading } =
@@ -51,7 +52,7 @@ const Connections = () => {
   }
 
   const formatFullDate = (obj: string) =>
-    dayjs(obj).format('YYYY-MM-DD, HH:mm:ss')
+    dayjs(obj).format(dateFormats.fullFormat)
 
   const keySelector = ({
                          address: { ip, port },

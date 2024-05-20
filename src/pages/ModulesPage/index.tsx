@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { List, message, Spin, Tabs, Tag, Tooltip } from 'antd'
+import { Badge, List, message, Spin, Tabs, Tag, Tooltip } from 'antd'
 import { compareVersions } from 'compare-versions'
 import { Layout } from 'isp-ui-kit'
 import { useEffect, useState } from 'react'
@@ -49,7 +49,7 @@ const ModulesPage = () => {
 
   useEffect(() => {
     if (!isPageAvailable) {
-      navigate(routePaths.home)
+      navigate(routePaths.error)
     }
   }, [isPageAvailable])
 
@@ -154,28 +154,34 @@ const ModulesPage = () => {
 
     return (
       <List.Item>
-        <div className="module-item">
-          <div className="module-item__name">
-            <span>{item.name}</span>
-            <Tooltip overlayInnerStyle={{ width: '300px' }} title={textTooltip}>
-              {renderVersion()}
-            </Tooltip>
-          </div>
-          <div className="module-item__content">
-            <span className="module-item__content__description">
-              активные экземпляры:
-            </span>
-            <strong
-              className={`module-item__content__status ${
-                !item.status || !item.status.length
-                  ? 'module-item__content__status_zero'
-                  : ''
-              }`}
-            >
-              {(item.status && item.status.length) || '0'}
-            </strong>
-          </div>
-        </div>
+        <Tooltip mouseEnterDelay={1} title={item.name}>
+          <List.Item.Meta
+            title={
+              <div className="module-item__name">
+                <span>{item.name}</span>
+                <Tooltip
+                  overlayInnerStyle={{ width: '300px' }}
+                  title={textTooltip}
+                >
+                  {renderVersion()}
+                </Tooltip>
+              </div>
+            }
+            description={
+              <div className="module-item__content">
+                <span className="module-item__content__description">
+                  активные экземпляры:
+                </span>
+                <Badge
+                  size="small"
+                  showZero
+                  count={(item.status && item.status.length) || 0}
+                  color={!item.status || !item.status.length ? '' : 'blue'}
+                />
+              </div>
+            }
+          />
+        </Tooltip>
       </List.Item>
     )
   }
@@ -204,6 +210,7 @@ const ModulesPage = () => {
       <Column
         items={filterFirstColumnItems(ModulesList, searchValue)}
         showAddBtn={false}
+        showUpdateBtn={false}
         showRemoveBtn={isRemoveModule}
         onRemoveItem={handleRemoveModule}
         onChangeSearchValue={handleOnChangeSearchValue}

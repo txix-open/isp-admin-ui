@@ -1,10 +1,12 @@
 import { ArrowLeftOutlined, SaveOutlined } from '@ant-design/icons'
 import { Button, message, Spin } from 'antd'
+import dayjs from 'dayjs'
 import { FormComponents } from 'isp-ui-kit'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+import { dateFormats } from '@constants/date.ts'
 import { ValidationRules } from '@constants/form/validationRules.ts'
 
 import { findExclusiveRole } from '@utils/roleUtils.ts'
@@ -22,6 +24,7 @@ import { UserType } from '@type/user.type.ts'
 import { LabelItem } from 'isp-ui-kit/dist/FormComponents/formTypes'
 
 import './user-editor.scss'
+
 
 const UserEditor = () => {
   const location = useLocation()
@@ -75,7 +78,7 @@ const UserEditor = () => {
         const exclusiveRole = findExclusiveRole(roles, value.roles as number[])
         if (exclusiveRole) {
           if (value.roles && value.roles.length > 1) {
-            message.info(
+            message.error(
               <>
                 Роль: <strong>{exclusiveRole.name}</strong> несовместима с
                 другими ролями
@@ -166,9 +169,7 @@ const UserEditor = () => {
             {state.lastSessionCreatedAt && (
               <>
                 Последняя сессия &nbsp;
-                {new Date(state.lastSessionCreatedAt).toLocaleDateString()}
-                &nbsp;
-                {new Date(state.lastSessionCreatedAt).toLocaleTimeString()}
+                {dayjs(state.lastSessionCreatedAt).format(dateFormats.fullFormat)}
               </>
             )}
           </span>
@@ -179,10 +180,18 @@ const UserEditor = () => {
         <div className="user-editor__content__wrap">
           <div className="user-editor__content__name">
             <FormComponents.FormInput
-              label="Пользователь"
+              label="Имя"
               rules={{ required: ValidationRules.required }}
               control={control}
               name="firstName"
+            />
+          </div>
+          <div className="user-editor__content__name">
+            <FormComponents.FormInput
+              label="Фамилия"
+              rules={{ required: ValidationRules.required }}
+              control={control}
+              name="lastName"
             />
           </div>
           <div className="user-editor__content__description">

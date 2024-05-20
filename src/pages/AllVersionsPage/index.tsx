@@ -28,6 +28,7 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { VersionType } from '@type/version.type.ts'
 
 import './all-versions-page.scss'
+import { dateFormats } from '@constants/date.ts'
 
 
 const AllVersionsPage = () => {
@@ -157,7 +158,7 @@ const AllVersionsPage = () => {
       title: 'Создано',
       dataIndex: 'createdAt',
       render: (value: string) => {
-        return dayjs(value).format('HH:mm:ss DD.MM.YYYY')
+        return dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {

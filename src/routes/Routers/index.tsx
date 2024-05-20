@@ -1,17 +1,16 @@
 import { Spin } from 'antd'
+import { Layout } from 'isp-ui-kit'
 import { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import Layout from '@components/Layout'
-
-import HomePage from '@pages/HomePage'
+import LayoutComponent from '@components/Layout'
 
 import PrivateRoute from '@routes/PrivateRoute'
 import { routePaths } from '@routes/routePaths.ts'
 
+const { ErrorPage } = Layout
 
 const LoginPage = lazy(() => import('@pages/LoginPage'))
-const ErrorPage = lazy(() => import('@components/ErrorPage'))
 const ProfilePage = lazy(() => import('@pages/ProfilePage'))
 const UsersPage = lazy(() => import('@pages/UsersPage'))
 const RolesPage = lazy(() => import('@pages/RolesPage'))
@@ -29,12 +28,12 @@ const Routers = () => {
   return (
     <Routes>
       <Route element={<PrivateRoute />}>
-        <Route path={routePaths.home} element={<Layout />}>
+        <Route path={routePaths.home} element={<LayoutComponent />}>
           <Route
             index
             element={
               <Suspense fallback={<Spin />}>
-                <HomePage />
+                <Navigate to={routePaths.modules} replace={true} />
               </Suspense>
             }
           />
