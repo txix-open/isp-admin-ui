@@ -17,7 +17,7 @@ const applicationsGroupApi = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: apiPaths.baseSystemUrl }),
   endpoints: (builder) => ({
     getApplicationsGroupByDomainId: builder.query<
-      ApplicationsGroupType,
+      ApplicationsGroupType[],
       { id: number }
     >({
       query: (id) => ({

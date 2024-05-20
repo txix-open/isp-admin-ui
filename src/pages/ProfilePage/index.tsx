@@ -1,4 +1,4 @@
-import { Button, Descriptions } from 'antd'
+import { Button, Descriptions, Popconfirm } from 'antd'
 import { useState } from 'react'
 
 import PermissionList from '@widgets/PermissionList'
@@ -18,7 +18,7 @@ const ProfilePage = () => {
   const { logoutUser, isLoading } = useLogout()
 
   return (
-    <section className="profile-page wrap">
+    <section className="profile-page">
       <ChangePasswordModal
         onClose={() => setIsModalOpen(false)}
         open={isModalOpen}
@@ -34,18 +34,22 @@ const ProfilePage = () => {
       <RoleList userRoles={profile.roles} />
       <PermissionList permissions={profile.permissions} />
       <div className="profile-page__actions">
-        <Button
-          loading={isLoading}
-          disabled={isLoading}
-          className="profile-page__actions__exit-btn"
-          type="primary"
-          onClick={logoutUser}
+        <Popconfirm
+          okText="Выйти"
+          cancelText="Отмена"
+          title="Вы действительно хотите выйти из профиля?"
+          onConfirm={logoutUser}
         >
-          Выход
-        </Button>
+          <Button
+            loading={isLoading}
+            disabled={isLoading}
+            className="profile-page__actions__exit-btn"
+          >
+            Выход
+          </Button>
+        </Popconfirm>
         <Button
           className="profile-page__actions__change-pass-btn"
-          type="primary"
           onClick={() => setIsModalOpen(true)}
         >
           Сменить пароль

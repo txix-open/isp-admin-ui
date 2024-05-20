@@ -16,6 +16,7 @@ import { ColumnsType } from 'antd/es/table'
 import './active-configurations-table.scss'
 import dayjs from 'dayjs'
 import CanEdit from '@components/CanEdit'
+import { dateFormats } from '@constants/date.ts'
 
 
 const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
@@ -167,7 +168,7 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
         key: 'updatedAt',
         align: 'center',
         render: (value: string) => {
-          return dayjs(value).format('HH:mm:ss DD.MM.YYYY')
+          return dayjs(value).format(dateFormats.fullFormat)
         }
       },
       {

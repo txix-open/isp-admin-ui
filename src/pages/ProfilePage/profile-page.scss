@@ -1,7 +1,10 @@
 @import '../../constants/style/styleConst';
 
 .profile-page {
-  height: 100%;
+  height: 100vh;
+  overflow: auto;
+  border: 1px solid #F0F0F0;
+  padding: $basic-padding * 2;
   background: #fff;
   display: flex;
   flex-direction: column;
