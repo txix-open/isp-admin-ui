@@ -77,7 +77,7 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
             <Button onClick={() => setSelectedItem(undefined)}>Назад</Button>
             <div className="compare-version-modal__header">
               <span> Версия: {selectedItem.configVersion}</span>
-              <span>Текущая версия : {config?.version || config?.configVersion}</span>
+              <span>{config?.version ? `Текущая версия : ${config?.version}` : `Версия: ${config?.configVersion}`}</span>
             </div>
             <CodeMirrorMerge orientation="a-b">
               <Original
