@@ -93,7 +93,7 @@ const RolesContent = ({
           dataSource={permissions}
           pagination={{ pageSize: 10 }}
           scroll={{
-            y: 'calc(100vh - 450px)'
+            y: 'calc(100vh - 270px)'
           }}
           rowSelection={{
             selectedRowKeys: value,
@@ -140,20 +140,22 @@ const RolesContent = ({
           />
         </div>
         <Divider />
-        <FormInput
-          data-cy="roles-content__input__name"
-          rules={{ required: ValidationRules.required }}
-          label="Наименование роли"
-          name="name"
-          control={control}
-        />
-        <FormInput
-          data-cy="roles-content__input__external-group"
-          disabled={!isExternalGroup}
-          label="Группы ЕСК"
-          name="externalGroup"
-          control={control}
-        />
+        <div className="roles-content__wrap-input">
+          <FormInput
+            data-cy="roles-content__input__name"
+            rules={{ required: ValidationRules.required }}
+            label="Наименование&nbsp;роли"
+            name="name"
+            control={control}
+          />
+          <FormInput
+            data-cy="roles-content__input__external-group"
+            disabled={!isExternalGroup}
+            label="Группы ЕСК"
+            name="externalGroup"
+            control={control}
+          />
+        </div>
         {renderFormTable()}
       </form>
     </>
