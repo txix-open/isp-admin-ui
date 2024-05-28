@@ -4,7 +4,8 @@ import {
   EditOutlined,
   EyeOutlined,
   HistoryOutlined,
-  SwapOutlined
+  SwapOutlined,
+  EllipsisOutlined
 } from '@ant-design/icons'
 import { Button, Dropdown, Popconfirm, Tooltip } from 'antd'
 import { FC } from 'react'
@@ -82,7 +83,7 @@ const ActiveTableActionButtons: FC<ActiveTableActionButtonsPropsType> =
             </Tooltip>
           </CanEdit>
           <Dropdown dropdownRender={() => renderDropDown(record)}>
-            <Button>...</Button>
+          <Button icon={<EllipsisOutlined />} />
           </Dropdown>
         </>
       )
