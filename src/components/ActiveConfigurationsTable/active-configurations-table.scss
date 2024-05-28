@@ -41,4 +41,9 @@
       background: $blue-color-2 !important;
     }
   }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
 }

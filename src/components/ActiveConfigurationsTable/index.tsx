@@ -191,9 +191,21 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
     const className = `active-configurations-table__table ${isActiveTable ? 'active-config' : ''}`
     return (
       <div className="active-configurations-table">
-        <h2 className="active-configurations-table__title">
-          {isActiveTable ? 'Активная конфигурация' : 'Другие конфигурации'}
-        </h2>
+        <div className="active-configurations-table__buttons">
+          <h2 className="active-configurations-table__title">
+            {isActiveTable ? 'Активная' : 'Остальные'}
+          </h2>
+          {!isActiveTable && <CanEdit>
+            <Button
+              className="configurations__buttons__new-config-brn"
+              onClick={() => {
+                // TODO создание новой конфигурации
+              }}
+            >
+              Создать
+            </Button>
+          </CanEdit>}
+        </div>
         <Table
           className={className}
           rowKey={(record) => record.id}
