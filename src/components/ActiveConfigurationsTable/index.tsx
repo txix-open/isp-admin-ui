@@ -151,7 +151,7 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
         align: 'center'
       },
       {
-        title: 'Статус конфигурации',
+        title: 'Статус',
         dataIndex: 'valid',
         key: 'version',
         align: 'center',

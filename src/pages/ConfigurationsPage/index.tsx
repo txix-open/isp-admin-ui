@@ -98,7 +98,7 @@ const Configurations = () => {
           className="configurations____buttons__show-schema-btn"
           onClick={() => setIsModalOpen(true)}
         >
-          Текущая схема конфигурации
+          Текущая схема
         </Button>
         <CanEdit>
           <Button

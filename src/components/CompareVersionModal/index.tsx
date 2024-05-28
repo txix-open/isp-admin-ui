@@ -45,7 +45,7 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   const columns: ColumnsType<VersionType> = [
     {
       key: 'configVersion',
-      title: 'Версия конфигурации',
+      title: 'Версия',
       dataIndex: 'configVersion'
     },
     {
