@@ -223,7 +223,8 @@ const UserEditor = () => {
 
           <div className="user-editor__content__roles">
             <FormComponents.FormSelect
-              label="Добавить роль"
+              mode="multiple"
+              label="Роли"
               optionFilterProp="label"
               disabled={!hasPermission(PermissionKeysType.write)}
               control={control}

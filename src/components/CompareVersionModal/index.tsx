@@ -71,7 +71,7 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   ]
   return (
     <div className="compare-version-modal">
-      <Modal title="Сравнение версий" open={open} onClose={onClose}>
+      <Modal title="Выберите версию для сравнения" open={open} onClose={onClose}>
         {selectedItem ? (
           <div className="compare-version-modal__content">
             <Button onClick={() => setSelectedItem(undefined)}>Назад</Button>
