@@ -177,7 +177,7 @@ const ModulesPage = () => {
                   size="small"
                   showZero
                   count={(item.status && item.status.length) || 0}
-                  color={!item.status || !item.status.length ? '' : 'blue'}
+                  color={!item.status || !item.status.length ? '' : 'cyan'}
                 />
               </div>
             }
