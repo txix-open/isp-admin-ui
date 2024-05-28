@@ -150,7 +150,10 @@ const ApplicationsPage = () => {
   const handleRemoveApplicationsGtoup = () => {
     deleteApplicationsGroup([Number(selectedItemId)])
       .unwrap()
-      .then(() => message.success('Элемент удален'))
+      .then(() => {
+        message.success('Элемент удален')
+        navigate(routePaths.applicationsGroup)
+      })
       .catch(() => message.error('Ошибка удаления элемента'))
   }
 

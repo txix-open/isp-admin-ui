@@ -120,17 +120,20 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
 
     createApplicationService(newApplicationApp)
       .unwrap()
-      .then(message.success('Элемент сохранен'))
-      .catch((e) => message.error(e))
-    setShowApplicationsModal({
+      .then(() => message.success('Элемент сохранен'))
+      .catch(() => message.error('Ошибка добавления элемента')).finally(()=> setShowApplicationsModal({
       ...showApplicationsModal,
       addModal: false
-    })
+    }))
+
   }
   const handleRemoveApplicationApp = (id: number) =>
     removeApplicationsService([id])
       .unwrap()
-      .then(() => message.success('Элемент удален'))
+      .then(() => {
+        message.success('Элемент удален')
+        navigate(`${routePaths.applicationsGroup}/${selectedItemId}/${routePaths.application}`)
+      })
       .catch(() => message.error('Ошибка удаления элемента'))
 
   const renderColumnItems = (item: ColumnItem<any>) => {

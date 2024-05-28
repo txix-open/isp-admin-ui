@@ -49,7 +49,8 @@ const ModulesPage = () => {
 
   useEffect(() => {
     if (!isPageAvailable) {
-      navigate(routePaths.error)
+      navigate(routePaths.profile)
+      message.error('Страница не найдена')
     }
   }, [isPageAvailable])
 
