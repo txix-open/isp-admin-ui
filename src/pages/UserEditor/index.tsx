@@ -194,13 +194,6 @@ const UserEditor = () => {
               name="lastName"
             />
           </div>
-          <div className="user-editor__content__description">
-            <FormComponents.FormInput
-              label="Описание"
-              control={control}
-              name="description"
-            />
-          </div>
           <div className="user-editor__content__email">
             <FormComponents.FormInput
               label="Email"
@@ -220,7 +213,14 @@ const UserEditor = () => {
               />
             </div>
           )}
-
+          <div className="user-editor__content__description">
+            <FormComponents.FormTextArea
+              autoSize={{ minRows: 2, maxRows: 6 }}
+              label="Описание"
+              control={control}
+              name="description"
+            />
+          </div>
           <div className="user-editor__content__roles">
             <FormComponents.FormSelect
               mode="multiple"
