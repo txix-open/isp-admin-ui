@@ -39,6 +39,8 @@
   }
   &__title {
     color: $grey;
+    font-size: 17px;
+    padding: 0 10px;
   }
   &__content {
     padding: 10px;
@@ -58,7 +60,6 @@
 
 body.modal-open {
   overflow: hidden;
-  padding-right: 14px;
 }
 
 

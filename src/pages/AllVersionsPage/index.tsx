@@ -108,6 +108,7 @@ const AllVersionsPage = () => {
   const renderActionsField = (_: unknown, record: VersionType) => {
     return (
       <div className="all-version-page__actions-field">
+        <Button.Group className="button_group">
         <CanEdit>
           <Tooltip title="Установить выбранную версию">
             <Popconfirm
@@ -144,13 +145,14 @@ const AllVersionsPage = () => {
             <Button danger icon={<DeleteOutlined />} />
           </Popconfirm>
         </CanEdit>
+        </Button.Group>
       </div>
     )
   }
   const columns: ColumnsType<VersionType> = [
     {
       key: 'configVersion',
-      title: 'Версия конфигурации',
+      title: 'Версия',
       dataIndex: 'configVersion'
     },
     {

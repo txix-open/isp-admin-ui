@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
 import ActiveConfigurationsTable from '@components/ActiveConfigurationsTable'
-import CanEdit from '@components/CanEdit'
 import CompareVersionModal from '@components/CompareVersionModal'
 import ConfigSchemaModal from '@components/ConfigSchemaModal'
 import ConfigurationPreviewModal from '@components/ConfigurationPreviewModal'
@@ -98,19 +97,8 @@ const Configurations = () => {
           className="configurations____buttons__show-schema-btn"
           onClick={() => setIsModalOpen(true)}
         >
-          Текущая схема конфигурации
+          Текущая схема
         </Button>
-        <CanEdit>
-          <Button
-            type="primary"
-            className="configurations__buttons__new-config-brn"
-            onClick={() => {
-              // TODO создание новой конфигурации
-            }}
-          >
-            Создать конфигурацию
-          </Button>
-        </CanEdit>
       </div>
       <ActiveConfigurationsTable
         isActiveTable

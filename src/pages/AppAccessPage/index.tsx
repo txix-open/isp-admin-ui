@@ -81,6 +81,7 @@ const AppAccessPage = () => {
   return (
     <section className="app-access-page">
       <Column
+        title="Приложения"
         showUpdateBtn={false}
         showAddBtn={false}
         showRemoveBtn={false}

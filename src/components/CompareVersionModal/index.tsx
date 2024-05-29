@@ -45,7 +45,7 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   const columns: ColumnsType<VersionType> = [
     {
       key: 'configVersion',
-      title: 'Версия конфигурации',
+      title: 'Версия',
       dataIndex: 'configVersion'
     },
     {
@@ -71,13 +71,13 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   ]
   return (
     <div className="compare-version-modal">
-      <Modal title="Сравнение версий" open={open} onClose={onClose}>
+      <Modal title="Выберите версию для сравнения" open={open} onClose={onClose}>
         {selectedItem ? (
           <div className="compare-version-modal__content">
             <Button onClick={() => setSelectedItem(undefined)}>Назад</Button>
             <div className="compare-version-modal__header">
               <span> Версия: {selectedItem.configVersion}</span>
-              <span>Текущая версия : {config?.version || config?.configVersion}</span>
+              <span>{config?.version ? `Текущая версия : ${config?.version}` : `Версия: ${config?.configVersion}`}</span>
             </div>
             <CodeMirrorMerge orientation="a-b">
               <Original

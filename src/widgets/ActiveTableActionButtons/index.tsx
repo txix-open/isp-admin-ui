@@ -4,7 +4,8 @@ import {
   EditOutlined,
   EyeOutlined,
   HistoryOutlined,
-  SwapOutlined
+  SwapOutlined,
+  EllipsisOutlined
 } from '@ant-design/icons'
 import { Button, Dropdown, Popconfirm, Tooltip } from 'antd'
 import { FC } from 'react'
@@ -77,30 +78,32 @@ const ActiveTableActionButtons: FC<ActiveTableActionButtonsPropsType> =
       return (
         <>
           <CanEdit>
-            <Tooltip key="3" title="Сделать конфигурацию активной">
+            <Tooltip key="3" title="Сделать активной">
               <Button onClick={() => handleMarkConfigActive(record)} icon={<AlertOutlined />} />
             </Tooltip>
           </CanEdit>
           <Dropdown dropdownRender={() => renderDropDown(record)}>
-            <Button>...</Button>
+          <Button icon={<EllipsisOutlined />} />
           </Dropdown>
         </>
       )
     }
     return (
       <div className="active-configurations-table-actions-field">
-        <Tooltip title="Просмотр конфигурации">
+        <Button.Group className="button_group">
+        <Tooltip title="Просмотр">
           <Button
             onClick={() => handleShowConfig(record)}
             icon={<EyeOutlined />}
           />
         </Tooltip>
         <CanEdit>
-          <Tooltip title="Редактировать конфигурацию">
+          <Tooltip title="Редактировать">
             <Button icon={<EditOutlined />} />
           </Tooltip>
         </CanEdit>
         {renderAdditionalButtons()}
+        </Button.Group>
       </div>
     )
   }
