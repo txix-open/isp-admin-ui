@@ -49,7 +49,8 @@ const ModulesPage = () => {
 
   useEffect(() => {
     if (!isPageAvailable) {
-      navigate(routePaths.error)
+      navigate(routePaths.profile)
+      message.error('Страница не найдена')
     }
   }, [isPageAvailable])
 
@@ -176,7 +177,7 @@ const ModulesPage = () => {
                   size="small"
                   showZero
                   count={(item.status && item.status.length) || 0}
-                  color={!item.status || !item.status.length ? '' : 'blue'}
+                  color={!item.status || !item.status.length ? '' : 'cyan'}
                 />
               </div>
             }

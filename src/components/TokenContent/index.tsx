@@ -163,16 +163,16 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       title: 'Действия',
       dataIndex: 'token',
       key: 'actions',
-      render: (value) => {
+      render: (value, record) => {
         return (
           <Button.Group>
             <Tooltip title="Скопировать">
-              <Button icon={<CopyOutlined />} data-clipboard-text={value} />
+              <Button className="copy-btn" icon={<CopyOutlined />} data-clipboard-text={value} />
             </Tooltip>
             <Tooltip title="Удалить">
               <Popconfirm
                 title="Закончить эту сессию?"
-                onConfirm={() => handleRevokeToken(value)}
+                onConfirm={() => handleRevokeToken(record)}
               >
                 <Button icon={<DeleteOutlined />} />
               </Popconfirm>

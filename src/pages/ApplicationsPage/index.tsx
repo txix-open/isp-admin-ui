@@ -40,7 +40,7 @@ const ApplicationsPage = () => {
     data: applicationsGroup = [],
     isError: isErrorApplicationsGroup,
     isLoading: isLoadingApplicationsGroup
-  } = applicationsGroupApi.useGetApplicationsGroupByDomainIdQuery({ id: 2 })
+  } = applicationsGroupApi.useGetApplicationsGroupByDomainIdQuery({ id: 1 })
 
   const [createApplicationsGroup] =
     applicationsGroupApi.useCreateApplicationsGroupMutation()
@@ -110,7 +110,7 @@ const ApplicationsPage = () => {
     const newService: NewApplicationsGroupType = {
       name: data.name,
       description: data.description,
-      domainId: 2
+      domainId: 1
     }
     createApplicationsGroup(newService)
       .unwrap()
@@ -134,7 +134,7 @@ const ApplicationsPage = () => {
     const updateService: UpdateApplicationsGroupType = {
       name: data.name,
       description: data.description,
-      domainId: 2,
+      domainId: 1,
       id: Number(selectedItemId)
     }
 
@@ -150,7 +150,10 @@ const ApplicationsPage = () => {
   const handleRemoveApplicationsGtoup = () => {
     deleteApplicationsGroup([Number(selectedItemId)])
       .unwrap()
-      .then(() => message.success('Элемент удален'))
+      .then(() => {
+        message.success('Элемент удален')
+        navigate(routePaths.applicationsGroup)
+      })
       .catch(() => message.error('Ошибка удаления элемента'))
   }
 

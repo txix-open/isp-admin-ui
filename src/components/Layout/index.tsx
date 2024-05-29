@@ -72,7 +72,7 @@ const LayoutComponent = () => {
       icon: <DefaultUser />
     },
     {
-      label: 'Группы приложений',
+      label: 'Приложения',
       key: 'applications_group',
       className: hideItem([PermissionKeysType.read]),
       icon: <AppstoreAddOutlined />

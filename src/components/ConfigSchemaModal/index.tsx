@@ -15,7 +15,7 @@ const ConfigSchemaModal: FC<ConfigSchemaModalPropsType> = ({
 }) => {
   return (
     <div className="config-schema-modal">
-      <Modal title="Текущая схема конфигурации" open={open} onClose={onClose}>
+      <Modal title="Текущая схема" open={open} onClose={onClose}>
         <JsonSchemaViewer schema={schema} />
       </Modal>
     </div>
