@@ -139,8 +139,8 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
   const renderColumnItems = (item: ColumnItem<any>) => {
     return (
       <List.Item>
-        <Tooltip mouseEnterDelay={1} title={item.name}>
-          <List.Item.Meta title={item.name} />
+        <Tooltip mouseEnterDelay={1.3} title={item.name}>
+          <List.Item.Meta title={item.name} description={item.description} />
           <div
             className="link-btn"
             onClick={(e) => {
@@ -148,7 +148,9 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
               navigate(`/appAccess/${item.id}`)
             }}
           >
-            <LinkOutlined />
+            <Tooltip title="Доступы приложений">
+              <FileProtectOutlined />
+            </Tooltip>
           </div>
         </Tooltip>
       </List.Item>
