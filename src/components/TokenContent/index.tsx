@@ -135,11 +135,19 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       dataIndex: 'expireTime',
       key: 'expireTime',
       render: (value, record) => {
-        const formatTime = dayjs(record.createdAt)
-          .add(record.expireTime)
-          .format(dateFormats.fullFormat)
 
-        return value > 0 ? <span>{formatTime}</span> : <span> Никогда </span>
+        if (value === -1) {
+          return <span>Никогда</span>
+        }
+
+        const dateNow = dayjs()
+        const expireTime = dayjs(record.createdAt).add(value)
+        if (expireTime.isBefore(dateNow)) {
+          return <span>Просрочен</span>
+        }
+
+        const formatTime = expireTime.format(dateFormats.fullFormat)
+        return <span>{formatTime}</span>
       }
     },
     {
