@@ -114,11 +114,6 @@ const TokenContent = ({ id }: TokenPropTypes) => {
 
   const columns: ColumnsType<ApplicationTokenType> = [
     {
-      title: 'ID',
-      dataIndex: 'appId',
-      key: 'appId'
-    },
-    {
       title: 'Токен',
       dataIndex: 'token',
       key: 'token',
@@ -133,18 +128,6 @@ const TokenContent = ({ id }: TokenPropTypes) => {
           dateFormats.fullFormat
         )
         return <div>{formatTime}</div>
-      }
-    },
-    {
-      title: 'Срок действия',
-      dataIndex: 'expireTime',
-      key: 'expireTime',
-      render: (value) => {
-        const time = dayjs.duration(value).humanize()
-        if (value > 0) {
-          return <div>{time}</div>
-        }
-        return <div>Отсутствует</div>
       }
     },
     {
