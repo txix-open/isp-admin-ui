@@ -1,4 +1,4 @@
-import { Divider, Table, message } from 'antd'
+import { Divider, message, Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { FormComponents } from 'isp-ui-kit'
 import { useEffect, useState } from 'react'
@@ -18,6 +18,7 @@ import useRole from '@hooks/useRole.tsx'
 import { PermissionKeysType, RoleType } from '@type/roles.type.ts'
 
 import './roles-content.scss'
+
 
 const newRole: Partial<RoleType> = {
   externalGroup: '',
@@ -46,6 +47,7 @@ const RolesContent = ({
   const {
     control,
     formState: { isDirty },
+    setError,
     getValues,
     reset
   } = useForm<RoleType>({
@@ -79,7 +81,7 @@ const RolesContent = ({
     }
     const formValue = getValues()
     formValue.changeMessage = changeMessage
-    saveRole(formValue)
+    saveRole(formValue, setError)
     setOpenModal(false)
   }
 

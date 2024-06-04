@@ -1,6 +1,7 @@
-import { List, Spin, message, Tooltip } from 'antd'
+import { List, message, Spin, Tooltip } from 'antd'
 import { Layout } from 'isp-ui-kit'
 import { useEffect } from 'react'
+import { UseFormSetError } from 'react-hook-form'
 import {
   createSearchParams,
   useLocation,
@@ -23,6 +24,7 @@ import { routePaths } from '@routes/routePaths.ts'
 import { NewRoleType, PermissionKeysType, RoleType } from '@type/roles.type.ts'
 
 import './roles-page.scss'
+
 
 const { Column, EmptyData, NoData } = Layout
 
@@ -89,25 +91,44 @@ const RolesPage = () => {
 
   const handeOnAddItem = () => setSelectedItemId('new')
 
-  const handleUpdateRole = (formValue: RoleType | NewRoleType) => {
+  const handleUpdateRole = (
+    formValue: RoleType | NewRoleType,
+    setError: UseFormSetError<RoleType>
+  ) => {
     updateRole(formValue as RoleType)
       .unwrap()
       .then(() => {
         message.success('Элемент успешно добавлен').then()
       })
-      .catch(() => message.error('Не удалось сохранить роль'))
+      .catch((error) => {
+        const { status } = error
+        if (status === 409) {
+          setError('name', {
+            message: 'Роль с таким названием уже существует'
+          })
+        }
+        message.error('Не удалось сохранить роль')
+      })
   }
 
-  const handleCreateRole = (formValue: NewRoleType) => {
+  const handleCreateRole = (
+    formValue: NewRoleType,
+    setError: UseFormSetError<NewRoleType>
+  ) => {
     createRole(formValue)
       .unwrap()
       .then((res) => {
         message.success('Элемент успешно добавлен').then()
         setSelectedItemId(res.id.toString())
       })
-      .catch(() => {
+      .catch((error) => {
+        const { status } = error
+        if (status === 409) {
+          setError('name', {
+            message: 'Роль с таким названием уже существует'
+          })
+        }
         message.error('Не удалось добавить роль').then()
-        setSelectedItemId('')
       })
   }
 
