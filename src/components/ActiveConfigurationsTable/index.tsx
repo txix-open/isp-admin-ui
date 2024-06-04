@@ -207,6 +207,7 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
           </CanEdit>}
         </div>
         <Table
+          rowHoverable={false}
           className={className}
           rowKey={(record) => record.id}
           pagination={false}
