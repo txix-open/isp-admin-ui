@@ -38,8 +38,8 @@ const LoginPage = () => {
   }
 
   const handleError = (err: AxiosError<MSPError>): void => {
-    const { response } = err
-    if (response && response.status === 401) {
+    const { response,status } = err
+    if (response && status === 401) {
       setFormError(response.statusText, messages.loginError)
     } else {
       setFormError('serverError', messages.serverError)

@@ -1,6 +1,6 @@
 import {
   AppstoreAddOutlined,
-  LockOutlined,
+  FileProtectOutlined,
   ProductOutlined,
   ProfileOutlined
 } from '@ant-design/icons'
@@ -81,7 +81,7 @@ const LayoutComponent = () => {
       label: 'Доступы приложений',
       key: 'appAccess',
       className: hideItem([PermissionKeysType.read]),
-      icon: <LockOutlined />
+      icon: <FileProtectOutlined />
     },
     {
       label: 'Модули',

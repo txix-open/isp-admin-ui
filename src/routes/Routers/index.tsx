@@ -4,9 +4,13 @@ import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import LayoutComponent from '@components/Layout'
+ //  Составная часть основной страницы, поэтому без lazy
+import Configurations from '@pages/ConfigurationsPage'
+import Connections from '@pages/ConnectionsPage'
 
 import PrivateRoute from '@routes/PrivateRoute'
 import { routePaths } from '@routes/routePaths.ts'
+
 
 const { ErrorPage } = Layout
 
@@ -19,9 +23,7 @@ const SessionsPage = lazy(() => import('@pages/SessionsPage'))
 const SecurityLogPage = lazy(() => import('@pages/SecurityLogPage'))
 const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
 const ModulesPage = lazy(() => import('@pages/ModulesPage'))
-const Connections = lazy(() => import('src/pages/ConnectionsPage'))
 const ApplicationsPage = lazy(() => import('@pages/ApplicationsPage'))
-const Configurations = lazy(() => import('src/pages/ConfigurationsPage'))
 const AllVersionsPage = lazy(() => import('@pages/AllVersionsPage'))
 
 const Routers = () => {
@@ -158,7 +160,11 @@ const Routers = () => {
             <Route path=":id">
               <Route
                 path={routePaths.configurations}
-                element={<Configurations />}
+                element={
+                  <Suspense fallback={<Spin />}>
+                    <Configurations />
+                  </Suspense>
+                }
               >
                 <Route
                   path={routePaths.allVersions}

@@ -2,13 +2,16 @@ import {
   DeleteOutlined,
   EditOutlined,
   LockOutlined,
-  UnlockOutlined,
-  PlusSquareOutlined
+  PlusSquareOutlined,
+  UnlockOutlined
 } from '@ant-design/icons'
-import { Button, Popconfirm, Spin, Table, message, Tooltip } from 'antd'
+import { Button, message, Popconfirm, Spin, Table, Tag, Tooltip } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import dayjs from 'dayjs'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { dateFormats } from '@constants/date.ts'
 
 import CanEdit from '@components/CanEdit'
 
@@ -25,8 +28,7 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { UserType } from '@type/user.type.ts'
 
 import './users-page.scss'
-import dayjs from 'dayjs'
-import { dateFormats } from '@constants/date.ts'
+
 
 const UsersPage = () => {
   const { data: allUsers = [], isLoading: isUsersLoading } =
@@ -76,6 +78,32 @@ const UsersPage = () => {
       .catch(() => message.error(<>{errorMessage}</>))
   }
 
+  const renderBlockButton = (userData: UserType) => {
+    const { blocked, id } = userData
+
+    const popConfirmTitle = blocked
+      ? 'Вы действительно хотите разблокировать этого пользователя?'
+      : 'Вы действительно хотите заблокировать этого пользователя?'
+
+    const tooltipTitle = blocked
+      ? 'Разблокировать пользователя'
+      : 'Заблокировать пользователя'
+
+    const icon = blocked ? <UnlockOutlined /> : <LockOutlined />
+
+    return (
+      <Popconfirm title={popConfirmTitle} onConfirm={() => handleBlockUser(id)}>
+        <Tooltip key="LockOutlined" title={tooltipTitle}>
+          <Button
+            data-cy={`users-page__content__table__actions__lock-btn ${id}`}
+            className="users-page__content__table__actions__lock-btn"
+            icon={icon}
+          />
+        </Tooltip>
+      </Popconfirm>
+    )
+  }
+
   if (isLoading) {
     return <Spin />
   }
@@ -100,7 +128,14 @@ const UsersPage = () => {
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email'
+      key: 'email',
+      render: (value, record) => {
+        if(record.blocked){
+          return <div>{value} <Tag color="red">Заблокирован</Tag></div>
+        }
+
+        return value
+      }
     },
     {
       title: 'Роль',
@@ -126,37 +161,17 @@ const UsersPage = () => {
       dataIndex: 'lastSessionCreatedAt',
       key: 'lastSessionCreatedAt',
       render: (value: string) =>
-        value ?  dayjs(value).format(dateFormats.fullFormat) : ''
+        value ? dayjs(value).format(dateFormats.fullFormat) : ''
     },
     {
       dataIndex: 'actions',
       key: 'actions',
       render: (_, record) => {
-        const blockTitle = record.blocked
-          ? 'Вы действительно хотите разблокировать этого пользователя?'
-          : 'Вы действительно хотите заблокировать этого пользователя?'
         return (
           <div className="users-page__content__table__actions">
             <CanEdit>
               <Button.Group className="button_group">
-                <Popconfirm
-                  title={blockTitle}
-                  onConfirm={() => handleBlockUser(record.id)}
-                >
-                  <Tooltip
-                    key="LockOutlined"
-                    title="Заблокировать пользователя"
-                  >
-                    <Button
-                      data-cy={`users-page__content__table__actions__lock-btn ${record.id}`}
-                      className="users-page__content__table__actions__lock-btn"
-                      danger={record.blocked}
-                      icon={
-                        record.blocked ? <LockOutlined /> : <UnlockOutlined />
-                      }
-                    />
-                  </Tooltip>
-                </Popconfirm>
+                {renderBlockButton(record)}
                 <Tooltip key="EditOutlined" title="Редактировать пользователя">
                   <Button
                     data-cy={`users-page__content__table__actions__edit-btn ${record.id}`}
