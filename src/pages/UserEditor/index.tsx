@@ -52,7 +52,7 @@ const UserEditor = () => {
     getValues,
     setValue,
     watch,
-    reset
+    setError
   } = useForm<UserType>({
     defaultValues: isNew
       ? {
@@ -108,7 +108,13 @@ const UserEditor = () => {
           message.success('Пользователь успешно создан')
           navigate(routePaths.users)
         })
-        .catch(() => {
+        .catch((error) => {
+          const { status } = error
+          if (status === 409) {
+            setError('email', {
+              message: 'Пользователь с таким Email уже существует'
+            })
+          }
           message.error('Произошла ошибка создания пользователя')
         })
     } else {
@@ -118,9 +124,15 @@ const UserEditor = () => {
         .unwrap()
         .then(() => {
           message.success('Пользователь успешно изменен')
-          reset({}, { keepValues: true })
+          navigate(routePaths.users)
         })
-        .catch(() => {
+        .catch((error) => {
+          const { status } = error
+          if (status === 409) {
+            setError('email', {
+              message: 'Пользователь с таким Email уже существует'
+            })
+          }
           message.error('Произошла ошибка обновления пользователя')
         })
     }
@@ -169,7 +181,9 @@ const UserEditor = () => {
             {state.lastSessionCreatedAt && (
               <>
                 Последняя сессия &nbsp;
-                {dayjs(state.lastSessionCreatedAt).format(dateFormats.fullFormat)}
+                {dayjs(state.lastSessionCreatedAt).format(
+                  dateFormats.fullFormat
+                )}
               </>
             )}
           </span>
