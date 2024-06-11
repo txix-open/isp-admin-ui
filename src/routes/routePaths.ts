@@ -16,6 +16,7 @@ type RoutePaths =
   | 'connections'
   | 'configurations'
   | 'allVersions'
+  | 'configEditor'
 
 export const routePaths: Record<RoutePaths, string> = {
   home: '/',
@@ -34,5 +35,6 @@ export const routePaths: Record<RoutePaths, string> = {
   application: 'application',
   connections: 'connections',
   configurations: 'configurations',
-  allVersions: ':configId/all_versions'
+  allVersions: ':configId/all_versions',
+  configEditor: 'configEditor',
 }
