@@ -1,0 +1,76 @@
+@import "../../constants/style/styleConst";
+
+.configuration-editor-page {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  height: 100%;
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none;
+  border-left: 1px solid $border-color;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .react-json-view {
+    margin: $basic-margin *3 0 $basic-margin *2 0;
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: $basic-padding *2 $basic-padding;
+    border-bottom: 1px solid $border-color;
+  }
+  &__controll{
+    display: flex;
+  }
+
+  &__save-btn {
+    width: auto;
+    margin-left: $basic-margin;
+  }
+  &__content {
+    padding: $basic-padding * 3  $basic-padding;
+  }
+
+  .rjsf {
+    display: flex;
+
+    .form-group {
+      width: 100%;
+    }
+    .ant-form-item-label {
+      text-align: start;
+    }
+    .ant-tabs-right {
+      width: 100%;
+      justify-content: space-between;
+    }
+    .ant-col-8 .ant-form-item-label {
+      margin-right: $basic-margin *2;
+    }
+
+  }
+  .ant-btn-group {
+    margin-top: 40px;
+  }
+  .ant-row .ant-row-end {
+    width: 60px;
+    margin: 0 0 $basic-margin auto !important;
+  }
+  &__form {
+    padding: $basic-padding;
+  }
+  .modal__wrap {
+    min-height: 110px;
+  }
+  .confirm-btn {
+    width: 190px;
+  }
+  .confirm-btn, .danger {
+    margin-right: $basic-margin;
+  }
+  .error-data {
+    color: red;
+    font-size: 16px;
+  }
+}
