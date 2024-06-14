@@ -2,11 +2,9 @@
 
 .modules-page {
   height: 100%;
-
   &__tabs {
-    padding: 0 $basic-padding*2 $basic-padding*2;
+    padding: 0 $basic-padding*2;
     width: 100%;
-    overflow-x: scroll;
   }
 
   .ant-tag {

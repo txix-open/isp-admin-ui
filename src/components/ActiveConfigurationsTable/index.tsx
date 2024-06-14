@@ -17,6 +17,8 @@ import './active-configurations-table.scss'
 import dayjs from 'dayjs'
 import CanEdit from '@components/CanEdit'
 import { dateFormats } from '@constants/date.ts'
+import { routePaths } from '@routes/routePaths.ts'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
@@ -24,7 +26,8 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
      isActiveTable = false,
      handleShowConfig,
      handleShowCompareModal,
-     data
+     data,
+    currentModule = {}
    }) => {
     const [editKeyConfig, setEditKeyConfig] = useState<string>('')
     const [tempEditValues, setTempEditValues] = useState<any>()
@@ -32,7 +35,8 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
     const [createUpdateConfig] = configApi.useCreateUpdateConfigMutation()
     const [markConfigAsActive] = configApi.useMarkConfigAsActiveMutation()
     const [deleteConfig] = configApi.useDeleteConfigMutation()
-
+    const navigate = useNavigate()
+    const {id: moduleId} = useParams()
 
     useEffect(() => {
       if (inputRefs.current[editKeyConfig]) {
@@ -198,9 +202,7 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
           {!isActiveTable && <CanEdit>
             <Button
               className="configurations__buttons__new-config-brn"
-              onClick={() => {
-                // TODO создание новой конфигурации
-              }}
+              onClick={() => navigate(`/${moduleId}/${routePaths.configEditor}/new`, {state: currentModule})}
             >
               Создать
             </Button>

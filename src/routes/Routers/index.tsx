@@ -4,7 +4,7 @@ import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import LayoutComponent from '@components/Layout'
- //  Составная часть основной страницы, поэтому без lazy
+//  Составная часть основной страницы, поэтому без lazy
 import Configurations from '@pages/ConfigurationsPage'
 import Connections from '@pages/ConnectionsPage'
 
@@ -25,6 +25,8 @@ const AppAccessPage = lazy(() => import('@pages/AppAccessPage'))
 const ModulesPage = lazy(() => import('@pages/ModulesPage'))
 const ApplicationsPage = lazy(() => import('@pages/ApplicationsPage'))
 const AllVersionsPage = lazy(() => import('@pages/AllVersionsPage'))
+const ConfigurationEditorPage = lazy(
+  () => import('@pages/ConfigurationEditorPage'))
 
 const Routers = () => {
   return (
@@ -148,6 +150,14 @@ const Routers = () => {
                 </Suspense>
               }
             />
+          </Route>
+          <Route path={`:moduleId/${routePaths.configEditor}/:id`}
+                 element={
+                   <Suspense fallback={<Spin />}>
+                     <ConfigurationEditorPage />
+                   </Suspense>
+                 }>
+
           </Route>
           <Route
             path={routePaths.modules}
