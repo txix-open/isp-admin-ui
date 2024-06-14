@@ -107,7 +107,7 @@ const ModulesPage = () => {
   }
 
   const versionCompare = (versions: string[]) => {
-    const sorted = versions?.sort(compareVersions)
+    const sorted = (versions || ['']).sort(compareVersions)
     const firstVersion = sorted[0]
     for (let i = 1; i < sorted.length; i++) {
       if (compareVersions(firstVersion, sorted[i]) !== 0) {
@@ -118,7 +118,7 @@ const ModulesPage = () => {
   }
 
   const getLastVersion = (versions: string[]) => {
-    const sorted = versions?.sort(compareVersions)
+    const sorted = (versions || ['']).sort(compareVersions)
     return sorted[sorted.length - 1]
   }
 
@@ -133,58 +133,58 @@ const ModulesPage = () => {
     : null
 
   const renderItems = (item: ModuleType) => {
-    const isSame = versionCompare(item.status.map((i) => i.version))
-    const textTooltip = isSame
-      ? 'Активны экземпляры одинаковых версий'
-      : 'Активны экземпляры разных версий'
-    const lastVersion = getLastVersion(item.status.map((i) => i.version))
+      const isSame = versionCompare(item?.status?.map((i) => i.version))
+      const textTooltip = isSame
+        ? 'Активны экземпляры одинаковых версий'
+        : 'Активны экземпляры разных версий'
+      const lastVersion = getLastVersion(item.status?.map((i) => i.version))
 
-    const renderVersion = () => {
-      if (!isSame && lastVersion) {
-        return (
-          <Tag icon={<ExclamationCircleOutlined />} color="warning">
-            {lastVersion}
-          </Tag>
-        )
+      const renderVersion = () => {
+        if (!isSame && lastVersion) {
+          return (
+            <Tag icon={<ExclamationCircleOutlined />} color="warning">
+              {lastVersion}
+            </Tag>
+          )
+        }
+        if (isSame && lastVersion) {
+          return <Tag color="default">{lastVersion}</Tag>
+        }
+        return ''
       }
-      if (isSame && lastVersion) {
-        return <Tag color="default">{lastVersion}</Tag>
-      }
-      return ''
-    }
 
-    return (
-      <List.Item>
-        <Tooltip mouseEnterDelay={1} title={item.name}>
-          <List.Item.Meta
-            title={
-              <div className="module-item__name">
-                <span>{item.name}</span>
-                <Tooltip
-                  overlayInnerStyle={{ width: '300px' }}
-                  title={textTooltip}
-                >
-                  {renderVersion()}
-                </Tooltip>
-              </div>
-            }
-            description={
-              <div className="module-item__content">
+      return (
+        <List.Item>
+          <Tooltip mouseEnterDelay={1} title={item.name}>
+            <List.Item.Meta
+              title={
+                <div className="module-item__name">
+                  <span>{item.name}</span>
+                  <Tooltip
+                    overlayInnerStyle={{ width: '300px' }}
+                    title={textTooltip}
+                  >
+                    {renderVersion()}
+                  </Tooltip>
+                </div>
+              }
+              description={
+                <div className="module-item__content">
                 <span className="module-item__content__description">
                   активные экземпляры:
                 </span>
-                <Badge
-                  size="small"
-                  showZero
-                  count={(item.status && item.status.length) || 0}
-                  color={!item.status || !item.status.length ? '' : 'cyan'}
-                />
-              </div>
-            }
-          />
-        </Tooltip>
-      </List.Item>
-    )
+                  <Badge
+                    size="small"
+                    showZero
+                    count={(item.status && item.status.length) || 0}
+                    color={!item.status || !item.status.length ? '' : 'cyan'}
+                  />
+                </div>
+              }
+            />
+          </Tooltip>
+        </List.Item>
+      )
   }
 
   const renderMainContent = () => {
@@ -220,25 +220,26 @@ const ModulesPage = () => {
         selectedItemId={selectedItemId}
         setSelectedItemId={setSelectedItemId}
       />
-      <Tabs
-        activeKey={activeTab}
-        onChange={(activeKey) => {
-          setActiveTab(activeKey)
-          const path = `${selectedItemId}/${activeKey}`
-          navigate(path)
-        }}
-        className="modules-page__tabs"
-        items={secondColumnItems.map((item) => {
-          return {
-            disabled: selectedItemId === '',
-            label: item.name,
-            key: item.key,
-            children: (
-              <div className="modules-page__content">{renderMainContent()}</div>
-            )
-          }
-        })}
-      />
+        <Tabs
+          activeKey={activeTab}
+          onChange={(activeKey) => {
+            setActiveTab(activeKey)
+            const path = `${selectedItemId}/${activeKey}`
+            navigate(path)
+          }}
+          className="modules-page__tabs"
+          items={secondColumnItems.map((item) => {
+            return {
+              disabled: selectedItemId === '',
+              label: item.name,
+              key: item.key,
+              children: (
+                <div className="modules-page__content">{renderMainContent()}</div>
+              )
+            }
+          })}
+        />
+
     </section>
   )
 }
