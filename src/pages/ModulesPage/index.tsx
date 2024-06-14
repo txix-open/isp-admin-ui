@@ -1,16 +1,17 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { Badge, List, message, Spin, Tabs, Tag, Tooltip } from 'antd'
+import { Badge, List, message, Spin, Tag, Tooltip } from 'antd'
 import { compareVersions } from 'compare-versions'
 import { Layout } from 'isp-ui-kit'
 import { useEffect, useState } from 'react'
 import {
   createSearchParams,
-  Outlet,
   useLocation,
   useNavigate,
   useParams,
   useSearchParams
 } from 'react-router-dom'
+
+import ModuleTabs from '@components/ModuleTabs'
 
 import { ModuleType } from '@pages/ModulesPage/module.type.ts'
 
@@ -26,7 +27,8 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './modules-page.scss'
 
-const { Column, EmptyData, NoData } = Layout
+
+const { Column } = Layout
 
 const ModulesPage = () => {
   const [activeTab, setActiveTab] = useState('configurations')
@@ -126,11 +128,9 @@ const ModulesPage = () => {
     return <Spin />
   }
 
-  const currentRole = ModulesList
-    ? ModulesList.find(
-        (item: ModuleType) => item.id.toString() === selectedItemId
-      )
-    : null
+  const currentModule = ModulesList.find(
+    (item: ModuleType) => item.id.toString() === selectedItemId
+  )
 
   const renderItems = (item: ModuleType) => {
       const isSame = versionCompare(item?.status?.map((i) => i.version))
@@ -187,25 +187,6 @@ const ModulesPage = () => {
       )
   }
 
-  const renderMainContent = () => {
-    if (!selectedItemId) {
-      return <EmptyData />
-    }
-
-    if (!currentRole) {
-      return <NoData />
-    }
-
-    return <Outlet />
-  }
-  const secondColumnItems = [
-    {
-      key: 'configurations',
-      name: 'Конфигурации'
-    },
-    { key: 'connections', name: 'Подключения' }
-  ]
-
   return (
     <section className="modules-page three-columns">
       <Column
@@ -220,26 +201,11 @@ const ModulesPage = () => {
         selectedItemId={selectedItemId}
         setSelectedItemId={setSelectedItemId}
       />
-        <Tabs
-          activeKey={activeTab}
-          onChange={(activeKey) => {
-            setActiveTab(activeKey)
-            const path = `${selectedItemId}/${activeKey}`
-            navigate(path)
-          }}
-          className="modules-page__tabs"
-          items={secondColumnItems.map((item) => {
-            return {
-              disabled: selectedItemId === '',
-              label: item.name,
-              key: item.key,
-              children: (
-                <div className="modules-page__content">{renderMainContent()}</div>
-              )
-            }
-          })}
-        />
-
+      <ModuleTabs
+        currentModule={currentModule}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
     </section>
   )
 }
