@@ -7,12 +7,12 @@ import { ConfigSchemaModalPropsType } from '@components/ConfigSchemaModal/config
 
 import './config-schema-modal.scss'
 
-
 const ConfigSchemaModal: FC<ConfigSchemaModalPropsType> = ({
   open,
   onClose,
-  schema
+  schema = {}
 }) => {
+
   return (
     <div className="config-schema-modal">
       <Modal title="Текущая схема" open={open} onClose={onClose}>
