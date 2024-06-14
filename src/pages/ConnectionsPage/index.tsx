@@ -1,6 +1,6 @@
 import { Spin, Table, Tag, Tooltip } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { AddressType, EndpointType, ModuleStatusType, ModuleType } from '@pages/ModulesPage/module.type.ts'
@@ -148,4 +148,4 @@ const Connections = () => {
   )
 }
 
-export default Connections
+export default memo(Connections)

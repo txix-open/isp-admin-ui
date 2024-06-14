@@ -1,5 +1,5 @@
 import { ReactJsonView } from 'isp-ui-kit'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import Modal from '@widgets/Modal'
 
@@ -33,4 +33,4 @@ const ConfigurationPreviewModal: FC<ConfigurationPreviewModalPropsType> = ({
   )
 }
 
-export default ConfigurationPreviewModal
+export default memo(ConfigurationPreviewModal)
