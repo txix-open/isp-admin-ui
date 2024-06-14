@@ -101,6 +101,7 @@ const Configurations = () => {
         </Button>
       </div>
       <ActiveConfigurationsTable
+        currentModule={currentModule}
         isActiveTable
         data={isError ? [] : activeConfigs}
         handleShowConfig={(config) => {
@@ -113,6 +114,7 @@ const Configurations = () => {
         }}
       />
       <ActiveConfigurationsTable
+        currentModule={currentModule}
         data={isError ? [] : inactiveConfigs}
         handleShowConfig={(config) => {
           setCurrentConfig(config)

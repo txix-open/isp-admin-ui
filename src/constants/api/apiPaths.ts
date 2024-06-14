@@ -52,6 +52,7 @@ type PathKeys =
   | 'deleteConfig'
   | 'markConfigAsActive'
   | 'getUI'
+  | 'getByModuleId'
 
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/kkd-configuration-service',
@@ -100,6 +101,7 @@ export const apiPaths: Record<PathKeys, string> = {
   // ======= MODULES ======
   getModules: '/module/get_modules_info',
   deleteModule: '/module/delete_module',
+  getByModuleId: '/schema/get_by_module_id',
   // ======= SERVICE ======
   getServiceById: '/service/get_service_by_id',
   getAllService: '/service/get_service',
