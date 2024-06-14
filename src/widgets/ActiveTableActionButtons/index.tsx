@@ -15,6 +15,7 @@ import { ActiveTableActionButtonsPropsType } from './active-table-action-buttons
 
 import './active-table-action-buttons.scss'
 import CanEdit from '@components/CanEdit'
+import { routePaths } from '@routes/routePaths.ts'
 
 const ActiveTableActionButtons: FC<ActiveTableActionButtonsPropsType> =
   ({
@@ -99,7 +100,9 @@ const ActiveTableActionButtons: FC<ActiveTableActionButtonsPropsType> =
         </Tooltip>
         <CanEdit>
           <Tooltip title="Редактировать">
-            <Button icon={<EditOutlined />} />
+            <Button onClick={() => {
+              navigate(`/${record.moduleId}/${routePaths.configEditor}/${record.id}`, { state: record })
+            }} icon={<EditOutlined />} />
           </Tooltip>
         </CanEdit>
         {renderAdditionalButtons()}
