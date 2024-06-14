@@ -1,5 +1,5 @@
 import { Button, Spin } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
 import ActiveConfigurationsTable from '@components/ActiveConfigurationsTable'
@@ -26,7 +26,7 @@ const Configurations = () => {
     data: modulesList = [],
     isLoading: isModulesLoading,
     isError: isModulesError
-  } = modulesServiceApi.useGetModulesQuery('modules')
+  } = modulesServiceApi.useGetModulesQuery('configurations')
   const { id: selectedItemId = '', configId = '' } = useParams()
   const {
     data = { originalResponse: [], activeConfigs: [], inactiveConfigs: [] },
@@ -129,4 +129,4 @@ const Configurations = () => {
   )
 }
 
-export default Configurations
+export default memo(Configurations)
