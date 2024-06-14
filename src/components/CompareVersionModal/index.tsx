@@ -1,7 +1,7 @@
 import { EditorState, EditorView } from '@uiw/react-codemirror'
 import { Button, Spin, Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import CodeMirrorMerge from 'react-codemirror-merge'
 
 import Modal from '@widgets/Modal'
@@ -114,4 +114,4 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   )
 }
 
-export default CompareVersionModal
+export default memo(CompareVersionModal)

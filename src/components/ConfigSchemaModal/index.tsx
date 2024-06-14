@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import JsonSchemaViewer from '@widgets/JSONViewer'
 import Modal from '@widgets/Modal'
@@ -22,4 +22,4 @@ const ConfigSchemaModal: FC<ConfigSchemaModalPropsType> = ({
   )
 }
 
-export default ConfigSchemaModal
+export default memo(ConfigSchemaModal)
