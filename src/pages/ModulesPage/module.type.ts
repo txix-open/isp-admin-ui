@@ -36,6 +36,7 @@ export interface ConfigType {
   updatedAt: string
   valid: boolean
   version: number
+  unsafe?: boolean
 }
 
 export interface JSONSchema {
@@ -88,6 +89,14 @@ export interface ModuleType {
   configSchema: JSONSchema
 }
 
+export interface ResponseSchemaType {
+  createdAt: string,
+  id: string,
+  moduleId: string,
+  schema: JSONSchema,
+  updatedAt: string,
+  version: string
+}
 export interface ConfigResponse {
   originalResponse: ConfigType[]
   activeConfigs: ConfigType[]
