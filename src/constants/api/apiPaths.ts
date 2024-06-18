@@ -53,6 +53,7 @@ type PathKeys =
   | 'markConfigAsActive'
   | 'getUI'
   | 'getByModuleId'
+  | 'changePassword'
 
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/kkd-configuration-service',
@@ -71,6 +72,7 @@ export const apiPaths: Record<PathKeys, string> = {
   // ======= PROFILE ======
   getProfile: '/api/admin/user/get_profile',
   getUI: '/api/admin/user/get_design',
+  changePassword: '/api/admin/user/change_password',
   // ======= USERS ======
   getUsers: '/get_users',
   createUser: '/create_user',
