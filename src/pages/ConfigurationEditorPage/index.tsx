@@ -152,6 +152,7 @@ const ConfigurationEditorPage: FC = () => {
           <RollbackOutlined />
           Назад
         </Button>
+        <h1>{bufConfig?.name}</h1>
         <div className="configuration-editor-page__controll">
           <Button
             disabled={!JsonSchema}
