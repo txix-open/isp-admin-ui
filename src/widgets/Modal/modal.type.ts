@@ -7,4 +7,5 @@ export interface ModalPropsType {
   title: string
   children: ReactNode
   footer?: { onOkText: string; onCanselText: string }
+  loading?: boolean
 }
