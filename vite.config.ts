@@ -16,11 +16,24 @@ export default defineConfig(({ mode }) => {
       APP_VERSION: JSON.stringify(process.env.npm_package_version)
     },
     build: {
-      sourcemap:true,
-      minify: 'terser',
+      minify: 'esbuild',
+      sourcemap: false,
       outDir: 'build',
       chunkSizeWarningLimit: 1600,
       commonjsOptions: { transformMixedEsModules: true },
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return id
+                .toString()
+                .split('node_modules/')[1]
+                .split('/')[0]
+                .toString()
+            }
+          }
+        }
+      }
     },
     server: {
       watch: {
@@ -33,6 +46,11 @@ export default defineConfig(({ mode }) => {
         '/api': env.PROXY_URL
       }
     },
-    plugins: [react(), svgr(), tsconfigPaths(), nodePolyfills()]
+    plugins: [
+      react(),
+      svgr(),
+      tsconfigPaths(),
+      nodePolyfills({ globals: { process: true } })
+    ]
   }
 })
