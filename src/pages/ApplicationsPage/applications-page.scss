@@ -3,7 +3,6 @@
 .applications-page {
   height: 100%;
   display: flex;
-  background: #fff;
 
   &__list {
     .ant-list-item {
@@ -21,14 +20,7 @@
     max-height: 100vh;
   }
 
-  .three-columns {
-    display: flex;
-    background: #fff;
-    box-shadow: inset -1px 0px 0px $border-color;
-    height: 100%;
-  }
-
   .modal__wrap{
-    min-width: 350px;
+    min-width: 380px;
   }
 }
