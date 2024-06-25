@@ -1,7 +1,7 @@
 import { EditorState, EditorView } from '@uiw/react-codemirror'
 import { Button, Spin, Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import { FC, memo, useState } from 'react'
+import { FC, memo, useContext, useState } from 'react'
 import CodeMirrorMerge from 'react-codemirror-merge'
 
 import Modal from '@widgets/Modal'
@@ -20,6 +20,7 @@ import { VersionType } from '@type/version.type'
 import './compare-version-modal.scss'
 import dayjs from 'dayjs'
 import { dateFormats } from '@constants/date.ts'
+import { Context } from '@stores/index.tsx'
 
 
 const Original = CodeMirrorMerge.Original
@@ -37,6 +38,7 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   const { data: allUsers = [], isLoading: isUsersLoading } =
     userServiceApi.useGetAllUsersQuery()
   const { profile } = useAppSelector((state) => state.profileReducer)
+  const { changeTheme } = useContext(Context)
   const isLoading = isVersionLoading || isUsersLoading
   if (isLoading) {
     return <Spin />
@@ -79,7 +81,10 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
               <span> Версия: {selectedItem.configVersion}</span>
               <span>{config?.version ? `Текущая версия : ${config?.version}` : `Версия: ${config?.configVersion}`}</span>
             </div>
-            <CodeMirrorMerge orientation="a-b">
+            <CodeMirrorMerge
+              orientation="a-b"
+              theme={changeTheme ? 'dark' : 'light'}
+            >
               <Original
                 value={JSON.stringify(sortObject(selectedItem.data), null, 2)}
               />
@@ -95,7 +100,6 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
         ) : (
           <div className="compare-version-modal__content__table">
             <Table
-              rowClassName="compare-version-modal__content__table__row"
               size="small"
               columns={columns}
               pagination={{ pageSize: 30 }}
