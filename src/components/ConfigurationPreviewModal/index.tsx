@@ -1,11 +1,12 @@
 import { ReactJsonView } from 'isp-ui-kit'
-import { FC, memo } from 'react'
+import { FC, memo, useContext } from 'react'
 
 import Modal from '@widgets/Modal'
 
 import { ConfigurationPreviewModalPropsType } from '@components/ConfigurationPreviewModal/configuration-preview-modal.type.ts'
 
 import './configuration-preview-modal.scss'
+import { Context } from '@stores/index.tsx'
 
 
 const ConfigurationPreviewModal: FC<ConfigurationPreviewModalPropsType> = ({
@@ -14,6 +15,7 @@ const ConfigurationPreviewModal: FC<ConfigurationPreviewModalPropsType> = ({
   open,
   onClose
 }) => {
+  const { changeTheme } = useContext(Context)
   const data = JSON.parse(JSON.stringify(config.data || {}))
   const configName = versionCompare
     ? `Версия: ${config.configVersion}`
@@ -22,6 +24,7 @@ const ConfigurationPreviewModal: FC<ConfigurationPreviewModalPropsType> = ({
     <div className="configuration-preview-modal">
       <Modal title={configName || ''} open={open} onClose={onClose}>
         <ReactJsonView
+          theme={ changeTheme ? 'twilight' : ''}
           src={data}
           name={false}
           sortKeys={true}

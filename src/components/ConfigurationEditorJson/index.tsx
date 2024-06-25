@@ -1,10 +1,12 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import {ConfigurationEditorPropsType} from '@pages/ConfigurationEditorPage'
 import { ReactJsonView } from 'isp-ui-kit'
 import {Spin} from 'antd'
 import { cleanEmptyParamsObject } from '@utils/objectUtils.ts'
+import { Context } from '@stores/index.tsx'
 
 const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({ bufConfig = {}, setBufConfig, isCurrentConfigLoading}) => {
+  const { changeTheme } = useContext(Context)
   if (isCurrentConfigLoading) {
     return <Spin className="spin" />
   }
@@ -19,9 +21,9 @@ const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({ bufConfig =
 
   return (
     <ReactJsonView
+      theme={ changeTheme ? 'twilight' : ''}
       onAdd={true}
       onDelete={({updated_src}: any) => handleEdit(updated_src)}
-
       displayDataTypes={false}
       displayObjectSize={false}
       name={null}
