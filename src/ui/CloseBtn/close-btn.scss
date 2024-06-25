@@ -5,4 +5,10 @@
   position: absolute;
   top: 8px;
   right: 8px;
+
+  svg {
+    path {
+      fill: var(--ant-color-text) !important;
+    }
+  }
 }
