@@ -188,7 +188,7 @@ const ModulesPage = () => {
   }
 
   return (
-    <section className="modules-page three-columns">
+    <section className="modules-page">
       <Column
         items={filterFirstColumnItems(ModulesList, searchValue)}
         showAddBtn={false}
