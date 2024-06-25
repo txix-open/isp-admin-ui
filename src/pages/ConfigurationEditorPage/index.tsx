@@ -92,8 +92,8 @@ const ConfigurationEditorPage: FC = () => {
     createUpdateConfig(cleanEmptyParamsObject(newData))
       .unwrap()
       .then(({ id }) => {
-        message.success('Конфигурация успешно сохранена')
         isNew && navigate(`/${moduleId}/configEditor/${id}`)
+        message.success('Конфигурация успешно сохранена')
       })
       .catch((e) => {
         if (e.data.errorCode === 2004) {
@@ -105,6 +105,7 @@ const ConfigurationEditorPage: FC = () => {
         if (e.data.errorCode === 400) {
           message.error('Невалидный JSON объект')
         }
+        message.error('Ошибка обновления элемента')
       })
   }
 
