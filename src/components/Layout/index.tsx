@@ -32,7 +32,10 @@ import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeysType } from '@type/roles.type.ts'
 
-import './layout.scss'
+
+
+import './layout.scss';
+
 
 const { Content, Sider } = Layout
 
@@ -138,17 +141,16 @@ const LayoutComponent = () => {
 
   useEffect(() => {
     const menuKey = location.pathname.split('/')[1] as MenuItemKeysType
-
+    const selectedKey = selectedMenuKeys[0] || ''
     const menuItem = menuKeys[menuKey]
 
-    if (menuItem) {
+    if (menuItem && menuKey !== selectedKey) {
       setSelectedMenuKeys([menuItem.key])
-      setOpenKeys(menuItem.parent)
-    } else {
-      setSelectedMenuKeys([])
-      setOpenKeys([])
+      if (selectedKey) {
+        setOpenKeys(menuItem.parent)
+      }
     }
-  }, [location])
+  }, [location.pathname])
 
   const handlerOnClickMenu: MenuProps['onClick'] = ({ key }): void => {
     switch (key) {
