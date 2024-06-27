@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import LayoutComponent from '@components/Layout'
+
 //  Составная часть основной страницы, поэтому без lazy
 import Configurations from '@pages/ConfigurationsPage'
 import Connections from '@pages/ConnectionsPage'
@@ -26,7 +27,9 @@ const ModulesPage = lazy(() => import('@pages/ModulesPage'))
 const ApplicationsPage = lazy(() => import('@pages/ApplicationsPage'))
 const AllVersionsPage = lazy(() => import('@pages/AllVersionsPage'))
 const ConfigurationEditorPage = lazy(
-  () => import('@pages/ConfigurationEditorPage'))
+  () => import('@pages/ConfigurationEditorPage')
+)
+const NotFound = lazy(() => import('@pages/NotFound'))
 
 const Routers = () => {
   return (
@@ -151,14 +154,14 @@ const Routers = () => {
               }
             />
           </Route>
-          <Route path={`:moduleId/${routePaths.configEditor}/:id`}
-                 element={
-                   <Suspense fallback={<Spin />}>
-                     <ConfigurationEditorPage />
-                   </Suspense>
-                 }>
-
-          </Route>
+          <Route
+            path={`:moduleId/${routePaths.configEditor}/:id`}
+            element={
+              <Suspense fallback={<Spin />}>
+                <ConfigurationEditorPage />
+              </Suspense>
+            }
+          ></Route>
           <Route
             path={routePaths.modules}
             element={
@@ -210,6 +213,14 @@ const Routers = () => {
         element={
           <Suspense fallback={<Spin />}>
             <LoginPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path={routePaths.notFound}
+        element={
+          <Suspense fallback={<Spin />}>
+            <NotFound />
           </Suspense>
         }
       />
