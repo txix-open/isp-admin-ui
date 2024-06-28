@@ -25,7 +25,6 @@ import { NewRoleType, PermissionKeysType, RoleType } from '@type/roles.type.ts'
 
 import './roles-page.scss'
 
-
 const { Column, EmptyData, NoData } = Layout
 
 const RolesPage = () => {
@@ -191,7 +190,7 @@ const RolesPage = () => {
   }
 
   return (
-    <section className="roles-page three-columns">
+    <section className="roles-page">
       <Column
         showUpdateBtn={false}
         items={filterFirstColumnItems(data, searchValue)}

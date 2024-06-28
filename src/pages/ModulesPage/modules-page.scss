@@ -2,9 +2,11 @@
 
 .modules-page {
   height: 100%;
+  display: flex;
   &__tabs {
     padding: 0 $basic-padding*2;
     width: 100%;
+    overflow-x: scroll;
   }
 
   .ant-tag {
@@ -42,11 +44,4 @@
   .column .column__items__item span {
     width: fit-content !important;
   }
-}
-
-.three-columns {
-  display: flex;
-  background: #fff;
-  box-shadow: inset -1px 0px 0px $border-color;
-  height: 100%;
 }

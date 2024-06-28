@@ -31,11 +31,6 @@
 
       &__row {
         cursor: pointer;
-        &.ant-table-row {
-          &:hover td {
-            background-color: white !important;
-          }
-        }
       }
     }
   }

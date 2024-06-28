@@ -172,7 +172,7 @@ const ApplicationsPage = () => {
   }
 
   return (
-    <main className="applications-page three-columns">
+    <main className="applications-page">
       <Column
         title="Группы приложений"
         onUpdateItem={updateApplicationModal}
