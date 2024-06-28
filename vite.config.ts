@@ -17,23 +17,10 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       minify: 'esbuild',
-      sourcemap: false,
+      sourcemap: true,
       outDir: 'build',
       chunkSizeWarningLimit: 1600,
       commonjsOptions: { transformMixedEsModules: true },
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return id
-                .toString()
-                .split('node_modules/')[1]
-                .split('/')[0]
-                .toString()
-            }
-          }
-        }
-      }
     },
     server: {
       watch: {
@@ -41,7 +28,7 @@ export default defineConfig(({ mode }) => {
       },
       host: true,
       strictPort: true,
-      port: 8000,
+      port: 8001,
       proxy: {
         '/api': env.PROXY_URL
       }
