@@ -21,11 +21,19 @@ import UIReducer from './redusers/UISlice.ts'
 
 export interface ContextProps {
   setTheme: Dispatch<
-    SetStateAction<{ algorithm: (token: SeedToken) => MapToken }>
+    SetStateAction<{
+      algorithm: (token: SeedToken) => MapToken
+      cssVar: boolean
+      token: { colorBgLayout: string }
+    }>
   >
+  changeTheme: boolean
+  setChangeTheme: Dispatch<SetStateAction<boolean>>
 }
 
 export const Context = createContext<ContextProps>({
+  changeTheme: false,
+  setChangeTheme: () => false,
   setTheme: () => theme.defaultAlgorithm
 })
 

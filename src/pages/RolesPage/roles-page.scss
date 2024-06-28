@@ -2,6 +2,7 @@
 
 .roles-page {
   height: 100%;
+  display: flex;
 
   .role-item {
     &__id {
@@ -13,11 +14,4 @@
     overflow-x: scroll;
     width: 100%
   }
-}
-
-.three-columns {
-  display: flex;
-  background: #fff;
-  box-shadow: inset -1px 0px 0px $border-color;
-  height: 100%;
 }
