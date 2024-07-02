@@ -33,7 +33,7 @@ const SecurityLogPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
 
   const isLoading = isUsersLoading || isLoadingLogs
-  const isPageAvailable = hasPermission(PermissionKeysType.read)
+  const isPageAvailable = hasPermission(PermissionKeysType.security_log_view)
 
   useEffect(() => {
     getAllLogs({ limit, offset: 0 })
