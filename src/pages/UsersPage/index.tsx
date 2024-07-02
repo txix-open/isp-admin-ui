@@ -13,8 +13,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { dateFormats } from '@constants/date.ts'
 
-import CanEdit from '@components/CanEdit'
-
 import { getUserFullName } from '@utils/userUtils/getFullNameUtil.ts'
 
 import useRole from '@hooks/useRole.tsx'
@@ -42,8 +40,11 @@ const UsersPage = () => {
 
   const isLoading = isRolesLoading || isUsersLoading
 
-  const isPageAvailable = hasPermission(PermissionKeysType.read)
-  const hasCreateUserPermission = hasPermission(PermissionKeysType.write)
+  const isPageAvailable = hasPermission(PermissionKeysType.user_view)
+  const hasBlockUserPermission = hasPermission(PermissionKeysType.user_block)
+  const hasDeleteUserPermission = hasPermission(PermissionKeysType.user_delete)
+  const hasUpdateUserPermission = hasPermission(PermissionKeysType.user_update)
+  const hasCreateUserPermission = hasPermission(PermissionKeysType.user_create)
 
   useEffect(() => {
     if (!isPageAvailable) {
@@ -169,9 +170,9 @@ const UsersPage = () => {
       render: (_, record) => {
         return (
           <div className="users-page__content__table__actions">
-            <CanEdit>
               <Button.Group className="button_group">
-                {renderBlockButton(record)}
+                {hasBlockUserPermission && renderBlockButton(record)}
+                {hasUpdateUserPermission && (
                 <Tooltip key="EditOutlined" title="Редактировать пользователя">
                   <Button
                     data-cy={`users-page__content__table__actions__edit-btn ${record.id}`}
@@ -184,7 +185,8 @@ const UsersPage = () => {
                     }}
                   />
                 </Tooltip>
-
+                  )}
+                {hasDeleteUserPermission && (
                 <Popconfirm
                   title="Вы действительно хотите удалить этого пользователя?"
                   onConfirm={() => handleDeleteUser(record.id)}
@@ -197,8 +199,8 @@ const UsersPage = () => {
                     />
                   </Tooltip>
                 </Popconfirm>
+                  )}
               </Button.Group>
-            </CanEdit>
           </div>
         )
       }
