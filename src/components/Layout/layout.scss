@@ -24,17 +24,13 @@
 }
 
 .user-item {
-
+  padding-left: 21px !important;
   & .ant-menu-submenu-arrow {
     display: none !important;
   }
 
   border-bottom: 1px solid var(--ant-color-border);
   border-radius: 0 !important;
-
-  & .ant-menu-submenu-title {
-    padding-left: 21px !important;
-  }
 
   & .ant-menu-title-content {
     margin: 0 !important;
@@ -44,9 +40,7 @@
 
 .ant-menu-inline-collapsed {
   & .user-item {
-    & .ant-menu-submenu-title {
-      padding-left: 24px !important;
-      padding-top: 5px !important;
-    }
+    padding-left: 24px !important;
+    padding-top: 5px !important;
   }
 }

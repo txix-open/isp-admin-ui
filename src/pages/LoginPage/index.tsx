@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Divider } from 'antd'
+import { Button, Divider, Layout } from 'antd'
 import { AxiosError } from 'axios'
 import { FormComponents, useAuth } from 'isp-ui-kit'
 import { useForm } from 'react-hook-form'
@@ -105,6 +105,7 @@ const LoginPage = () => {
   }
 
   return (
+    <Layout>
     <section className="login-page">
       <form className="login-page__content">
         <h1 data-cy="login-title" className="login-page__content__title">
@@ -114,6 +115,7 @@ const LoginPage = () => {
         {renderInternalAuthForm()}
       </form>
     </section>
+    </Layout>
   )
 }
 
