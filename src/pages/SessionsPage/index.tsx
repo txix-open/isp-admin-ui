@@ -14,8 +14,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { SessionStatusKeysType, sessionStatuses } from '@constants/statuses'
 
-import CanEdit from '@components/CanEdit'
-
 import { getUserFullName } from '@utils/userUtils/getFullNameUtil'
 
 import useRole from '@hooks/useRole'
@@ -47,7 +45,8 @@ const SessionsPage = () => {
 
   const isLoading = isUsersLoading || isLoadingSession
 
-  const isPageAvailable = hasPermission(PermissionKeysType.read)
+  const isPageAvailable = hasPermission(PermissionKeysType.session_view)
+  const hasRevokePermission = hasPermission(PermissionKeysType.session_revoke)
 
   useEffect(() => {
     if (!isPageAvailable) {
@@ -124,7 +123,7 @@ const SessionsPage = () => {
         }
         return (
           <>
-            <CanEdit>
+            {hasRevokePermission && (
               <Popconfirm
                 title="Закончить эту сессию?"
                 onConfirm={() => handleRevokeSessions(record.id)}
@@ -136,7 +135,7 @@ const SessionsPage = () => {
                   />
                 </Tooltip>
               </Popconfirm>
-            </CanEdit>
+              )}
           </>
         )
       }
