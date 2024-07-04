@@ -58,13 +58,11 @@ const RolesContent = ({
   const { id: selectedItemId } = useParams()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
-  const isUpdateRole = hasPermission(PermissionKeysType.write)
-  const isCreateRole = hasPermission(PermissionKeysType.write)
+  const isUpdateRole = hasPermission(PermissionKeysType.role_update)
+  const isCreateRole = hasPermission(PermissionKeysType.role_add)
 
   const isSaveBtnAvailable =
     selectedItemId === 'new' ? isCreateRole : isUpdateRole
-
-  const isExternalGroup = hasPermission(PermissionKeysType.write)
 
   useEffect(() => {
     if (!role) {
@@ -152,7 +150,6 @@ const RolesContent = ({
           />
           <FormInput
             data-cy="roles-content__input__external-group"
-            disabled={!isExternalGroup}
             label="Группы ЕСК"
             name="externalGroup"
             control={control}

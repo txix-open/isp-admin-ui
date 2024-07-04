@@ -42,9 +42,9 @@ const RolesPage = () => {
   const [updateRole] = roleApi.useUpdateRoleMutation()
   const [removeRole] = roleApi.useRemoveRoleMutation()
 
-  const isPageAvailable = hasPermission(PermissionKeysType.read)
-  const isAddRolePermissions = hasPermission(PermissionKeysType.write)
-  const isRemoveRolePermissions = hasPermission(PermissionKeysType.write)
+  const isPageAvailable = hasPermission(PermissionKeysType.role_view)
+  const isAddRolePermissions = hasPermission(PermissionKeysType.role_add)
+  const isRemoveRolePermissions = hasPermission(PermissionKeysType.role_delete)
   const isLoading = isPermissionLoading || isRolesLoading
 
   const isNew = selectedItemId === 'new'
