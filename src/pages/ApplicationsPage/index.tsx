@@ -1,4 +1,4 @@
-import { List, message, Spin, Tooltip } from 'antd'
+import { message, Spin } from 'antd'
 import { Layout } from 'isp-ui-kit'
 import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
 import { useEffect, useMemo, useState } from 'react'
@@ -23,6 +23,7 @@ import applicationsGroupApi from '@services/applicationsGroupService.ts'
 import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeysType } from '@type/roles.type.ts'
+import ListItem from '@widgets/ListItem'
 
 import './applications-page.scss'
 
@@ -77,19 +78,6 @@ const ApplicationsPage = () => {
 
   if (isLoadingApplicationsGroup) {
     return <Spin className="spin" />
-  }
-
-  const renderColumnItems = (item: ColumnItem<any>) => {
-    return (
-      <List.Item>
-        <Tooltip mouseEnterDelay={1} title={item.name}>
-          <List.Item.Meta
-            title={item.name}
-            description={<span>{item.description}</span>}
-          />
-        </Tooltip>
-      </List.Item>
-    )
   }
 
   const addApplicationModal = () => {
@@ -183,7 +171,7 @@ const ApplicationsPage = () => {
           applicationsGroup as unknown as ColumnItem<ApplicationsGroupType>[],
           searchValue
         )}
-        renderItems={renderColumnItems}
+        renderItems={(item) => <ListItem item={item} />}
         searchValue={searchValue}
         selectedItemId={selectedItemId}
         setSelectedItemId={(itemId) => {
