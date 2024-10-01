@@ -7,7 +7,7 @@ import 'dayjs/locale/ru'
 import duration from 'dayjs/plugin/duration'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { FormComponents, Layout } from 'isp-ui-kit'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { dateFormats } from '@constants/date.ts'
@@ -172,28 +172,31 @@ const TokenContent = ({ id }: TokenPropTypes) => {
     }
   ]
 
-  const tokensOptions = [
-    {
-      value: -1,
-      label: 'Бессрочно'
-    },
-    {
-      value: 3600000,
-      label: 'Один час'
-    },
-    {
-      value: 86400000,
-      label: 'Один день'
-    },
-    {
-      value: 2592000000,
-      label: '30 дней'
-    },
-    {
-      value: 31536000000,
-      label: 'Один год'
-    }
-  ]
+  const tokensOptions = useMemo(
+    () => [
+      {
+        value: -1,
+        label: 'Бессрочно'
+      },
+      {
+        value: 3600000,
+        label: 'Один час'
+      },
+      {
+        value: 86400000,
+        label: 'Один день'
+      },
+      {
+        value: 2592000000,
+        label: '30 дней'
+      },
+      {
+        value: 31536000000,
+        label: 'Один год'
+      }
+    ],
+    []
+  )
   if (!id) {
     return <EmptyData />
   }
