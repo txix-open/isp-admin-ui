@@ -24,10 +24,7 @@ import {
 
 import tokensApi from '@services/tokensService.ts'
 
-
-
-import './tokens.scss';
-
+import './tokens.scss'
 
 const { FormSelect } = FormComponents
 const { EmptyData } = Layout
@@ -117,7 +114,7 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       title: 'Токен',
       dataIndex: 'token',
       key: 'token',
-      render: (record) => <div>{shortenString(record)}</div>
+      render: (value) => <div>{shortenString(value)}</div>
     },
     {
       title: 'Дата/Время выпуска',
@@ -133,7 +130,6 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       dataIndex: 'expireTime',
       key: 'expireTime',
       render: (value, record) => {
-
         if (value === -1) {
           return <span>Никогда</span>
         }
@@ -156,7 +152,11 @@ const TokenContent = ({ id }: TokenPropTypes) => {
         return (
           <Button.Group>
             <Tooltip title="Скопировать">
-              <Button className="copy-btn" icon={<CopyOutlined />} data-clipboard-text={value} />
+              <Button
+                className="copy-btn"
+                icon={<CopyOutlined />}
+                data-clipboard-text={value}
+              />
             </Tooltip>
             <Tooltip title="Удалить">
               <Popconfirm
