@@ -123,10 +123,8 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       title: 'Дата/Время выпуска',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (record) => {
-        const formatTime = dayjs(record.createdAt).format(
-          dateFormats.fullFormat
-        )
+      render: (value) => {
+        const formatTime = dayjs(value).format(dateFormats.fullFormat)
         return <div>{formatTime}</div>
       }
     },
