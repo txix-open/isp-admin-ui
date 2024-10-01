@@ -30,12 +30,17 @@ apiService.interceptors.request.use(
   (error: AxiosError<MSPError>) => Promise.reject(error)
 )
 
+const localClear = () => {
+  LocalStorage.remove(localStorageKeys.USER_TOKEN)
+  LocalStorage.remove(localStorageKeys.HEADER_NAME)
+}
+
 apiService.interceptors.response.use(
   async (response: any) => response,
   (error: AxiosError<MSPError>) => {
     console.error(error)
     if (error.response && error.response.status === 401) {
-      LocalStorage.clear()
+      localClear()
       message.error('Ваша сессия истекла"').then()
       LocalStorage.set('redirectUrl', location.pathname)
       window.location.href = routePaths.login
