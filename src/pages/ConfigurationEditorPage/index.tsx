@@ -102,9 +102,6 @@ const ConfigurationEditorPage: FC = () => {
         if (e.data.errorCode === 2003) {
           setDetailsError({ details: e.data.details, isOpenDetailsErrorModal: true })
         }
-        if (e.data.errorCode === 400) {
-          message.error('Невалидный JSON объект')
-        }
         message.error('Ошибка обновления элемента')
       })
   }

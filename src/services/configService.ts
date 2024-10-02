@@ -56,7 +56,7 @@ const configServiceApi = createApi({
     }),
     createUpdateConfig: builder.mutation<ConfigType, ConfigType>({
       query: (data) => ({ url: apiPaths.createUpdateConfig, data }),
-      invalidatesTags: () => ['configs', 'versions']
+      invalidatesTags: () => ['configs', 'versions', 'config']
     }),
     deleteVersion: builder.mutation<void, string>({
       query: (id) => ({ url: apiPaths.deleteVersion, data: { id } }),
