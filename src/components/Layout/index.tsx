@@ -40,7 +40,7 @@ import './layout.scss';
 const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(true)
+  const [collapsed, setCollapsed] = useState<boolean>(LocalStorage.get('menu') === null ? true : LocalStorage.get('menu'))
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
     []
   )
@@ -204,7 +204,10 @@ const LayoutComponent = () => {
               theme="light"
               collapsible
               collapsed={collapsed}
-              onCollapse={(value) => setCollapsed(value)}
+              onCollapse={(value) => {
+                LocalStorage.set('menu', value)
+                setCollapsed(value)
+              }}
             >
               <Header collapsed={collapsed} />
               <Menu
