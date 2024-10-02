@@ -8,7 +8,7 @@ const ListItem: FC<ListItemProps> = ({ item }) => {
   return (
     <List.Item>
       <Tooltip mouseEnterDelay={1} title={item.name}>
-        <List.Item.Meta title={item.name} />
+        <List.Item.Meta title={item.name} description={<span>id: {item.id}</span>} />
       </Tooltip>
     </List.Item>
   )

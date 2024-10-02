@@ -142,7 +142,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
     return (
       <List.Item>
         <Tooltip mouseEnterDelay={1.3} title={item.name}>
-          <List.Item.Meta title={item.name} description={item.description} />
+          <List.Item.Meta title={item.name} description={<span>id: {item.id}</span>}/>
           <div
             className="link-btn"
             onClick={(e) => {
