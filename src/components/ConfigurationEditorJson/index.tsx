@@ -22,7 +22,7 @@ const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({ bufConfig =
   return (
     <ReactJsonView
       theme={ changeTheme ? 'twilight' : ''}
-      onAdd={true}
+      onAdd={({updated_src}: any) => handleEdit(updated_src)}
       onDelete={({updated_src}: any) => handleEdit(updated_src)}
       displayDataTypes={false}
       displayObjectSize={false}
