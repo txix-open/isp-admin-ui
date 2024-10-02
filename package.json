@@ -26,6 +26,7 @@
     "isp-ui-kit": "github:txix-open/isp-ui-kit",
     "json-schema-view-js": "^2.0.1",
     "lodash.clonedeep": "^4.5.0",
+    "monaco-editor": "^0.52.0",
     "react": "^18.2.0",
     "react-codemirror-merge": "^4.21.25",
     "react-dom": "^18.2.0",
