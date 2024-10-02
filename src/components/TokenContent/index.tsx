@@ -7,7 +7,7 @@ import 'dayjs/locale/ru'
 import duration from 'dayjs/plugin/duration'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { FormComponents, Layout } from 'isp-ui-kit'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { dateFormats } from '@constants/date.ts'
@@ -24,10 +24,7 @@ import {
 
 import tokensApi from '@services/tokensService.ts'
 
-
-
-import './tokens.scss';
-
+import './tokens.scss'
 
 const { FormSelect } = FormComponents
 const { EmptyData } = Layout
@@ -117,16 +114,14 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       title: 'Токен',
       dataIndex: 'token',
       key: 'token',
-      render: (record) => <div>{shortenString(record)}</div>
+      render: (value) => <div>{shortenString(value)}</div>
     },
     {
       title: 'Дата/Время выпуска',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (record) => {
-        const formatTime = dayjs(record.createdAt).format(
-          dateFormats.fullFormat
-        )
+      render: (value) => {
+        const formatTime = dayjs(value).format(dateFormats.fullFormat)
         return <div>{formatTime}</div>
       }
     },
@@ -135,7 +130,6 @@ const TokenContent = ({ id }: TokenPropTypes) => {
       dataIndex: 'expireTime',
       key: 'expireTime',
       render: (value, record) => {
-
         if (value === -1) {
           return <span>Никогда</span>
         }
@@ -158,7 +152,11 @@ const TokenContent = ({ id }: TokenPropTypes) => {
         return (
           <Button.Group>
             <Tooltip title="Скопировать">
-              <Button className="copy-btn" icon={<CopyOutlined />} data-clipboard-text={value} />
+              <Button
+                className="copy-btn"
+                icon={<CopyOutlined />}
+                data-clipboard-text={value}
+              />
             </Tooltip>
             <Tooltip title="Удалить">
               <Popconfirm
@@ -174,28 +172,31 @@ const TokenContent = ({ id }: TokenPropTypes) => {
     }
   ]
 
-  const tokensOptions = [
-    {
-      value: -1,
-      label: 'Бессрочно'
-    },
-    {
-      value: 3600000,
-      label: 'Один час'
-    },
-    {
-      value: 86400000,
-      label: 'Один день'
-    },
-    {
-      value: 2592000000,
-      label: '30 дней'
-    },
-    {
-      value: 31536000000,
-      label: 'Один год'
-    }
-  ]
+  const tokensOptions = useMemo(
+    () => [
+      {
+        value: -1,
+        label: 'Бессрочно'
+      },
+      {
+        value: 3600000,
+        label: 'Один час'
+      },
+      {
+        value: 86400000,
+        label: 'Один день'
+      },
+      {
+        value: 2592000000,
+        label: '30 дней'
+      },
+      {
+        value: 31536000000,
+        label: 'Один год'
+      }
+    ],
+    []
+  )
   if (!id) {
     return <EmptyData />
   }
