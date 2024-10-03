@@ -82,6 +82,7 @@ const AppAccessPage = () => {
     <section className="app-access-page">
       <Column
         title="Приложения"
+        searchPlaceholder="Введите имя или id"
         showUpdateBtn={false}
         showAddBtn={false}
         showRemoveBtn={false}

@@ -192,6 +192,8 @@ const RolesPage = () => {
   return (
     <section className="roles-page">
       <Column
+        title="Роли пользователей"
+        searchPlaceholder="Введите имя или id"
         showUpdateBtn={false}
         items={filterFirstColumnItems(data, searchValue)}
         showAddBtn={isAddRolePermissions}

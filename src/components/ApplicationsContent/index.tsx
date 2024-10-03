@@ -171,6 +171,7 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
     <section className="applications-content">
       <Column
         title="Приложения"
+        searchPlaceholder="Введите имя или id"
         onUpdateItem={updateApplicationModal}
         showUpdateBtn={true}
         onAddItem={addApplicationModal}
