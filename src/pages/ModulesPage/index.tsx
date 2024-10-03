@@ -190,6 +190,7 @@ const ModulesPage = () => {
   return (
     <section className="modules-page">
       <Column
+        title="Модули"
         searchPlaceholder="Введите имя или id"
         items={filterFirstColumnItems(ModulesList, searchValue)}
         showAddBtn={false}
