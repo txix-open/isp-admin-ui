@@ -32,19 +32,19 @@ import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeysType } from '@type/roles.type.ts'
 
-
-
-import './layout.scss';
-
+import './layout.scss'
 
 const { Content, Sider } = Layout
 
 const LayoutComponent = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(LocalStorage.get('menu') === null ? true : LocalStorage.get('menu'))
+  const [collapsed, setCollapsed] = useState<boolean>(
+    LocalStorage.get('menu') === null ? true : LocalStorage.get('menu')
+  )
   const [selectedMenuKeys, setSelectedMenuKeys] = useState<MenuItemKeysType[]>(
     []
   )
   const [openKeys, setOpenKeys] = useState<string[]>([])
+  const [loading, setLoading] = useState(true)
   const dispatch = useAppDispatch()
   const {
     status,
@@ -135,13 +135,21 @@ const LayoutComponent = () => {
       )
     })
   }, [theme])
-
   useEffect(() => {
-    if (userToken) {
+    if (userToken && status === StateProfileStatus.notInit) {
       dispatch(fetchProfile())
       dispatch(fetchUI())
     }
-  }, [])
+  }, [userToken, status])
+
+  useEffect(() => {
+    if (
+      status === StateProfileStatus.resolved ||
+      status === StateProfileStatus.rejected
+    ) {
+      setLoading(false)
+    }
+  }, [status])
 
   useEffect(() => {
     const menuKey = location.pathname.split('/')[1] as MenuItemKeysType
@@ -187,6 +195,10 @@ const LayoutComponent = () => {
     }
   }
 
+  if (loading || status === StateProfileStatus.pending) {
+    return <Spin size="large" fullscreen />
+  }
+
   if (status === StateProfileStatus.rejected) {
     return <Navigate to={routePaths.error} replace />
   }
@@ -194,39 +206,33 @@ const LayoutComponent = () => {
   return (
     <section>
       <Layout className="layout" data-cy="homePage">
-        {status === StateProfileStatus.pending ? (
-          <Spin size="large" />
-        ) : (
-          <>
-            <Sider
-              width="250px"
-              data-cy="aside"
-              theme="light"
-              collapsible
-              collapsed={collapsed}
-              onCollapse={(value) => {
-                LocalStorage.set('menu', value)
-                setCollapsed(value)
-              }}
-            >
-              <Header collapsed={collapsed} />
-              <Menu
-                onOpenChange={(keys) => setOpenKeys(keys)}
-                openKeys={openKeys}
-                selectedKeys={selectedMenuKeys}
-                onClick={handlerOnClickMenu}
-                theme="light"
-                mode="inline"
-                items={menuItems}
-              />
-            </Sider>
-            <Layout className="site-layout">
-              <Content className="site-layout__content">
-                <Outlet />
-              </Content>
-            </Layout>
-          </>
-        )}
+        <Sider
+          width="250px"
+          data-cy="aside"
+          theme="light"
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => {
+            LocalStorage.set('menu', value)
+            setCollapsed(value)
+          }}
+        >
+          <Header collapsed={collapsed} />
+          <Menu
+            onOpenChange={(keys) => setOpenKeys(keys)}
+            openKeys={openKeys}
+            selectedKeys={selectedMenuKeys}
+            onClick={handlerOnClickMenu}
+            theme="light"
+            mode="inline"
+            items={menuItems}
+          />
+        </Sider>
+        <Layout className="site-layout">
+          <Content className="site-layout__content">
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
     </section>
   )

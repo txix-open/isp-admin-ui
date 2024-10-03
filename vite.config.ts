@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => {
       },
       host: true,
       strictPort: true,
-      port: 8001,
+      port: 8000,
       proxy: {
         '/api': env.PROXY_URL
       }
