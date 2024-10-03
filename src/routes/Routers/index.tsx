@@ -1,5 +1,4 @@
 import { Spin } from 'antd'
-import { Layout } from 'isp-ui-kit'
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -8,12 +7,10 @@ import LayoutComponent from '@components/Layout'
 //  Составная часть основной страницы, поэтому без lazy
 import Configurations from '@pages/ConfigurationsPage'
 import Connections from '@pages/ConnectionsPage'
+import ErrorWrapperPage from '@pages/ErrorWrapperPage'
 
 import PrivateRoute from '@routes/PrivateRoute'
 import { routePaths } from '@routes/routePaths.ts'
-
-
-const { ErrorPage } = Layout
 
 const LoginPage = lazy(() => import('@pages/LoginPage'))
 const ProfilePage = lazy(() => import('@pages/ProfilePage'))
@@ -204,7 +201,7 @@ const Routers = () => {
         path={routePaths.error}
         element={
           <Suspense fallback={<Spin />}>
-            <ErrorPage />
+            <ErrorWrapperPage />
           </Suspense>
         }
       />

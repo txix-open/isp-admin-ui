@@ -1,6 +1,7 @@
 import { ConfigProvider } from 'antd'
 import ruRu from 'antd/locale/ru_RU'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { darkTheme, lightTheme } from '@constants/theme.ts'
 
@@ -17,6 +18,15 @@ const App = () => {
       ? JSON.parse(localStorage.getItem('theme') || '')
       : true
   )
+
+  const location = useLocation()
+
+  useEffect(() => {
+    const prevRoute = sessionStorage.getItem('prevRoute')
+    if (location.pathname !== prevRoute) {
+      sessionStorage.setItem('prevRoute', location.pathname)
+    }
+  }, [location])
 
   useEffect(() => {
     setTheme(() => (changeTheme ? darkTheme : lightTheme))
