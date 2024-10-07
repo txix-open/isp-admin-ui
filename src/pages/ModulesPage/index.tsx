@@ -38,7 +38,7 @@ const ModulesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const { data: ModulesList = [], isLoading: isModulesLoading } =
     modulesServiceApi.useGetModulesQuery('modules', {
-      pollingInterval: 1000,
+      pollingInterval: 5000,
       skipPollingIfUnfocused: true
     })
   const [removeModule] = modulesServiceApi.useRemoveModuleMutation()
