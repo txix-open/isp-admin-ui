@@ -163,6 +163,7 @@ const ApplicationsPage = () => {
     <main className="applications-page">
       <Column
         title="Группы приложений"
+        searchPlaceholder="Введите имя или id"
         onUpdateItem={updateApplicationModal}
         showUpdateBtn={true}
         onAddItem={addApplicationModal}
