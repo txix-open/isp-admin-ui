@@ -38,7 +38,7 @@ const LoginPage = () => {
   }
 
   const handleError = (err: AxiosError<MSPError>): void => {
-    const { response,status } = err
+    const { response, status } = err
     if (response && status === 401) {
       setFormError(response.statusText, messages.loginError)
     } else {
@@ -57,9 +57,8 @@ const LoginPage = () => {
         LocalStorage.set(localStorageKeys.HEADER_NAME, response.headerName)
         LocalStorage.set(localStorageKeys.USER_TOKEN, response.token)
         const redirectUrl =
-          localStorage.getItem('redirectUrl') || routePaths.home
+          sessionStorage.getItem('prevRoute') || routePaths.home
         navigate(redirectUrl, { replace: true })
-        localStorage.removeItem('redirectUrl')
       })
       .catch((err: AxiosError<MSPError>) => handleError(err))
   }
@@ -106,15 +105,15 @@ const LoginPage = () => {
 
   return (
     <Layout>
-    <section className="login-page">
-      <form className="login-page__content">
-        <h1 data-cy="login-title" className="login-page__content__title">
-          Вход в систему
-        </h1>
-        <Divider />
-        {renderInternalAuthForm()}
-      </form>
-    </section>
+      <section className="login-page">
+        <form className="login-page__content">
+          <h1 data-cy="login-title" className="login-page__content__title">
+            Вход в систему
+          </h1>
+          <Divider />
+          {renderInternalAuthForm()}
+        </form>
+      </section>
     </Layout>
   )
 }

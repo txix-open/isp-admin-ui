@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from '@constants/theme.ts'
 import { Context } from '@stores/index.tsx'
 
 import Routers from '@routes/Routers'
+import { routePaths } from '@routes/routePaths.ts'
 
 import './app.scss'
 
@@ -23,7 +24,11 @@ const App = () => {
 
   useEffect(() => {
     const prevRoute = sessionStorage.getItem('prevRoute')
-    if (location.pathname !== prevRoute) {
+    if (
+      location.pathname !== routePaths.error &&
+      location.pathname !== routePaths.login &&
+      location.pathname !== prevRoute
+    ) {
       sessionStorage.setItem('prevRoute', location.pathname)
     }
   }, [location])

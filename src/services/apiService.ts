@@ -41,8 +41,9 @@ apiService.interceptors.response.use(
     console.error(error)
     if (error.response && error.response.status === 401) {
       localClear()
+      const prevRoute = sessionStorage.getItem('prevRoute') || ''
       message.error('Ваша сессия истекла"').then()
-      LocalStorage.set('redirectUrl', location.pathname)
+      sessionStorage.setItem('prevRoute', prevRoute)
       window.location.href = routePaths.login
     }
 

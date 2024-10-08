@@ -11,7 +11,7 @@ const NotFound = () => {
   const navigate = useNavigate()
   return (
     <NotFoundPage>
-      <Button type="primary" onClick={() => navigate(routePaths.modules)}>
+      <Button type="primary" onClick={() => navigate(routePaths.home)}>
         На главную
       </Button>
     </NotFoundPage>

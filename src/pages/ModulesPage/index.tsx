@@ -38,7 +38,7 @@ const ModulesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const { data: ModulesList = [], isLoading: isModulesLoading } =
     modulesServiceApi.useGetModulesQuery('modules', {
-      pollingInterval: 1000,
+      pollingInterval: 5000,
       skipPollingIfUnfocused: true
     })
   const [removeModule] = modulesServiceApi.useRemoveModuleMutation()
@@ -190,6 +190,8 @@ const ModulesPage = () => {
   return (
     <section className="modules-page">
       <Column
+        title="Модули"
+        searchPlaceholder="Введите имя или id"
         items={filterFirstColumnItems(ModulesList, searchValue)}
         showAddBtn={false}
         showUpdateBtn={false}
