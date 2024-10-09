@@ -1,7 +1,7 @@
 import {
   AlertOutlined,
   DeleteOutlined,
-  EditOutlined,
+  FormOutlined,
   EyeOutlined,
   HistoryOutlined,
   SwapOutlined,
@@ -133,7 +133,7 @@ const ActiveTableActionButtons: FC<ActiveTableActionButtonsPropsType> =
             <Tooltip title="Редактировать">
               <Button onClick={() => {
                 navigate(`/${record.moduleId}/${routePaths.configEditor}/${record.id}`, { state: record })
-              }} icon={<EditOutlined />} />
+              }} icon={<FormOutlined />} />
             </Tooltip>
           </CanEdit>
           {renderAdditionalButtons()}
