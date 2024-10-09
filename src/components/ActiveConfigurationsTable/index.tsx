@@ -161,9 +161,9 @@ const ActiveConfigurationsTable: FC<ActiveConfigurationsTablePropsType> =
         align: 'center',
         render: (value: boolean) => {
           if (value) {
-            return <Tag color="#4fc14f">Корректная</Tag>
+            return <Tag color="success">Корректная</Tag>
           }
-          return <Tag color="red">Некорректная</Tag>
+          return <Tag color="error">Некорректная</Tag>
         }
       },
       {
