@@ -11,7 +11,9 @@
     "fix:prettier": "prettier --write \"src/**/*.{ts,tsx, js}\"",
     "lint:fix": "eslint --fix .",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "vitest",
+    "test-ui": "vitest --ui"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.6",
@@ -38,7 +40,10 @@
     "simplebar-react": "^3.2.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/jest": "^29.5.13",
     "@types/lodash.clonedeep": "^4.5.9",
     "@types/node": "^20.12.4",
     "@types/react": "^18.2.74",
@@ -50,6 +55,7 @@
     "@vitejs/plugin-legacy": "^5.3.2",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitejs/plugin-react-swc": "^3.6.0",
+    "@vitest/ui": "^2.1.2",
     "antd": "5.16.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -69,12 +75,12 @@
     "vite-plugin-node-polyfills": "^0.21.0",
     "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-svgr": "^4.2.0",
-    "vite-tsconfig-paths": "^4.3.2"
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^2.1.2"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "husky": {
