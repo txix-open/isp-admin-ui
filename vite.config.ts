@@ -5,8 +5,6 @@ import svgr from 'vite-plugin-svgr'
 
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
@@ -20,7 +18,7 @@ export default defineConfig(({ mode }) => {
       sourcemap: true,
       outDir: 'build',
       chunkSizeWarningLimit: 1600,
-      commonjsOptions: { transformMixedEsModules: true },
+      commonjsOptions: { transformMixedEsModules: true }
     },
     server: {
       watch: {
@@ -38,6 +36,12 @@ export default defineConfig(({ mode }) => {
       svgr(),
       tsconfigPaths(),
       nodePolyfills({ globals: { process: true } })
-    ]
+    ],
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: ['./tests/setup.ts'],
+      include: ['**/?(*.)test.ts?(x)']
+    }
   }
 })
