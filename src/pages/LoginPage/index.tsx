@@ -90,7 +90,7 @@ const LoginPage = () => {
           rules={{ required: ValidationRules.required }}
         />
         <Button
-          data-cy="submit-btn"
+          data-testid="submit-btn"
           disabled={isLoading}
           loading={isLoading}
           type="primary"
