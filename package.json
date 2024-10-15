@@ -40,6 +40,7 @@
     "simplebar-react": "^3.2.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
