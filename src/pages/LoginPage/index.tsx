@@ -71,7 +71,7 @@ const LoginPage = () => {
     return (
       <>
         <FormComponents.FormInput
-          data-cy="email-input"
+          data-testid="email-input"
           control={control}
           name="email"
           className="login-page__content__email-field"
@@ -80,7 +80,7 @@ const LoginPage = () => {
           rules={{ required: ValidationRules.required }}
         />
         <FormComponents.FormInput
-          data-cy="password-input"
+          data-testid="password-input"
           control={control}
           name="password"
           className="login-page__content__password-field"
@@ -107,7 +107,7 @@ const LoginPage = () => {
     <Layout>
       <section className="login-page">
         <form className="login-page__content">
-          <h1 data-cy="login-title" className="login-page__content__title">
+          <h1 data-testid="login-title" className="login-page__content__title">
             Вход в систему
           </h1>
           <Divider />
