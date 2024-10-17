@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react'
-import {ConfigurationEditorPropsType} from '@pages/ConfigurationEditorPage'
 import { ReactJsonView } from 'isp-ui-kit'
 import {Spin} from 'antd'
 import { cleanEmptyParamsObject } from '@utils/objectUtils.ts'
 import { Context } from '@stores/index.tsx'
+import { ConfigurationEditorPropsType } from '@pages/ConfigurationEditorPage/ConfigurationEditor.type.ts'
 
 const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({ bufConfig = {}, setBufConfig, isCurrentConfigLoading}) => {
   const { changeTheme } = useContext(Context)
