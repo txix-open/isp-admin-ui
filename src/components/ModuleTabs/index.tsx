@@ -6,7 +6,6 @@ import ModuleTabContent from '@widgets/ModuleTabContent'
 
 import { ModuleTabsPropsType } from '@components/ModuleTabs/module-tabs.type.ts'
 
-
 const secondColumnItems = [
   {
     key: 'configurations',

@@ -6,7 +6,6 @@ import { ModalPropsType } from '@widgets/Modal/modal.type.ts'
 
 import './modal.scss'
 
-
 const Modal = ({
   open,
   onOk = () => {},
@@ -50,7 +49,7 @@ const Modal = ({
         <div className="modal__content">{children}</div>
         {footer && (
           <div className="modal__footer">
-            <Button type="default" onClick={closeModal} >
+            <Button type="default" onClick={closeModal}>
               {footer.onCanselText}
             </Button>
             <Button type="primary" onClick={onOk} loading={loading}>

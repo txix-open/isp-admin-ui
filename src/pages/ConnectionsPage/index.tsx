@@ -1,9 +1,18 @@
 import { Spin, Table, Tag, Tooltip } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { memo, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { AddressType, EndpointType, ModuleStatusType, ModuleType } from '@pages/ModulesPage/module.type.ts'
+import { dateFormats } from '@constants/date.ts'
+
+import {
+  AddressType,
+  EndpointType,
+  ModuleStatusType,
+  ModuleType
+} from '@pages/ModulesPage/module.type.ts'
 
 import useRole from '@hooks/useRole.tsx'
 
@@ -14,9 +23,6 @@ import { routePaths } from '@routes/routePaths.ts'
 import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './connections.scss'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import { dateFormats } from '@constants/date.ts'
 
 const Connections = () => {
   const { data: ConnectionsList = [], isLoading: isModulesLoading } =
@@ -55,9 +61,9 @@ const Connections = () => {
     dayjs(obj).format(dateFormats.fullFormat)
 
   const keySelector = ({
-                         address: { ip, port },
-                         establishedAt
-                       }: ModuleStatusType) => ip + port + establishedAt
+    address: { ip, port },
+    establishedAt
+  }: ModuleStatusType) => ip + port + establishedAt
 
   const renderEndpoints = ({ endpoints }: ModuleStatusType) => {
     if (endpoints && endpoints.length) {
@@ -67,7 +73,11 @@ const Connections = () => {
             <li className="connection-page__endpoint-list__item" key={path}>
               {path}
               {inner && (
-                <Tag className="connection-page__inner-tag" color="processing" bordered={false}>
+                <Tag
+                  className="connection-page__inner-tag"
+                  color="processing"
+                  bordered={false}
+                >
                   Внутренний
                 </Tag>
               )}

@@ -6,7 +6,6 @@ import { AccessListMethodType } from '@type/accessList.type.ts'
 
 import './selected-access-method.scss'
 
-
 const SelectedAccessMethod: FC<SelectedAccessMethodPropsType> = ({
   unknownMethodKey,
   allRoutes,
@@ -20,8 +19,10 @@ const SelectedAccessMethod: FC<SelectedAccessMethodPropsType> = ({
   const renderMethodList = () => {
     const knownMethods: AccessListMethodType[] = []
     const unknownMethods: AccessListMethodType[] = []
-    const sortAlphabetically = (a: AccessListMethodType, b: AccessListMethodType) =>
-      a.method.localeCompare(b.method)
+    const sortAlphabetically = (
+      a: AccessListMethodType,
+      b: AccessListMethodType
+    ) => a.method.localeCompare(b.method)
     methods.forEach((method) => {
       const isUnknown = checkIsUnknownMethod(method.method)
       if (isUnknown) {

@@ -17,8 +17,6 @@ import equal from 'deep-equal'
 import { createRef, FC, memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-
-
 import {
   ArrayFieldTemplatePropsType,
   ConfigurationEditorPropsType,
@@ -30,14 +28,16 @@ import {
   SortPropType
 } from '@pages/ConfigurationEditorPage/ConfigurationEditor.type.ts'
 import { ResponseSchemaType } from '@pages/ModulesPage/module.type.ts'
+
 import { cleanEmptyParamsObject } from '@utils/objectUtils.ts'
+
 const { Text: AntdText } = Typography
 
 const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
-                                                                     bufConfig = {},
-                                                                     jsonSchema = {},
-                                                                     submitRef,
-                                                                   }) => {
+  bufConfig = {},
+  jsonSchema = {},
+  submitRef
+}) => {
   const Form = withTheme(AntDTheme)
   const sortProps = (a: SortPropType, b: SortPropType) =>
     a.name.localeCompare(b.name)
@@ -59,13 +59,14 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
   }
 
   const onSubmit = (data: any) => {
-    if(!submitRef) return
-      if(!formRef.current.validateFormWithFormData(formRef.current.state.formData)) {
-        submitRef.current = data
-      } else {
-        submitRef.current = data.formData
-      }
-
+    if (!submitRef) return
+    if (
+      !formRef.current.validateFormWithFormData(formRef.current.state.formData)
+    ) {
+      submitRef.current = data
+    } else {
+      submitRef.current = data.formData
+    }
   }
 
   const forceSubmit = () => {
@@ -78,14 +79,14 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
 
   const onFormChange = () => {
     if (!formRef.current) return
-      if(formRef.current.validateFormWithFormData(formRef.current.state.formData)) {
-        formRef?.current?.submit()
-      } else {
-        forceSubmit()
-      }
+    if (
+      formRef.current.validateFormWithFormData(formRef.current.state.formData)
+    ) {
+      formRef?.current?.submit()
+    } else {
+      forceSubmit()
+    }
   }
-
-
 
   const Description: FC<DescriptionPropsType> = ({ description }) =>
     description ? (
@@ -188,13 +189,13 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
   }
 
   const ArrayFieldTemplate: FC<ArrayFieldTemplatePropsType> = ({
-                                                                 items,
-                                                                 onAddClick,
-                                                                 canAdd,
-                                                                 title,
-                                                                 idSchema,
-                                                                 schema: { description }
-                                                               }) => {
+    items,
+    onAddClick,
+    canAdd,
+    title,
+    idSchema,
+    schema: { description }
+  }) => {
     return (
       <Collapse defaultActiveKey={idSchema.$id}>
         <Collapse.Panel
@@ -272,12 +273,12 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
           items={[
             ...(propsSimple.length
               ? [
-                {
-                  label: 'Остальные',
-                  key: 'General',
-                  children: propsSimple.map((element) => element.content)
-                }
-              ]
+                  {
+                    label: 'Остальные',
+                    key: 'General',
+                    children: propsSimple.map((element) => element.content)
+                  }
+                ]
               : []),
             ...propsComplex.map((element) => ({
               label: schemaProperties[element.name]?.title || element.name,

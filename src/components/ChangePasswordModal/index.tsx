@@ -1,6 +1,9 @@
+import { message } from 'antd'
 import { FormComponents } from 'isp-ui-kit'
 import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+
+import { apiPaths } from '@constants/api/apiPaths.ts'
 
 import Modal from '@widgets/Modal'
 
@@ -8,17 +11,18 @@ import {
   ChangePasswordModalProps,
   ChangePasswordModalType
 } from '@components/ChangePasswordModal/change-password-modal.type.ts'
-import { apiService } from '@services/apiService.ts'
+
 import { ChangeProfilePassword } from '@pages/ProfilePage/profile-page.type.ts'
-import { apiPaths } from '@constants/api/apiPaths.ts'
-import { message } from 'antd'
+
 import useLogout from '@hooks/useLogout.tsx'
+
+import { apiService } from '@services/apiService.ts'
 
 const { FormInputPassword } = FormComponents
 const ChangePasswordModal: FC<ChangePasswordModalProps> = ({
-                                                             open,
-                                                             onClose
-                                                           }) => {
+  open,
+  onClose
+}) => {
   const {
     control,
     handleSubmit,
@@ -36,10 +40,10 @@ const ChangePasswordModal: FC<ChangePasswordModalProps> = ({
   const onSubmit = async (formValue: ChangePasswordModalType) => {
     setLoading(true)
     try {
-      await apiService.post<ChangeProfilePassword>(
-        apiPaths.changePassword,
-        { oldPassword: formValue.oldPassword, newPassword: formValue.newPassword }
-      )
+      await apiService.post<ChangeProfilePassword>(apiPaths.changePassword, {
+        oldPassword: formValue.oldPassword,
+        newPassword: formValue.newPassword
+      })
       await logoutUser()
       message.success('Пароль успешно изменен')
       clearErrors('oldPassword')
@@ -115,4 +119,3 @@ const ChangePasswordModal: FC<ChangePasswordModalProps> = ({
   )
 }
 export default ChangePasswordModal
-

@@ -6,7 +6,6 @@ import { LocalStorage } from '@utils/localStorageUtils.ts'
 
 import { routePaths } from '@routes/routePaths.ts'
 
-
 const PrivateRoute = () => {
   const location = useLocation()
   const userToken = LocalStorage.get(localStorageKeys.USER_TOKEN)

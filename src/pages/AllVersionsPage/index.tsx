@@ -10,6 +10,8 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
+import { dateFormats } from '@constants/date.ts'
+
 import CanEdit from '@components/CanEdit'
 import CompareVersionModal from '@components/CompareVersionModal'
 import ConfigurationPreviewModal from '@components/ConfigurationPreviewModal'
@@ -28,8 +30,6 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { VersionType } from '@type/version.type.ts'
 
 import './all-versions-page.scss'
-import { dateFormats } from '@constants/date.ts'
-
 
 const AllVersionsPage = () => {
   const [showCompareModal, setShowCompareModal] = useState<boolean>(false)
@@ -109,42 +109,42 @@ const AllVersionsPage = () => {
     return (
       <div className="all-version-page__actions-field">
         <Button.Group className="button_group">
-        <CanEdit>
-          <Tooltip title="Установить выбранную версию">
-            <Popconfirm
-              title="Вы действительно хотите установить выбранную версию ?"
-              onConfirm={() => handleRevertVersion(record.data)}
-            >
-              <Button icon={<ReloadOutlined />} />
-            </Popconfirm>
+          <CanEdit>
+            <Tooltip title="Установить выбранную версию">
+              <Popconfirm
+                title="Вы действительно хотите установить выбранную версию ?"
+                onConfirm={() => handleRevertVersion(record.data)}
+              >
+                <Button icon={<ReloadOutlined />} />
+              </Popconfirm>
+            </Tooltip>
+          </CanEdit>
+          <Tooltip title="Просмотр версии">
+            <Button
+              onClick={() => {
+                setCurrentClickVersion(record)
+                setShowPreviewModal(true)
+              }}
+              icon={<EyeOutlined />}
+            />
           </Tooltip>
-        </CanEdit>
-        <Tooltip title="Просмотр версии">
-          <Button
-            onClick={() => {
-              setCurrentClickVersion(record)
-              setShowPreviewModal(true)
-            }}
-            icon={<EyeOutlined />}
-          />
-        </Tooltip>
-        <Tooltip title="Сравнение версий">
-          <Button
-            onClick={() => {
-              setCurrentClickVersion(record)
-              setShowCompareModal(true)
-            }}
-            icon={<SwapOutlined />}
-          />
-        </Tooltip>
-        <CanEdit>
-          <Popconfirm
-            title="Вы действительно хотите удалить выбранную версию ?"
-            onConfirm={() => handeRemoveVersion(record.id)}
-          >
-            <Button danger icon={<DeleteOutlined />} />
-          </Popconfirm>
-        </CanEdit>
+          <Tooltip title="Сравнение версий">
+            <Button
+              onClick={() => {
+                setCurrentClickVersion(record)
+                setShowCompareModal(true)
+              }}
+              icon={<SwapOutlined />}
+            />
+          </Tooltip>
+          <CanEdit>
+            <Popconfirm
+              title="Вы действительно хотите удалить выбранную версию ?"
+              onConfirm={() => handeRemoveVersion(record.id)}
+            >
+              <Button danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </CanEdit>
         </Button.Group>
       </div>
     )

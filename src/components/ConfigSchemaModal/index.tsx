@@ -12,7 +12,6 @@ const ConfigSchemaModal: FC<ConfigSchemaModalPropsType> = ({
   onClose,
   schema = {}
 }) => {
-
   return (
     <div className="config-schema-modal">
       <Modal title="Текущая схема" open={open} onClose={onClose}>

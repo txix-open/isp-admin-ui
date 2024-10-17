@@ -19,7 +19,6 @@ import { PermissionKeysType, RoleType } from '@type/roles.type.ts'
 
 import './roles-content.scss'
 
-
 const newRole: Partial<RoleType> = {
   externalGroup: '',
   name: '',

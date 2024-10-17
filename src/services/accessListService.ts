@@ -10,7 +10,6 @@ import {
   AccessListSetListSetOneRequestType
 } from '@type/accessList.type.ts'
 
-
 const accessListApi = createApi({
   reducerPath: 'accessListApi',
   refetchOnFocus: true,
@@ -21,7 +20,10 @@ const accessListApi = createApi({
       query: ({ id }) => ({ url: apiPaths.getById, data: { id } }),
       providesTags: () => ['AccessItems']
     }),
-    setList: builder.mutation<AccessListMethodType[], AccessListSetListRequestType>({
+    setList: builder.mutation<
+      AccessListMethodType[],
+      AccessListSetListRequestType
+    >({
       query: (data) => ({ url: apiPaths.setList, data }),
       invalidatesTags: () => ['AccessItems']
     }),

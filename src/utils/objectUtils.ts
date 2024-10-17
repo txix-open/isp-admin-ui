@@ -17,10 +17,16 @@ const sortObject = (obj: any): any => {
 }
 
 function isEmpty(value: unknown): boolean {
-  return (value === undefined ||
+  return (
+    value === undefined ||
     value === null ||
     (typeof value === 'string' && value.trim() === '') || // Пустые строки
-    (Array.isArray(value) && value.length === 0) || (typeof value === 'object' && true && !Array.isArray(value) && Object.keys(value).length === 0))
+    (Array.isArray(value) && value.length === 0) ||
+    (typeof value === 'object' &&
+      true &&
+      !Array.isArray(value) &&
+      Object.keys(value).length === 0)
+  )
 }
 
 function cleanEmptyParamsObject(obj: any): any {
@@ -29,22 +35,22 @@ function cleanEmptyParamsObject(obj: any): any {
   }
 
   if (Array.isArray(obj)) {
-    return obj
-      .map(cleanEmptyParamsObject)
-      .filter(item => !isEmpty(item)) // Удаление пустых элементов в массиве
+    return obj.map(cleanEmptyParamsObject).filter((item) => !isEmpty(item)) // Удаление пустых элементов в массиве
   }
 
-  return Object.keys(obj).reduce((acc, key) => {
-    const value = cleanEmptyParamsObject(obj[key]) // Рекурсивная обработка объектов
+  return Object.keys(obj).reduce(
+    (acc, key) => {
+      const value = cleanEmptyParamsObject(obj[key]) // Рекурсивная обработка объектов
 
-    if (!isEmpty(value)) { // Проверяем пустоту значения после рекурсивной обработки
-      acc[key] = value // Сохраняем только непустые значения
-    }
+      if (!isEmpty(value)) {
+        // Проверяем пустоту значения после рекурсивной обработки
+        acc[key] = value // Сохраняем только непустые значения
+      }
 
-    return acc
-  }, {} as Record<string, unknown>)
+      return acc
+    },
+    {} as Record<string, unknown>
+  )
 }
-
-
 
 export { sortObject, cleanEmptyParamsObject }

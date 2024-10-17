@@ -10,7 +10,6 @@ import { AppGroupModalType } from '@components/AppGroupModal/app-group-modal.typ
 
 import { ApplicationsGroupType } from '@pages/ApplicationsPage/applications.type.ts'
 
-
 const { FormInput, FormTextArea } = FormComponents
 
 const AppGroupModal: FC<AppGroupModalType> = ({
@@ -18,8 +17,7 @@ const AppGroupModal: FC<AppGroupModalType> = ({
   onClose,
   onOk,
   open,
-  appGroup,
-
+  appGroup
 }) => {
   const { handleSubmit, control, reset } = useForm<ApplicationsGroupType>({
     mode: 'onChange',
