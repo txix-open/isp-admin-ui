@@ -1,5 +1,4 @@
 import { FC, useContext } from 'react'
-import { ConfigurationEditorPropsType } from '@pages/ConfigurationEditorPage'
 import Editor, { loader } from '@monaco-editor/react'
 import { ConfigType } from '@pages/ModulesPage/module.type.ts'
 import { Context } from '@stores/index.tsx'
@@ -10,6 +9,7 @@ import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
 import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
 import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
+import { ConfigurationEditorPropsType } from '@pages/ConfigurationEditorPage/ConfigurationEditor.type.ts'
 
 const ConfigurationEditorCode: FC<ConfigurationEditorPropsType> = ({setDisableBtn= () => {},  bufConfig, setBufConfig }) => {
   const { changeTheme } = useContext(Context)
