@@ -61,7 +61,7 @@ const ConfigurationEditorPage: FC = () => {
 
   const onSaveBtn: MenuProps['onClick'] = (e, upVersion = undefined) => {
     const isUnsafe = e.key === 'unsafe'
-    handleSaveClick(upVersion, isUnsafe)
+    handleSaveClick(upVersion, isUnsafe, false)
 
   }
 
@@ -73,7 +73,7 @@ const ConfigurationEditorPage: FC = () => {
     setRadioValue(e.target.value)
   }
 
-  const handleSaveClick = (upVersion?: number, unsafe?: boolean) => {
+  const handleSaveClick = (upVersion?: number, unsafe?: boolean, isGoBack?: boolean) => {
     let newData = {}
     const sentData =
       radioValue === formRadio
@@ -102,6 +102,7 @@ const ConfigurationEditorPage: FC = () => {
       .unwrap()
       .then(({ id }) => {
         isNew && navigate(`/${moduleId}/configEditor/${id}`)
+        isGoBack && navigate(`/modules/${moduleId}/configurations`)
         message.success('Конфигурация успешно сохранена')
       })
       .catch((e) => {
@@ -174,7 +175,7 @@ const ConfigurationEditorPage: FC = () => {
             Текущая схема конфигурации
           </Button>
           <Dropdown.Button
-            onClick={() => handleSaveClick()}
+            onClick={() => handleSaveClick(undefined, undefined, true)}
             disabled={disableBtn}
             type="primary"
             className="configuration-editor-page__save-btn"
