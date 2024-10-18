@@ -1,15 +1,19 @@
+import { Table } from 'antd'
+import { FC } from 'react'
+
 import Modal from '@widgets/Modal'
 import { ModalPropsType } from '@widgets/Modal/modal.type.ts'
-import { FC } from 'react'
-import { Table } from 'antd'
 
 interface ErrorConfigModalProps
   extends Omit<ModalPropsType, 'title' | 'children'> {
   details?: { [key: string]: string }
 }
 
-const ErrorConfigModal: FC<ErrorConfigModalProps> = ({ details = {}, onClose, open }) => {
-
+const ErrorConfigModal: FC<ErrorConfigModalProps> = ({
+  details = {},
+  onClose,
+  open
+}) => {
   const columns = [
     {
       dataIndex: 'key',
@@ -28,10 +32,18 @@ const ErrorConfigModal: FC<ErrorConfigModalProps> = ({ details = {}, onClose, op
   }))
 
   return (
-    <Modal title="Несоотвествия схемы конфигурации" open={open}
-           onClose={onClose}>
+    <Modal
+      title="Несоотвествия схемы конфигурации"
+      open={open}
+      onClose={onClose}
+    >
       <div>
-        <Table columns={columns} dataSource={data} showHeader={false} pagination={false} />
+        <Table
+          columns={columns}
+          dataSource={data}
+          showHeader={false}
+          pagination={false}
+        />
       </div>
     </Modal>
   )

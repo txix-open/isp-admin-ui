@@ -25,7 +25,6 @@ import { LabelItem } from 'isp-ui-kit/dist/FormComponents/formTypes'
 
 import './user-editor.scss'
 
-
 const UserEditor = () => {
   const location = useLocation()
   const navigate = useNavigate()

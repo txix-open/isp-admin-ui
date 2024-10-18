@@ -27,7 +27,6 @@ import { UserType } from '@type/user.type.ts'
 
 import './users-page.scss'
 
-
 const UsersPage = () => {
   const { data: allUsers = [], isLoading: isUsersLoading } =
     userServiceApi.useGetAllUsersQuery()
@@ -131,8 +130,12 @@ const UsersPage = () => {
       dataIndex: 'email',
       key: 'email',
       render: (value, record) => {
-        if(record.blocked){
-          return <div>{value} <Tag color="red">Заблокирован</Tag></div>
+        if (record.blocked) {
+          return (
+            <div>
+              {value} <Tag color="red">Заблокирован</Tag>
+            </div>
+          )
         }
 
         return value
@@ -170,9 +173,9 @@ const UsersPage = () => {
       render: (_, record) => {
         return (
           <div className="users-page__content__table__actions">
-              <Button.Group className="button_group">
-                {hasBlockUserPermission && renderBlockButton(record)}
-                {hasUpdateUserPermission && (
+            <Button.Group className="button_group">
+              {hasBlockUserPermission && renderBlockButton(record)}
+              {hasUpdateUserPermission && (
                 <Tooltip key="EditOutlined" title="Редактировать пользователя">
                   <Button
                     data-cy={`users-page__content__table__actions__edit-btn ${record.id}`}
@@ -185,8 +188,8 @@ const UsersPage = () => {
                     }}
                   />
                 </Tooltip>
-                  )}
-                {hasDeleteUserPermission && (
+              )}
+              {hasDeleteUserPermission && (
                 <Popconfirm
                   title="Вы действительно хотите удалить этого пользователя?"
                   onConfirm={() => handleDeleteUser(record.id)}
@@ -199,8 +202,8 @@ const UsersPage = () => {
                     />
                   </Tooltip>
                 </Popconfirm>
-                  )}
-              </Button.Group>
+              )}
+            </Button.Group>
           </div>
         )
       }

@@ -4,8 +4,9 @@ import { ColumnItem } from 'isp-ui-kit/dist/Layout/Column/column.type'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
+import ListItem from '@widgets/ListItem'
+
 import ApplicationsContent from '@components/ApplicationsContent'
-import AppGroupModal from 'src/components/AppGroupModal'
 
 import {
   ApplicationsGroupType,
@@ -23,10 +24,10 @@ import applicationsGroupApi from '@services/applicationsGroupService.ts'
 import { routePaths } from '@routes/routePaths.ts'
 
 import { PermissionKeysType } from '@type/roles.type.ts'
-import ListItem from '@widgets/ListItem'
+
+import AppGroupModal from 'src/components/AppGroupModal'
 
 import './applications-page.scss'
-
 
 const { Column, EmptyData } = Layout
 
@@ -126,13 +127,18 @@ const ApplicationsPage = () => {
       id: Number(selectedItemId)
     }
 
-    updateApplicationsGroup(updateService).unwrap().then(()=>{
-      setShowApplicationsModal({
-        ...showApplicationsModal,
-        updateModal: false
+    updateApplicationsGroup(updateService)
+      .unwrap()
+      .then(() => {
+        setShowApplicationsModal({
+          ...showApplicationsModal,
+          updateModal: false
+        })
+        message.success('Группа приложений успешно отредактирована')
       })
-      message.success('Группа приложений успешно отредактирована')
-    }).catch(()=> message.error('Не удалось отредактировать группу приложений'))
+      .catch(() =>
+        message.error('Не удалось отредактировать группу приложений')
+      )
   }
 
   const handleRemoveApplicationsGtoup = () => {

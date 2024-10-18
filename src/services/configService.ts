@@ -8,7 +8,6 @@ import { axiosBaseQuery } from '@utils/apiUtils.ts'
 
 import { VersionType } from '@type/version.type.ts'
 
-
 const configServiceApi = createApi({
   reducerPath: 'configApi',
   tagTypes: ['configs', 'versions', 'config'],

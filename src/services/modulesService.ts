@@ -1,10 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
+
 import { apiPaths } from '@constants/api/apiPaths.ts'
 
-import { ModuleType, ResponseSchemaType } from '@pages/ModulesPage/module.type.ts'
+import {
+  ModuleType,
+  ResponseSchemaType
+} from '@pages/ModulesPage/module.type.ts'
 
 import { axiosBaseQuery } from '@utils/apiUtils.ts'
-
 
 const modulesServiceApi = createApi({
   reducerPath: 'modulesServiceApi',
@@ -28,8 +31,8 @@ const modulesServiceApi = createApi({
         url: apiPaths.getByModuleId,
         data: { moduleId }
       }),
-      providesTags: () => ['schema'],
-    }),
+      providesTags: () => ['schema']
+    })
   })
 })
 

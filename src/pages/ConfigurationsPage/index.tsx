@@ -20,7 +20,6 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './configurations.scss'
 
-
 const Configurations = () => {
   const {
     data: modulesList = [],

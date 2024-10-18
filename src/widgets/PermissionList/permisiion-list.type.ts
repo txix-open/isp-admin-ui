@@ -1,3 +1,3 @@
 export type PermissionListProps = {
-  permissions:string[];
+  permissions: string[]
 }

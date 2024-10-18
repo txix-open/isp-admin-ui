@@ -24,7 +24,6 @@ import { routePaths } from '@routes/routePaths.ts'
 
 import './applications-content.scss'
 
-
 const { EmptyData, Column } = Layout
 
 interface ApplicationsContentPropTypes {
@@ -134,7 +133,9 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
       .unwrap()
       .then(() => {
         message.success('Элемент удален')
-        navigate(`${routePaths.applicationsGroup}/${selectedItemId}/${routePaths.application}`)
+        navigate(
+          `${routePaths.applicationsGroup}/${selectedItemId}/${routePaths.application}`
+        )
       })
       .catch(() => message.error('Ошибка удаления элемента'))
 
@@ -142,7 +143,10 @@ const ApplicationsContent: FC<ApplicationsContentPropTypes> = ({
     return (
       <List.Item>
         <Tooltip mouseEnterDelay={1.3} title={item.name}>
-          <List.Item.Meta title={item.name} description={<span>id: {item.id}</span>}/>
+          <List.Item.Meta
+            title={item.name}
+            description={<span>id: {item.id}</span>}
+          />
           <div
             className="link-btn"
             onClick={(e) => {

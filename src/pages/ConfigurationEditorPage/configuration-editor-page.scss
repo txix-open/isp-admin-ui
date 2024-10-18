@@ -9,12 +9,15 @@
   height: 100vh;
   overflow: scroll;
   padding-bottom: 80px;
+
   &::-webkit-scrollbar {
     display: none;
   }
+
   .react-json-view {
     margin: $basic-margin *3 0 $basic-margin *2 0;
   }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -22,7 +25,8 @@
     padding: $basic-padding *2 $basic-padding;
     border-bottom: 1px solid $border-color;
   }
-  &__controll{
+
+  &__controll {
     display: flex;
   }
 
@@ -30,8 +34,9 @@
     width: auto;
     margin-left: $basic-margin;
   }
+
   &__content {
-    padding: $basic-padding * 3  $basic-padding;
+    padding: $basic-padding * 3 $basic-padding;
   }
 
   .rjsf {
@@ -40,37 +45,104 @@
     .form-group {
       width: 100%;
     }
+
     .ant-form-item-label {
       text-align: start;
     }
+
     .ant-tabs-right {
       width: 100%;
       justify-content: space-between;
     }
+
     .ant-col-8 .ant-form-item-label {
       margin-right: $basic-margin *2;
     }
 
+    .ant-form-item-row {
+      flex-direction: column;
+    }
+
+    .collapseArray_item_content {
+      width: 100%;
+    }
+
+    .ant-collapse-item {
+      margin-bottom: 8px;
+    }
+    .ant-collapse-header {
+      align-items: center;
+    }
+
+    .collapseArray_item {
+      display: flex;
+      width: 100%;
+
+      .anticon-delete {
+        margin-left: auto;
+        padding-left: 8px;
+      }
+    }
+
+    .ant-col-sm-16 {
+      max-width: 100%;
+    }
+
+    .ant-col .ant-form-item-control {
+      max-width: 100%;
+    }
+
+    .ant-form-item-control-input-content {
+      width: 100%;
+      max-width: 100%;
+      flex: auto;
+    }
+
+    .flex-space-between {
+      display: flex;
+      flex-direction: row !important;
+      justify-content: space-between;
+
+      &__plus {
+        margin-left: 8px;
+      }
+    }
+    .collapseArray_item {
+      align-items: center;
+      .ant-btn-link {
+        margin-bottom: 8px;
+      }
+    }
+
+
+
   }
+
   .ant-btn-group {
     margin-top: 40px;
   }
+
   .ant-row .ant-row-end {
     width: 60px;
     margin: 0 0 $basic-margin auto !important;
   }
+
   &__form {
     padding: $basic-padding;
   }
+
   .modal__wrap {
     min-height: 110px;
   }
+
   .confirm-btn {
     width: 190px;
   }
+
   .confirm-btn, .danger {
     margin-right: $basic-margin;
   }
+
   .error-data {
     color: red;
     font-size: 16px;

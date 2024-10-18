@@ -6,7 +6,6 @@ import roleApi from '@services/roleService.ts'
 
 import './role-list.scss'
 
-
 const RoleList = ({ userRoles }: RoleListProps) => {
   const { data: roles = [], isLoading, isError } = roleApi.useGetAllRolesQuery()
   const roleIds = new Set(userRoles)

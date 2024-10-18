@@ -9,7 +9,6 @@ import { LocalStorage } from '@utils/localStorageUtils.ts'
 
 import { routePaths } from '@routes/routePaths.ts'
 
-
 const useLogout = () => {
   const { logout, isLoading } = useAuth()
   const navigate = useNavigate()

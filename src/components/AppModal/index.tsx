@@ -10,10 +10,9 @@ import { AppModalType } from '@components/AppModal/app-group-modal.type.ts'
 
 import { ApplicationAppType } from '@pages/ApplicationsPage/applications.type.ts'
 
-
 const { FormInput, FormTextArea } = FormComponents
 
-const AppModal: FC<AppModalType> = ({ title,onOk, onClose, open, app }) => {
+const AppModal: FC<AppModalType> = ({ title, onOk, onClose, open, app }) => {
   const { handleSubmit, control, reset } = useForm<ApplicationAppType>({
     mode: 'onChange',
     defaultValues: app

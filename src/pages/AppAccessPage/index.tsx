@@ -28,7 +28,6 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './app-access-page.scss'
 
-
 const { Column, EmptyData } = Layout
 
 const firstColumnSearchParam = 'search'

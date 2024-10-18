@@ -90,15 +90,15 @@ export interface ModuleType {
 }
 
 export interface ResponseSchemaType {
-  createdAt: string,
-  id: string,
-  moduleId: string,
-  schema: JSONSchema,
-  updatedAt: string,
+  createdAt: string
+  id: string
+  moduleId: string
+  schema: JSONSchema
+  updatedAt: string
   version: string
 }
 export interface ConfigResponse {
   originalResponse: ConfigType[]
   activeConfigs: ConfigType[]
-  inactiveConfigs:ConfigType[]
+  inactiveConfigs: ConfigType[]
 }
