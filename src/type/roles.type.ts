@@ -12,7 +12,7 @@ export enum PermissionKeysType {
   role_add = 'role_add', // Создание роли
   role_update = 'role_update', // Обновление роли
   role_delete = 'role_delete', // Удаление роли
-  security_log_view = 'security_log_view', // Просмотр журналов ИБ
+  security_log_view = 'security_log_view' // Просмотр журналов ИБ
 }
 
 export interface RoleType {

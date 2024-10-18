@@ -98,29 +98,29 @@ const LayoutComponent = () => {
       className: hideItem([
         PermissionKeysType.user_view,
         PermissionKeysType.session_view,
-        PermissionKeysType.role_view,
+        PermissionKeysType.role_view
       ]),
       icon: <ProfileOutlined />,
       children: [
         {
           label: 'Пользователи',
           key: 'users',
-          className: hideItem(PermissionKeysType.user_view),
+          className: hideItem(PermissionKeysType.user_view)
         },
         {
           label: 'Пользовательские сессии',
           key: 'sessions',
-          className: hideItem(PermissionKeysType.session_view),
+          className: hideItem(PermissionKeysType.session_view)
         },
         {
           label: 'Просмотр журналов ИБ',
           key: 'securityLog',
-          className: hideItem(PermissionKeysType.security_log_view),
+          className: hideItem(PermissionKeysType.security_log_view)
         },
         {
           label: 'Роли',
           key: 'roles',
-          className: hideItem(PermissionKeysType.role_view),
+          className: hideItem(PermissionKeysType.role_view)
         }
       ]
     }

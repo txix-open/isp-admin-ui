@@ -11,7 +11,6 @@ import {
 
 import { fetchProfile } from './ActionCreators.ts'
 
-
 export enum StateProfileStatus {
   resolved = 'resolved',
   pending = 'pending',

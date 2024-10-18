@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { routePaths } from '@routes/routePaths.ts'
 
-
 const { NotFoundPage } = Layout
 
 const NotFound = () => {

@@ -1,7 +1,10 @@
 import { Pagination, Spin, Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { dateFormats } from '@constants/date.ts'
 
 import { getUserFullName } from '@utils/userUtils/getFullNameUtil'
 
@@ -16,8 +19,6 @@ import { LogType } from '@type/log.type'
 import { PermissionKeysType } from '@type/roles.type'
 
 import './security-log-page.scss'
-import dayjs from 'dayjs'
-import { dateFormats } from '@constants/date.ts'
 
 const limit = 10
 
@@ -77,7 +78,7 @@ const SecurityLogPage = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (value) => {
-        return  dayjs(value).format(dateFormats.fullFormat)
+        return dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {

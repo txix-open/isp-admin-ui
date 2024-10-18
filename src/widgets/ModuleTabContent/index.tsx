@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom'
 
 import { ModuleTabContentPropsType } from '@widgets/ModuleTabContent/module-tab-content.type.ts'
 
-
 const { EmptyData, NoData } = Layout
 
 const ModuleTabContent = ({

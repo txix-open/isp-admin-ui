@@ -27,7 +27,6 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 
 import './modules-page.scss'
 
-
 const { Column } = Layout
 
 const ModulesPage = () => {
@@ -133,58 +132,58 @@ const ModulesPage = () => {
   )
 
   const renderItems = (item: ModuleType) => {
-      const isSame = versionCompare(item?.status?.map((i) => i.version))
-      const textTooltip = isSame
-        ? 'Активны экземпляры одинаковых версий'
-        : 'Активны экземпляры разных версий'
-      const lastVersion = getLastVersion(item.status?.map((i) => i.version))
+    const isSame = versionCompare(item?.status?.map((i) => i.version))
+    const textTooltip = isSame
+      ? 'Активны экземпляры одинаковых версий'
+      : 'Активны экземпляры разных версий'
+    const lastVersion = getLastVersion(item.status?.map((i) => i.version))
 
-      const renderVersion = () => {
-        if (!isSame && lastVersion) {
-          return (
-            <Tag icon={<ExclamationCircleOutlined />} color="warning">
-              {lastVersion}
-            </Tag>
-          )
-        }
-        if (isSame && lastVersion) {
-          return <Tag color="default">{lastVersion}</Tag>
-        }
-        return ''
+    const renderVersion = () => {
+      if (!isSame && lastVersion) {
+        return (
+          <Tag icon={<ExclamationCircleOutlined />} color="warning">
+            {lastVersion}
+          </Tag>
+        )
       }
+      if (isSame && lastVersion) {
+        return <Tag color="default">{lastVersion}</Tag>
+      }
+      return ''
+    }
 
-      return (
-        <List.Item>
-          <Tooltip mouseEnterDelay={1} title={item.name}>
-            <List.Item.Meta
-              title={
-                <div className="module-item__name">
-                  <span>{item.name}</span>
-                  <Tooltip
-                    overlayInnerStyle={{ width: '300px' }}
-                    title={textTooltip}
-                  >
-                    {renderVersion()}
-                  </Tooltip>
-                </div>
-              }
-              description={
-                <div className="module-item__content">
+    return (
+      <List.Item>
+        <Tooltip mouseEnterDelay={1} title={item.name}>
+          <List.Item.Meta
+            title={
+              <div className="module-item__name">
+                <span>{item.name}</span>
+                <Tooltip
+                  overlayInnerStyle={{ width: '300px' }}
+                  title={textTooltip}
+                >
+                  {renderVersion()}
+                </Tooltip>
+              </div>
+            }
+            description={
+              <div className="module-item__content">
                 <span className="module-item__content__description">
                   активные экземпляры:
                 </span>
-                  <Badge
-                    size="small"
-                    showZero
-                    count={(item.status && item.status.length) || 0}
-                    color={!item.status || !item.status.length ? '' : 'cyan'}
-                  />
-                </div>
-              }
-            />
-          </Tooltip>
-        </List.Item>
-      )
+                <Badge
+                  size="small"
+                  showZero
+                  count={(item.status && item.status.length) || 0}
+                  color={!item.status || !item.status.length ? '' : 'cyan'}
+                />
+              </div>
+            }
+          />
+        </Tooltip>
+      </List.Item>
+    )
   }
 
   return (

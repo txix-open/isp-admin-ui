@@ -10,7 +10,6 @@ import {
   RouteType
 } from '@type/accessList.type.ts'
 
-
 const routeApi = createApi({
   reducerPath: 'routeApi',
   refetchOnFocus: true,

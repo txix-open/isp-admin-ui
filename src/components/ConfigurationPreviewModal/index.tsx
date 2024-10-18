@@ -5,9 +5,9 @@ import Modal from '@widgets/Modal'
 
 import { ConfigurationPreviewModalPropsType } from '@components/ConfigurationPreviewModal/configuration-preview-modal.type.ts'
 
-import './configuration-preview-modal.scss'
 import { Context } from '@stores/index.tsx'
 
+import './configuration-preview-modal.scss'
 
 const ConfigurationPreviewModal: FC<ConfigurationPreviewModalPropsType> = ({
   versionCompare = false,
@@ -24,7 +24,7 @@ const ConfigurationPreviewModal: FC<ConfigurationPreviewModalPropsType> = ({
     <div className="configuration-preview-modal">
       <Modal title={configName || ''} open={open} onClose={onClose}>
         <ReactJsonView
-          theme={ changeTheme ? 'twilight' : ''}
+          theme={changeTheme ? 'twilight' : ''}
           src={data}
           name={false}
           sortKeys={true}

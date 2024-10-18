@@ -9,9 +9,11 @@ import {
   Tooltip
 } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { dateFormats } from '@constants/date.ts'
 import { SessionStatusKeysType, sessionStatuses } from '@constants/statuses'
 
 import { getUserFullName } from '@utils/userUtils/getFullNameUtil'
@@ -27,8 +29,6 @@ import { PermissionKeysType } from '@type/roles.type.ts'
 import { SessionType } from '@type/session.type'
 
 import './sessions-page.scss'
-import dayjs from 'dayjs'
-import { dateFormats } from '@constants/date.ts'
 
 const limit = 10
 
@@ -97,7 +97,7 @@ const SessionsPage = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       render: (value) => {
-        return  dayjs(value).format(dateFormats.fullFormat)
+        return dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {
@@ -105,7 +105,7 @@ const SessionsPage = () => {
       dataIndex: 'expiredAt',
       key: 'expiredAt',
       render: (value) => {
-        return  dayjs(value).format(dateFormats.fullFormat)
+        return dayjs(value).format(dateFormats.fullFormat)
       }
     },
     {
@@ -135,7 +135,7 @@ const SessionsPage = () => {
                   />
                 </Tooltip>
               </Popconfirm>
-              )}
+            )}
           </>
         )
       }

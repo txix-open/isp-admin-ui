@@ -1,8 +1,11 @@
 import { EditorState, EditorView } from '@uiw/react-codemirror'
 import { Button, Spin, Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import dayjs from 'dayjs'
 import { FC, memo, useContext, useState } from 'react'
 import CodeMirrorMerge from 'react-codemirror-merge'
+
+import { dateFormats } from '@constants/date.ts'
 
 import Modal from '@widgets/Modal'
 
@@ -15,23 +18,21 @@ import { useAppSelector } from '@hooks/redux.ts'
 import configServiceApi from '@services/configService.ts'
 import userServiceApi from '@services/userService.ts'
 
+import { Context } from '@stores/index.tsx'
+
 import { VersionType } from '@type/version.type'
 
 import './compare-version-modal.scss'
-import dayjs from 'dayjs'
-import { dateFormats } from '@constants/date.ts'
-import { Context } from '@stores/index.tsx'
-
 
 const Original = CodeMirrorMerge.Original
 const Modified = CodeMirrorMerge.Modified
 
 const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
-                                                                 open,
-                                                                 onClose,
-                                                                 config,
-                                                                 currentConfigId
-                                                               }) => {
+  open,
+  onClose,
+  config,
+  currentConfigId
+}) => {
   const [selectedItem, setSelectedItem] = useState<VersionType>()
   const { data: versions = [], isLoading: isVersionLoading } =
     configServiceApi.useGetAllVersionQuery(currentConfigId)
@@ -73,13 +74,21 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   ]
   return (
     <div className="compare-version-modal">
-      <Modal title="Выберите версию для сравнения" open={open} onClose={onClose}>
+      <Modal
+        title="Выберите версию для сравнения"
+        open={open}
+        onClose={onClose}
+      >
         {selectedItem ? (
           <div className="compare-version-modal__content">
             <Button onClick={() => setSelectedItem(undefined)}>Назад</Button>
             <div className="compare-version-modal__header">
               <span> Версия: {selectedItem.configVersion}</span>
-              <span>{config?.version ? `Текущая версия : ${config?.version}` : `Версия: ${config?.configVersion}`}</span>
+              <span>
+                {config?.version
+                  ? `Текущая версия : ${config?.version}`
+                  : `Версия: ${config?.configVersion}`}
+              </span>
             </div>
             <CodeMirrorMerge
               orientation="a-b"
