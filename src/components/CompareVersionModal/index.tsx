@@ -1,9 +1,8 @@
-import { EditorState, EditorView } from '@uiw/react-codemirror'
+import { DiffEditor } from '@monaco-editor/react'
 import { Button, Spin, Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import dayjs from 'dayjs'
 import { FC, memo, useContext, useState } from 'react'
-import CodeMirrorMerge from 'react-codemirror-merge'
 
 import { dateFormats } from '@constants/date.ts'
 
@@ -23,9 +22,6 @@ import { Context } from '@stores/index.tsx'
 import { VersionType } from '@type/version.type'
 
 import './compare-version-modal.scss'
-
-const Original = CodeMirrorMerge.Original
-const Modified = CodeMirrorMerge.Modified
 
 const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
   open,
@@ -90,21 +86,17 @@ const CompareVersionModal: FC<CompareVersionModalPropsType> = ({
                   : `Версия: ${config?.configVersion}`}
               </span>
             </div>
-            <CodeMirrorMerge
-              orientation="a-b"
-              theme={changeTheme ? 'dark' : 'light'}
-            >
-              <Original
-                value={JSON.stringify(sortObject(selectedItem.data), null, 2)}
-              />
-              <Modified
-                value={JSON.stringify(sortObject(config?.data), null, 2)}
-                extensions={[
-                  EditorView.editable.of(false),
-                  EditorState.readOnly.of(true)
-                ]}
-              />
-            </CodeMirrorMerge>
+            <DiffEditor
+              original={JSON.stringify(sortObject(selectedItem.data), null, 2)}
+              modified={JSON.stringify(sortObject(config?.data), null, 2)}
+              theme={changeTheme ? 'vs-dark' : 'vs-white'}
+              options={{
+                readOnly: true,
+                domReadOnly: true,
+                renderOverviewRuler: false,
+                autoClosingOvertype: 'auto'
+              }}
+            />
           </div>
         ) : (
           <div className="compare-version-modal__content__table">

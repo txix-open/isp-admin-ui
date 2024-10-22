@@ -20,9 +20,9 @@
   }
 
   &__content {
-    .cm-merge-theme {
+    .monaco-diff-editor {
       overflow-y: scroll;
-      height: calc(90vh - 150px);
+      height: calc(90vh - 150px) !important;
     }
 
     &__table {
