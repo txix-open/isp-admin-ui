@@ -63,7 +63,7 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
-    "sass": "^1.74.1",
+    "sass": "1.74.1",
     "terser": "^5.30.3",
     "typescript": "^5.4.3",
     "vite": "^5.2.8",
