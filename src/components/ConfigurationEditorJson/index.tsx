@@ -7,7 +7,7 @@ import { ConfigurationEditorPropsType } from '@pages/ConfigurationEditorPage/Con
 import { Context } from '@stores/index.tsx'
 
 const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({
-  bufConfig = {},
+  bufConfig,
   setBufConfig,
   isCurrentConfigLoading
 }) => {
@@ -35,7 +35,7 @@ const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({
       enableClipboard={true}
       iconStyle="square"
       onEdit={({ updated_src }: any) => handleEdit(updated_src)}
-      src={bufConfig.data}
+      src={bufConfig?.data}
       sortKeys={true}
       collapsed={1}
     />
