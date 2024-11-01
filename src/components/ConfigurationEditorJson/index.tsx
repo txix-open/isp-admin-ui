@@ -4,8 +4,6 @@ import { FC, useContext } from 'react'
 
 import { ConfigurationEditorPropsType } from '@pages/ConfigurationEditorPage/ConfigurationEditor.type.ts'
 
-import { cleanEmptyParamsObject } from '@utils/objectUtils.ts'
-
 import { Context } from '@stores/index.tsx'
 
 const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({
@@ -23,7 +21,7 @@ const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({
       ...bufConfig,
       data: { ...updated_src }
     }
-    setBufConfig(cleanEmptyParamsObject(newData))
+      setBufConfig(newData)
   }
 
   return (
