@@ -130,7 +130,7 @@ const ConfigurationEditorPage: FC = () => {
         return (
           <ConfigurationEditorForm
             submitRef={submitRef}
-            bufConfig={bufConfig}
+            bufConfig={bufConfig as ConfigType}
             setBufConfig={setBufConfig}
             jsonSchema={jsonSchema}
             isCurrentConfigLoading={isCurrentConfigLoading}
@@ -140,7 +140,7 @@ const ConfigurationEditorPage: FC = () => {
       case jsonRadio:
         return (
           <ConfigurationEditorJson
-            bufConfig={bufConfig}
+            bufConfig={bufConfig as ConfigType}
             setBufConfig={setBufConfig}
             isCurrentConfigLoading={isCurrentConfigLoading}
           />
@@ -149,7 +149,7 @@ const ConfigurationEditorPage: FC = () => {
         return (
           <ConfigurationEditorCode
             setDisableBtn={setDisableBtn}
-            bufConfig={bufConfig}
+            bufConfig={bufConfig as ConfigType}
             setBufConfig={setBufConfig}
             isCurrentConfigLoading={isCurrentConfigLoading}
           />
