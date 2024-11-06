@@ -60,11 +60,6 @@ const Connections = () => {
   const formatFullDate = (obj: string) =>
     dayjs(obj).format(dateFormats.fullFormat)
 
-  const keySelector = ({
-    address: { ip, port },
-    establishedAt
-  }: ModuleStatusType) => ip + port + establishedAt
-
   const renderEndpoints = ({ endpoints }: ModuleStatusType) => {
     if (endpoints && endpoints.length) {
       return (
@@ -144,7 +139,7 @@ const Connections = () => {
       <div className="connection-page__content">
         <div className="connection-page__content__wrap-table">
           <Table
-            rowKey={keySelector}
+            rowKey={(record) => record.id}
             pagination={false}
             dataSource={obj}
             columns={columns}
