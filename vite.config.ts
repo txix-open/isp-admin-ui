@@ -5,7 +5,6 @@ import svgr from 'vite-plugin-svgr'
 
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -17,10 +16,14 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       minify: 'esbuild',
-      sourcemap: true,
+      sourcemap: mode !== 'production',
       outDir: 'build',
       chunkSizeWarningLimit: 1600,
       commonjsOptions: { transformMixedEsModules: true },
+      esbuild: {
+        target: 'es2020',
+        legalComments: 'none'
+      }
     },
     server: {
       watch: {
