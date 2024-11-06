@@ -4,12 +4,10 @@ import { FC, useContext } from 'react'
 
 import { ConfigurationEditorPropsType } from '@pages/ConfigurationEditorPage/ConfigurationEditor.type.ts'
 
-import { cleanEmptyParamsObject } from '@utils/objectUtils.ts'
-
 import { Context } from '@stores/index.tsx'
 
 const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({
-  bufConfig = {},
+  bufConfig,
   setBufConfig,
   isCurrentConfigLoading
 }) => {
@@ -23,7 +21,7 @@ const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({
       ...bufConfig,
       data: { ...updated_src }
     }
-    setBufConfig(cleanEmptyParamsObject(newData))
+      setBufConfig(newData)
   }
 
   return (
@@ -37,7 +35,7 @@ const ConfigurationEditorJson: FC<ConfigurationEditorPropsType> = ({
       enableClipboard={true}
       iconStyle="square"
       onEdit={({ updated_src }: any) => handleEdit(updated_src)}
-      src={bufConfig.data}
+      src={bufConfig?.data}
       sortKeys={true}
       collapsed={1}
     />

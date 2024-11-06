@@ -13,7 +13,7 @@ import {
 
 export interface ConfigurationEditorPropsType {
   jsonSchema?: ResponseSchemaType
-  bufConfig?: ConfigType
+  bufConfig: ConfigType
   setBufConfig: Dispatch<SetStateAction<ConfigType | undefined>>
   isCurrentConfigLoading: boolean
   setDisableBtn?: Dispatch<SetStateAction<boolean>>
