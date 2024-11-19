@@ -113,9 +113,6 @@
         margin-bottom: 8px;
       }
     }
-
-
-
   }
 
   .ant-btn-group {
@@ -132,15 +129,11 @@
   }
 
   .modal__wrap {
-    min-height: 110px;
+    min-height: 100px;
   }
 
   .confirm-btn {
     width: 190px;
-  }
-
-  .confirm-btn, .danger {
-    margin-right: $basic-margin;
   }
 
   .error-data {
