@@ -24,6 +24,8 @@ import { routePaths } from '@routes/routePaths.ts'
 import { NewRoleType, PermissionKeysType, RoleType } from '@type/roles.type.ts'
 
 import './roles-page.scss'
+import { useAppDispatch } from '@hooks/redux.ts'
+import { fetchProfile } from '@stores/redusers/ActionCreators.ts'
 
 const { Column, EmptyData, NoData } = Layout
 
@@ -34,6 +36,7 @@ const RolesPage = () => {
   const fromApp = location.state?.fromApp || false
   const { role, hasPermission } = useRole()
   const [searchParams, setSearchParams] = useSearchParams()
+  const dispatch = useAppDispatch()
   const searchValue = searchParams.get('search') || ''
   const { data: permissionList = [], isLoading: isPermissionLoading } =
     userServiceApi.useGetAllPermissionsQuery()
@@ -97,6 +100,7 @@ const RolesPage = () => {
     updateRole(formValue as RoleType)
       .unwrap()
       .then(() => {
+        dispatch(fetchProfile())
         message.success('Элемент успешно добавлен').then()
       })
       .catch((error) => {

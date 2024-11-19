@@ -96,6 +96,7 @@ const LoginPage = () => {
           type="primary"
           className="login-page__content__submit-btn"
           onClick={handleSubmit(handleSubmitForm)}
+          htmlType="submit"
         >
           Войти
         </Button>
