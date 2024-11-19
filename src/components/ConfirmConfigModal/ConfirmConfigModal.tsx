@@ -39,7 +39,7 @@ const ConfirmConfigModal: FC<ConfirmModalProps> = ({
       onClose={onClose}
     >
       <Button
-        className="confirm-btn danger"
+        className="confirm-modal-btn danger"
         type="primary"
         danger
         onClick={() => {
@@ -49,7 +49,7 @@ const ConfirmConfigModal: FC<ConfirmModalProps> = ({
       >
         Сохранить принудительно
       </Button>
-      <Button className="confirm-btn" type="primary" onClick={onConfirmHandler}>
+      <Button className="confirm-modal-btn" type="primary" onClick={onConfirmHandler}>
         Принять изменения
       </Button>
     </Modal>
