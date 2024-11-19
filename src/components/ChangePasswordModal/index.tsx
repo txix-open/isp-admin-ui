@@ -47,6 +47,7 @@ const ChangePasswordModal: FC<ChangePasswordModalProps> = ({
       await logoutUser()
       message.success('Пароль успешно изменен')
       clearErrors('oldPassword')
+      onClose()
     } catch (error: any) {
       if (error.response.data.errorCode === 1001) {
         setError('oldPassword', {
