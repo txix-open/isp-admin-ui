@@ -1,7 +1,7 @@
 {
   "name": "isp-admin-ui",
   "private": true,
-  "version": "0.18.2",
+  "version": "0.18.3",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -25,7 +25,7 @@
     "compare-versions": "^6.1.0",
     "dayjs": "^1.11.10",
     "deep-equal": "^2.2.3",
-    "isp-ui-kit": "github:txix-open/isp-ui-kit",
+    "isp-ui-kit": "^0.10.0",
     "json-schema-view-js": "^2.0.1",
     "lodash.clonedeep": "^4.5.0",
     "monaco-editor": "^0.52.0",
