@@ -9,6 +9,8 @@ import { ConfigType } from '@pages/ModulesPage/module.type.ts'
 
 import configServiceApi from '@services/configService.ts'
 
+import './confirm-config-modal.scss'
+
 interface ConfirmModalProps extends Omit<ModalPropsType, 'title' | 'children'> {
   handleSaveClick: (upVersion?: number, unsafe?: boolean) => void
   setBufConfig: Dispatch<SetStateAction<ConfigType | undefined>>
