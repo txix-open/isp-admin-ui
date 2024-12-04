@@ -9,6 +9,8 @@ import { ConfigType } from '@pages/ModulesPage/module.type.ts'
 
 import configServiceApi from '@services/configService.ts'
 
+import './confirm-config-modal.scss'
+
 interface ConfirmModalProps extends Omit<ModalPropsType, 'title' | 'children'> {
   handleSaveClick: (upVersion?: number, unsafe?: boolean) => void
   setBufConfig: Dispatch<SetStateAction<ConfigType | undefined>>
@@ -39,7 +41,7 @@ const ConfirmConfigModal: FC<ConfirmModalProps> = ({
       onClose={onClose}
     >
       <Button
-        className="confirm-modal-btn danger"
+        className="confirm-btn danger"
         type="primary"
         danger
         onClick={() => {
@@ -49,7 +51,7 @@ const ConfirmConfigModal: FC<ConfirmModalProps> = ({
       >
         Сохранить принудительно
       </Button>
-      <Button className="confirm-modal-btn" type="primary" onClick={onConfirmHandler}>
+      <Button className="confirm-btn" type="primary" onClick={onConfirmHandler}>
         Принять изменения
       </Button>
     </Modal>
