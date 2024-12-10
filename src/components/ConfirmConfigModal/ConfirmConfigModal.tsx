@@ -35,6 +35,7 @@ const ConfirmConfigModal: FC<ConfirmModalProps> = ({
   }
 
   return (
+    <div className="confirm-config-modal">
     <Modal
       title="Версия конфигурации была кем-то изменена"
       open={open}
@@ -55,6 +56,7 @@ const ConfirmConfigModal: FC<ConfirmModalProps> = ({
         Принять изменения
       </Button>
     </Modal>
+    </div>
   )
 }
 export default ConfirmConfigModal
