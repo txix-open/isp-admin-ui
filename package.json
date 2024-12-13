@@ -1,7 +1,7 @@
 {
   "name": "isp-admin-ui",
   "private": true,
-  "version": "0.18.6",
+  "version": "0.18.7",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -11,7 +11,7 @@
     "fix:prettier": "prettier --write \"src/**/*.{ts,tsx, js}\"",
     "lint:fix": "eslint --fix .",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "prepare": "husky install"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.6",
