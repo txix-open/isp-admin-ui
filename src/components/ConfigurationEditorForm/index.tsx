@@ -8,7 +8,6 @@ import {
   Button,
   Tabs,
   Tooltip,
-  Form as FormAntd,
   Collapse,
   Typography,
   Space
@@ -22,9 +21,9 @@ import {
   ConfigurationEditorPropsType,
   DescriptionPropsType,
   ErrorsObjType,
-  FieldTemplatePropsType,
   ObjectFieldTemplatePropertyType,
   ObjectFieldTemplatePropsType,
+  RemoveButtonProps,
   SortPropType
 } from '@pages/ConfigurationEditorPage/ConfigurationEditor.type.ts'
 import { ResponseSchemaType } from '@pages/ModulesPage/module.type.ts'
@@ -103,98 +102,12 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
     return id.split('_').length
   }
 
-  const getName = (id: string) => {
-    if (!id) {
-      return ''
-    }
-    const arr = id.split('_')
-    return `#${arr[arr.length - 1] || ''}`
-  }
-
-  const FieldTemplate: FC<FieldTemplatePropsType> = (props) => {
-    const {
-      id,
-      classNames,
-      label,
-      rawHelp,
-      required,
-      rawDescription,
-      rawErrors,
-      children,
-      displayLabel,
-      schema
-    } = props
-
-    const isObject = schema.type === 'object'
-    const depth = getDepth(id)
-    const name = label || getName(id)
-
-    // Проверяем на наличие ошибок и формируем их вывод
-    const errorMessages = rawErrors ? rawErrors.join('\n') : null
-
-    // Объекты и массивы - Обработка по глубине
-    if (isObject && depth !== 1) {
-      const title = (
-        <div className={required ? 'ant-form-item-required' : ''}>
-          {depth !== 2 && <AntdText strong>{name}</AntdText>}
-          {errorMessages && (
-            <AntdText type="danger">{` (${errorMessages})`}</AntdText>
-          )}
-          {depth !== 2 && <Description description={rawDescription} />}
-        </div>
-      )
-
-      if (depth === 2 || schema.dynamic) {
-        return (
-          <div style={{ width: '100%' }}>
-            {!schema.dynamic && title}
-            {children}
-          </div>
-        )
-      }
-
-      return (
-        <Collapse className="collapse" defaultActiveKey={depth > 1 ? '' : id}>
-          <Collapse.Panel
-            key={id}
-            className="configEditor_collapseObject"
-            header={title}
-          >
-            {children}
-          </Collapse.Panel>
-        </Collapse>
-      )
-    }
-
-    // Для остальных типов возвращаем форму с элементами
-    return (
-      <FormAntd.Item
-        className={classNames}
-        validateStatus={errorMessages ? 'error' : undefined}
-        help={errorMessages || undefined}
-        extra={rawHelp}
-        required={required}
-        label={
-          displayLabel && !schema.dynamic ? (
-            <>
-              {name}
-              <Description description={rawDescription} />
-            </>
-          ) : null
-        }
-      >
-        {children}
-      </FormAntd.Item>
-    )
-  }
-
   const ArrayFieldTemplate: FC<ArrayFieldTemplatePropsType> = ({
     items,
     onAddClick,
     canAdd,
     title,
-    idSchema,
-    schema: { description }
+    idSchema
   }) => {
     return (
       <Collapse defaultActiveKey={idSchema.$id}>
@@ -207,9 +120,11 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
               style={{ justifyContent: 'space-between', width: '100%' }}
             >
               <Space direction="horizontal">
+                <Tooltip title={title}>
                 <AntdText>{title}</AntdText>
+                </Tooltip>
                 <Badge count={items ? items.length : 0} showZero />
-                <Description description={description} />
+                <Description description={title} />
               </Space>
               {canAdd && (
                 <Button
@@ -242,54 +157,124 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
     )
   }
 
+  const RemoveButton = (props: RemoveButtonProps) => {
+    const { icon, iconType, ...btnProps } = props
+    return (
+      <Button
+        type="link"
+        icon={<DeleteOutlined />}
+        {...btnProps}
+      />
+    )
+  }
+
   const ObjectFieldTemplate: FC<ObjectFieldTemplatePropsType> = (props) => {
-    const {
-      properties,
-      idSchema,
-      schema: { properties: schemaProperties },
-      activeTabKey,
-      handleTabsChange
-    } = props
+    const { properties, schema, idSchema, onAddClick, activeTabKey, handleTabsChange, title } = props
+    const depth = getDepth(idSchema.$id)
 
-    properties.sort(sortProps)
-    if (idSchema.$id === 'root') {
-      const propsComplex: ObjectFieldTemplatePropertyType[] = []
-      const propsSimple: ObjectFieldTemplatePropertyType[] = []
+    const renderComplexTabs = (propsComplex: any[]) => {
+      return (
+        propsComplex.map((element) => ({
+          label: schema.properties[element.name]?.title || element.name,
+          key: element.name,
+          children: schema.additionalProperties
+            ? (properties.map((element: any) => (
+              <div key={element.content.key} className="collapseArray_item">
+                <div className="collapseArray_item_content">{element.content}</div>
+              </div>
+            )))
+            : <>{element.content}</>
+        }))
+      )
+    }
 
-      properties.forEach((prop) => {
-        const fieldType = schemaProperties[prop.name]?.type
-        if (!fieldType || fieldType === 'array' || fieldType === 'object') {
+    const propsComplex: ObjectFieldTemplatePropertyType[] = []
+    const propsSimple: ObjectFieldTemplatePropertyType[] = []
+
+    const processProperties = (properties: any) => {
+      properties.forEach((prop: any) => {
+        const fieldType = schema.properties[prop.name]?.type
+        const isComplex = !fieldType || fieldType === 'array' || fieldType === 'object'
+        if (isComplex) {
           propsComplex.push(prop)
         } else {
           propsSimple.push(prop)
         }
       })
+    }
 
+    if (!schema.additionalProperties) {
+      properties.sort(sortProps)
+    }
+    processProperties(properties)
+
+    if (idSchema.$id === 'root') {
       return (
         <Tabs
           activeKey={activeTabKey}
           tabPosition="right"
           onChange={handleTabsChange}
           items={[
-            ...(propsSimple.length
-              ? [
-                  {
-                    label: 'Остальные',
-                    key: 'General',
-                    children: propsSimple.map((element) => element.content)
-                  }
-                ]
-              : []),
-            ...propsComplex.map((element) => ({
-              label: schemaProperties[element.name]?.title || element.name,
-              key: element.name,
-              children: element.content
-            }))
+            ...(propsSimple.length ? [{
+              label: 'Остальные',
+              key: 'General',
+              children: propsSimple.map((element) => element.content)
+            }] : []),
+            ...renderComplexTabs(propsComplex)
           ]}
         />
       )
     }
-    return <>{properties.map((element) => element.content)}</>
+
+    if (schema.additionalProperties) {
+      return (
+        <Collapse className="collapse" defaultActiveKey={depth > 1 ? '' : idSchema.$id}>
+          <Collapse.Panel
+            key={idSchema.$id}
+            className="configEditor_collapseObject"
+            header={
+              <Space direction="horizontal" style={{ justifyContent: 'space-between', width: '100%' }}>
+                <Space direction="horizontal">
+                  <Tooltip title={title}>
+                  <AntdText>{title}</AntdText>
+                  </Tooltip>
+                </Space>
+                <Button
+                  type="link"
+                  icon={<PlusOutlined />}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onAddClick(schema)()
+                  }}
+                />
+              </Space>
+            }
+          >
+            {properties.map((element: any) => (
+              <div key={element.content.key} className="collapseArray_item">
+                <div className="collapseArray_item_content">{element.content}</div>
+              </div>
+            ))}
+          </Collapse.Panel>
+        </Collapse>
+      )
+    }
+
+    if (depth > 2) {
+      return (
+        <Collapse className="collapse" defaultActiveKey={depth > 1 ? '' : idSchema.$id}>
+          <Collapse.Panel
+            key={idSchema.$id}
+            className="configEditor_collapseObject"
+            header={<><Tooltip title={title}>{title}</Tooltip></>}
+          >
+            <>{properties.map((element) => element.content)}</>
+          </Collapse.Panel>
+        </Collapse>
+      )
+    }
+
+    return properties.map((element) => element.content)
   }
 
   const transformErrors = (errors: ErrorsObjType[]): ErrorsObjType[] => {
@@ -313,8 +298,8 @@ const ConfigurationEditorForm: FC<ConfigurationEditorPropsType> = ({
         uiSchema={uiSchema}
         templates={{
           ObjectFieldTemplate: ObjectFieldTemplate as any,
-          FieldTemplate: FieldTemplate as any,
-          ArrayFieldTemplate: ArrayFieldTemplate as any
+          ArrayFieldTemplate: ArrayFieldTemplate as any,
+          ButtonTemplates: { RemoveButton } as any
         }}
         ref={formRef}
         transformErrors={transformErrors as any}
