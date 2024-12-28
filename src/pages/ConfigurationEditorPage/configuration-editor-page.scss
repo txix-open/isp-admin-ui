@@ -10,6 +10,15 @@
   overflow: scroll;
   padding-bottom: 80px;
 
+  .ant-tabs-nav {
+    width: 250px;
+
+    .ant-tabs-tab-btn {
+      text-align: left;
+      white-space: normal;
+    }
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -48,6 +57,12 @@
 
     .ant-form-item-label {
       text-align: start;
+      max-width: 100%;
+      text-overflow: ellipsis;
+
+      label {
+        display: inline;
+      }
     }
 
     .ant-tabs-right {
@@ -65,18 +80,41 @@
 
     .collapseArray_item_content {
       width: 100%;
+      
+      .ant-btn {
+        position: relative;
+        top: 10px;
+      }
     }
 
-    .ant-collapse-item {
-      margin-bottom: 8px;
-    }
     .ant-collapse-header {
       align-items: center;
+      padding: 4px 11px;
+
+      .ant-collapse-header-text {
+        display: inline;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        .ant-btn {
+          top: 0;
+        }
+      }
     }
 
     .collapseArray_item {
       display: flex;
       width: 100%;
+      margin-bottom: 24px;
+
+      .ant-form-item {
+        height: 100%;
+        align-items: baseline;
+        align-content: end;
+        margin: 0;
+      }
 
       .anticon-delete {
         margin-left: auto;
@@ -96,6 +134,10 @@
       width: 100%;
       max-width: 100%;
       flex: auto;
+
+      .ant-collapse {
+        border-radius: 6px;
+      }
     }
 
     .flex-space-between {
@@ -109,8 +151,31 @@
     }
     .collapseArray_item {
       align-items: center;
-      .ant-btn-link {
-        margin-bottom: 8px;
+    }
+  }
+
+  .collapse {
+    .configEditor_collapseObject {
+      border-radius: 6px;
+      .ant-row {
+        display: grid;
+
+        grid-template-columns: minmax(0, 30%) minmax(0, 70%) auto;
+        .ant-col {
+          height: 100%;
+          align-content: center;
+          padding-bottom: 5px;
+
+          .ant-form-item {
+            height: 100%;
+            align-items: baseline;
+            align-content: end;
+            margin: 0;
+          }
+        }
+      }
+      .ant-form-item-row {
+        display: flex;
       }
     }
   }

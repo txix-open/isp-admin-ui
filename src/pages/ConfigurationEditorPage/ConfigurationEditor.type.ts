@@ -5,6 +5,7 @@ import {
   ReactNode,
   SetStateAction
 } from 'react'
+import { ButtonProps } from 'antd'
 
 import {
   ConfigType,
@@ -74,10 +75,18 @@ export interface ObjectFieldTemplatePropsType {
     $id: string
   }
   schema: {
-    properties: SchemaPropertiesType
-  }
+    properties: SchemaPropertiesType,
+    additionalProperties: boolean | {type: string}
+  },
+  onAddClick: (schema: any) => () => void,
+  title: string,
   activeTabKey: string
   handleTabsChange: (key: string) => void
+}
+
+export interface RemoveButtonProps extends ButtonProps {
+  icon?: ReactNode;
+  iconType?: string;
 }
 
 export interface ErrorsObjType {
