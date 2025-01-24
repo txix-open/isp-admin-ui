@@ -9,11 +9,8 @@ export enum MenuItemKeysType {
   logout = 'logout',
   profile = 'profile',
   modules = 'modules',
-  applicationsGroup = 'applications_group',
-  stressUITests = 'tests',
-  stressUIProjects = 'projects'
+  applicationsGroup = 'applications_group'
 }
-
 export enum MenuItemLabelsType {
   users = 'Пользователи',
   sessions = 'Пользовательские сессии',
@@ -67,14 +64,6 @@ export const menuKeys: Record<MenuItemKeysType, MenuItem> = {
   [MenuItemKeysType.applicationsGroup]: {
     key: MenuItemKeysType.applicationsGroup,
     parent: ['applicationsGroup']
-  },
-  [MenuItemKeysType.stressUITests]: {
-    key: MenuItemKeysType.stressUITests,
-    parent: ['stress']
-  },
-  [MenuItemKeysType.stressUIProjects]: {
-    key: MenuItemKeysType.stressUIProjects,
-    parent: ['stress']
   }
 }
 

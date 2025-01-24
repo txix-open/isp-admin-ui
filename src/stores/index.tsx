@@ -9,12 +9,10 @@ import applicationsGroupApi from '@services/applicationsGroupService.ts'
 import applicationsApi from '@services/applicationsService.ts'
 import configServiceApi from '@services/configService.ts'
 import modulesServiceApi from '@services/modulesService.ts'
-import projectService from '@services/projectService.ts'
 import roleApi from '@services/roleService.ts'
 import routeApi from '@services/routeService.ts'
 import securityLogServiceApi from '@services/securityLogService.ts'
 import sessionServiceApi from '@services/sessionService.ts'
-import testsService from '@services/testsService.ts'
 import tokensApi from '@services/tokensService.ts'
 import userServiceApi from '@services/userService.ts'
 
@@ -53,9 +51,7 @@ const rootReducer = combineReducers({
   [applicationsGroupApi.reducerPath]: applicationsGroupApi.reducer,
   [applicationsApi.reducerPath]: applicationsApi.reducer,
   [configServiceApi.reducerPath]: configServiceApi.reducer,
-  [tokensApi.reducerPath]: tokensApi.reducer,
-  [projectService.reducerPath]: projectService.reducer,
-  [testsService.reducerPath]: testsService.reducer
+  [tokensApi.reducerPath]: tokensApi.reducer
 })
 
 export const setupStore = () =>
@@ -75,9 +71,7 @@ export const setupStore = () =>
         applicationsGroupApi.middleware,
         applicationsApi.middleware,
         tokensApi.middleware,
-        configServiceApi.middleware,
-        projectService.middleware,
-        testsService.middleware
+        configServiceApi.middleware
       )
   })
 

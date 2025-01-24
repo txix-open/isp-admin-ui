@@ -54,19 +54,6 @@ type PathKeys =
   | 'getUI'
   | 'getByModuleId'
   | 'changePassword'
-  | 'baseStressUrl'
-  | 'getAllProject'
-  | 'createProject'
-  | 'updateProject'
-  | 'deleteProject'
-  | 'getOneProject'
-  | 'getAllTests'
-  | 'createTest'
-  | 'runTest'
-  | 'stopTest'
-  | 'updateTest'
-  | 'deleteTest'
-  | 'getOneTest'
 
 export const apiPaths: Record<PathKeys, string> = {
   baseUrl: '/api/kkd-configuration-service',
@@ -135,19 +122,5 @@ export const apiPaths: Record<PathKeys, string> = {
   createUpdateConfig: '/config/create_update_config',
   deleteVersion: '/config/delete_version',
   deleteConfig: '/config/delete_config',
-  markConfigAsActive: '/config/mark_config_as_active',
-  // ======= STRESS-UI ======
-  baseStressUrl: '/api/isp-stress-service',
-  getAllProject: 'project/all',
-  createProject: 'project/create',
-  updateProject: 'project/update',
-  deleteProject: 'project/delete',
-  getOneProject: 'project/get',
-  getAllTests: 'test/all',
-  createTest: 'test/create',
-  runTest: 'test/run',
-  stopTest: 'test/stop',
-  updateTest: 'test/update',
-  deleteTest: 'test/delete',
-  getOneTest: 'test/get'
+  markConfigAsActive: '/config/mark_config_as_active'
 }

@@ -8,11 +8,8 @@ import LayoutComponent from '@components/Layout'
 import Configurations from '@pages/ConfigurationsPage'
 import Connections from '@pages/ConnectionsPage'
 import ErrorWrapperPage from '@pages/ErrorWrapperPage'
-import ProjectEditor from '@pages/stress-ui/ProjectEditor/ProjectEditor.tsx'
-import ProjectsPage from '@pages/stress-ui/ProjectsPage/ProjectsPage.tsx'
-import TestEditor from '@pages/stress-ui/TestEditor/TestEditor.tsx'
-import TestsPage from '@pages/stress-ui/TestsPage/TestsPage.tsx'
 
+import PrivateRoute from '@routes/PrivateRoute'
 import { routePaths } from '@routes/routePaths.ts'
 
 const LoginPage = lazy(() => import('@pages/LoginPage'))
@@ -34,73 +31,59 @@ const NotFound = lazy(() => import('@pages/NotFound'))
 const Routers = () => {
   return (
     <Routes>
-      <Route path={routePaths.home} element={<LayoutComponent />}>
-        <Route
-          index
-          element={
-            <Suspense fallback={<Spin />}>
-              <Navigate to={routePaths.tests} replace={true} />
-            </Suspense>
-          }
-        />
-        <Route path={routePaths.tests} element={<TestsPage />} />
-
-        <Route path={`${routePaths.test}/:id`} element={<TestEditor />} />
-
-        <Route path={routePaths.projects} element={<ProjectsPage />} />
-
-        <Route path={`${routePaths.project}/:id`} element={<ProjectEditor />} />
-        <Route
-          path={`${routePaths.profile}`}
-          element={
-            <Suspense fallback={<Spin />}>
-              <ProfilePage />
-            </Suspense>
-          }
-        />
-        <Route
-          path={routePaths.users}
-          element={
-            <Suspense fallback={<Spin />}>
-              <UsersPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${routePaths.users}/:id`}
-          element={
-            <Suspense fallback={<Spin />}>
-              <UserEditor />
-            </Suspense>
-          }
-        />
-        <Route
-          path={routePaths.roles}
-          element={
-            <Suspense fallback={<Spin />}>
-              <RolesPage />
-            </Suspense>
-          }
-        >
+      <Route element={<PrivateRoute />}>
+        <Route path={routePaths.home} element={<LayoutComponent />}>
           <Route
-            path=":id"
+            index
+            element={
+              <Suspense fallback={<Spin />}>
+                <Navigate to={routePaths.modules} replace={true} />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${routePaths.profile}`}
+            element={
+              <Suspense fallback={<Spin />}>
+                <ProfilePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={routePaths.users}
+            element={
+              <Suspense fallback={<Spin />}>
+                <UsersPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${routePaths.users}/:id`}
+            element={
+              <Suspense fallback={<Spin />}>
+                <UserEditor />
+              </Suspense>
+            }
+          />
+          <Route
+            path={routePaths.roles}
             element={
               <Suspense fallback={<Spin />}>
                 <RolesPage />
               </Suspense>
             }
-          />
-        </Route>
-        <Route
-          path={routePaths.applicationsGroup}
-          element={
-            <Suspense fallback={<Spin />}>
-              <ApplicationsPage />
-            </Suspense>
-          }
-        >
+          >
+            <Route
+              path=":id"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <RolesPage />
+                </Suspense>
+              }
+            />
+          </Route>
           <Route
-            path=":id"
+            path={routePaths.applicationsGroup}
             element={
               <Suspense fallback={<Spin />}>
                 <ApplicationsPage />
@@ -108,7 +91,7 @@ const Routers = () => {
             }
           >
             <Route
-              path={routePaths.application}
+              path=":id"
               element={
                 <Suspense fallback={<Spin />}>
                   <ApplicationsPage />
@@ -116,92 +99,101 @@ const Routers = () => {
               }
             >
               <Route
-                path=":appId"
+                path={routePaths.application}
                 element={
                   <Suspense fallback={<Spin />}>
                     <ApplicationsPage />
                   </Suspense>
                 }
-              />
+              >
+                <Route
+                  path=":appId"
+                  element={
+                    <Suspense fallback={<Spin />}>
+                      <ApplicationsPage />
+                    </Suspense>
+                  }
+                />
+              </Route>
             </Route>
           </Route>
-        </Route>
 
-        <Route
-          path={routePaths.sessions}
-          element={
-            <Suspense fallback={<Spin />}>
-              <SessionsPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path={routePaths.securityLog}
-          element={
-            <Suspense fallback={<Spin />}>
-              <SecurityLogPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${routePaths.appAccess}`}
-          element={
-            <Suspense fallback={<Spin />}>
-              <AppAccessPage />
-            </Suspense>
-          }
-        >
           <Route
-            path=":id"
+            path={routePaths.sessions}
+            element={
+              <Suspense fallback={<Spin />}>
+                <SessionsPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={routePaths.securityLog}
+            element={
+              <Suspense fallback={<Spin />}>
+                <SecurityLogPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={`${routePaths.appAccess}`}
             element={
               <Suspense fallback={<Spin />}>
                 <AppAccessPage />
               </Suspense>
             }
-          />
-        </Route>
-        <Route
-          path={`:moduleId/${routePaths.configEditor}/:id`}
-          element={
-            <Suspense fallback={<Spin />}>
-              <ConfigurationEditorPage />
-            </Suspense>
-          }
-        ></Route>
-        <Route
-          path={routePaths.modules}
-          element={
-            <Suspense fallback={<Spin />}>
-              <ModulesPage />
-            </Suspense>
-          }
-        >
-          <Route path=":id">
+          >
             <Route
-              path={routePaths.configurations}
+              path=":id"
               element={
                 <Suspense fallback={<Spin />}>
-                  <Configurations />
+                  <AppAccessPage />
                 </Suspense>
               }
-            >
+            />
+          </Route>
+          <Route
+            path={`:moduleId/${routePaths.configEditor}/:id`}
+            element={
+              <Suspense fallback={<Spin />}>
+                <ConfigurationEditorPage />
+              </Suspense>
+            }
+          ></Route>
+          <Route
+            path={routePaths.modules}
+            element={
+              <Suspense fallback={<Spin />}>
+                <ModulesPage />
+              </Suspense>
+            }
+          >
+            <Route path=":id">
               <Route
-                path={routePaths.allVersions}
+                path={routePaths.configurations}
                 element={
                   <Suspense fallback={<Spin />}>
-                    <AllVersionsPage />
+                    <Configurations />
+                  </Suspense>
+                }
+              >
+                <Route
+                  path={routePaths.allVersions}
+                  element={
+                    <Suspense fallback={<Spin />}>
+                      <AllVersionsPage />
+                    </Suspense>
+                  }
+                />
+              </Route>
+              <Route
+                path={routePaths.connections}
+                element={
+                  <Suspense fallback={<Spin />}>
+                    <Connections />
                   </Suspense>
                 }
               />
             </Route>
-            <Route
-              path={routePaths.connections}
-              element={
-                <Suspense fallback={<Spin />}>
-                  <Connections />
-                </Suspense>
-              }
-            />
           </Route>
         </Route>
       </Route>

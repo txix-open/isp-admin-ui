@@ -68,80 +68,62 @@ const LayoutComponent = () => {
     return hasPermission(permission) ? '' : 'hide-item'
   }
   const menuItems: MenuItemType[] = [
-    // {
-    //   label: firstName || '',
-    //   key: 'profile',
-    //   className: 'user-item',
-    //   icon: <DefaultUser />
-    // },
-    // {
-    //   label: 'Приложения',
-    //   key: 'applications_group',
-    //   className: hideItem([PermissionKeysType.read]),
-    //   icon: <AppstoreAddOutlined />
-    // },
-    // {
-    //   label: 'Доступы приложений',
-    //   key: 'appAccess',
-    //   className: hideItem([PermissionKeysType.read]),
-    //   icon: <FileProtectOutlined />
-    // },
-    // {
-    //   label: 'Модули',
-    //   key: 'modules',
-    //   className: hideItem(PermissionKeysType.read),
-    //   icon: <ProductOutlined />
-    // },
-    // {
-    //   label: 'Пользователи и роли',
-    //   key: 'sessionManagement',
-    //   className: hideItem([
-    //     PermissionKeysType.user_view,
-    //     PermissionKeysType.session_view,
-    //     PermissionKeysType.role_view
-    //   ]),
-    //   icon: <ProfileOutlined />,
-    //   children: [
-    //     {
-    //       label: 'Пользователи',
-    //       key: 'users',
-    //       className: hideItem(PermissionKeysType.user_view)
-    //     },
-    //     {
-    //       label: 'Пользовательские сессии',
-    //       key: 'sessions',
-    //       className: hideItem(PermissionKeysType.session_view)
-    //     },
-    //     {
-    //       label: 'Просмотр журналов ИБ',
-    //       key: 'securityLog',
-    //       className: hideItem(PermissionKeysType.security_log_view)
-    //     },
-    //     {
-    //       label: 'Роли',
-    //       key: 'roles',
-    //       className: hideItem(PermissionKeysType.role_view)
-    //     }
-    //   ]
-    // },
     {
-      label: 'Stress-ui',
-      key: 'stress',
-      className: '',
-      icon: <AppstoreAddOutlined />,
-      children:[
-        {
-          label: 'Tests',
-          key: 'tests',
-          className: ''
-        },
-        {
-          label: 'Projects',
-          key: 'projects',
-          className: ''
-        },
-      ]
+      label: firstName || '',
+      key: 'profile',
+      className: 'user-item',
+      icon: <DefaultUser />
     },
+    {
+      label: 'Приложения',
+      key: 'applications_group',
+      className: hideItem([PermissionKeysType.read]),
+      icon: <AppstoreAddOutlined />
+    },
+    {
+      label: 'Доступы приложений',
+      key: 'appAccess',
+      className: hideItem([PermissionKeysType.read]),
+      icon: <FileProtectOutlined />
+    },
+    {
+      label: 'Модули',
+      key: 'modules',
+      className: hideItem(PermissionKeysType.read),
+      icon: <ProductOutlined />
+    },
+    {
+      label: 'Пользователи и роли',
+      key: 'sessionManagement',
+      className: hideItem([
+        PermissionKeysType.user_view,
+        PermissionKeysType.session_view,
+        PermissionKeysType.role_view
+      ]),
+      icon: <ProfileOutlined />,
+      children: [
+        {
+          label: 'Пользователи',
+          key: 'users',
+          className: hideItem(PermissionKeysType.user_view)
+        },
+        {
+          label: 'Пользовательские сессии',
+          key: 'sessions',
+          className: hideItem(PermissionKeysType.session_view)
+        },
+        {
+          label: 'Просмотр журналов ИБ',
+          key: 'securityLog',
+          className: hideItem(PermissionKeysType.security_log_view)
+        },
+        {
+          label: 'Роли',
+          key: 'roles',
+          className: hideItem(PermissionKeysType.role_view)
+        }
+      ]
+    }
   ]
 
   useEffect(() => {
@@ -173,6 +155,7 @@ const LayoutComponent = () => {
     const menuKey = location.pathname.split('/')[1] as MenuItemKeysType
     const selectedKey = selectedMenuKeys[0] || ''
     const menuItem = menuKeys[menuKey]
+
     if (menuItem && menuKey !== selectedKey) {
       setSelectedMenuKeys([menuItem.key])
       if (selectedKey) {
@@ -208,23 +191,17 @@ const LayoutComponent = () => {
       case MenuItemKeysType.applicationsGroup:
         navigate(routePaths.applicationsGroup)
         break
-      case 'tests':
-        navigate(routePaths.tests)
-        break
-      case 'projects':
-        navigate(routePaths.projects)
-        break
       default:
     }
   }
 
-  // if (loading || status === StateProfileStatus.pending) {
-  //   return <Spin size="large" fullscreen />
-  // }
-  //
-  // if (status === StateProfileStatus.rejected) {
-  //   return <Navigate to={routePaths.error} replace />
-  // }
+  if (loading || status === StateProfileStatus.pending) {
+    return <Spin size="large" fullscreen />
+  }
+
+  if (status === StateProfileStatus.rejected) {
+    return <Navigate to={routePaths.error} replace />
+  }
 
   return (
     <section>
@@ -240,6 +217,7 @@ const LayoutComponent = () => {
             setCollapsed(value)
           }}
         >
+          <Header collapsed={collapsed} />
           <Menu
             onOpenChange={(keys) => setOpenKeys(keys)}
             openKeys={openKeys}
