@@ -72,8 +72,8 @@ const ProjectsPage = () => {
   ]
 
   return (
-    <section>
-      <Button style={{marginBottom: "8px"}} type="primary" onClick={() => navigate(`${routePaths.project}/new`)}>
+    <section className="project-page" style={{margin: '8px'}}>
+      <Button style={{marginBottom: '8px'}} type="primary" onClick={() => navigate(`${routePaths.project}/new`)}>
         Создать
       </Button>
       <Table
