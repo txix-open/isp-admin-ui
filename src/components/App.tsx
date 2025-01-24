@@ -40,7 +40,7 @@ const App = () => {
   return (
     <div className="app">
       <Context.Provider value={{ setTheme, setChangeTheme, changeTheme }}>
-        <ConfigProvider theme={themes} locale={ruRu}>
+        <ConfigProvider locale={ruRu}>
           <Routers />
         </ConfigProvider>
       </Context.Provider>
