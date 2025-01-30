@@ -1,0 +1,21 @@
+FROM dockerhub.mos.ru/mosos/arbat:15.5 as builder-deps
+RUN zypper --no-gpg-checks update -y && zypper --no-gpg-checks install -y nodejs14 yarn
+
+WORKDIR /usr/src/app
+RUN yarn config set "strict-ssl" false
+RUN yarn config set "registry" https://repo-mirror.mos.ru/repository/yarn-central/
+RUN yarn config list
+RUN yarn --ignore-engines install
+COPY . ./
+RUN sed -i 's/github.com/repo-mirror.mos.ru\/repository\/raw-github/g' package.json
+RUN sed -i 's/registry.yarnpkg.com/repo-mirror.mos.ru\/repository\/yarn-central/g' yarn.lock
+RUN yarn --ignore-engines build
+
+FROM dockerhub.mos.ru/mosos/arbat:15.5
+
+RUN cp /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+RUN echo "Europe/Moscow" > /etc/timezone
+RUN zypper --no-gpg-checks update -y && zypper --no-gpg-checks install -y nginx
+
+COPY cfg/80_isp-admin-ui.conf /etc/nginx/conf.d/80_isp-admin-ui.conf
+COPY --from=build-deps /usr/src/app/build /opt/msp/isp-admin-ui
