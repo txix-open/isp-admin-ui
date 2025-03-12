@@ -13,7 +13,12 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript"
   ],
-  "ignorePatterns": ["node_modules", "build", "generateVersionFile.cjs"],
+  "ignorePatterns": [
+    "node_modules",
+    "build",
+    "generateVersionFile.cjs",
+    "config.template.js"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -33,28 +38,48 @@
   ],
   "rules": {
     "import/default": "off",
-    "import/no-named-as-default":"off",
+    "import/no-named-as-default": "off",
     "prettier/prettier": "off",
-    "quotes": ["error", "single"],
+    "quotes": [
+      "error",
+      "single"
+    ],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".js", ".jsx", ".tsx"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx"
+        ]
       }
     ],
     "react/jsx-one-expression-per-line": "off",
     "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
-    "semi": ["error", "never"],
-    "@typescript-eslint/no-unused-vars": ["off"],
-    "@typescript-eslint/no-explicit-any": ["off", null],
-    "@typescript-eslint/no-non-null-assertion": ["off"],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "off"
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "off",
+      null
+    ],
+    "@typescript-eslint/no-non-null-assertion": [
+      "off"
+    ],
     "import/no-unresolved": "error",
     "no-unused-vars": "off"
   },
   "settings": {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
     },
     "react": {
       "version": "detect"
@@ -64,8 +89,16 @@
         "alwaysTryTypes": true
       },
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "moduleDirectory": ["node_modules", "src/"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
+        "moduleDirectory": [
+          "node_modules",
+          "src/"
+        ]
       }
     }
   }
