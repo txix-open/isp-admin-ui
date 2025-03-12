@@ -26,3 +26,5 @@ RUN rm -f /etc/nginx/conf.d/default.conf
 COPY cfg/80_isp-admin-ui.conf /etc/nginx/conf.d/80_isp-admin-ui.conf
 COPY --from=build /usr/src/app/build /opt/msp/isp-admin-ui
 
+COPY entrypoint.sh /opt/msp/isp-admin-ui/entrypoint.sh
+ENTRYPOINT ["/opt/msp/isp-admin-ui/entrypoint.sh"]
