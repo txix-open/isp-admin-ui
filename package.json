@@ -1,7 +1,7 @@
 {
   "name": "isp-admin-ui",
   "private": true,
-  "version": "0.19.1",
+  "version": "0.20.0",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -17,7 +17,6 @@
     "dayjs": "^1.11.10",
     "isp-ui-kit": "^0.17.1",
     "axios": "^1.7.7",
-    "react-router-dom": "^6.22.3",
     "react-hook-form": "^7.51.2",
     "react-dom": "^18.2.0",
     "react": "^18.2.0",
@@ -27,6 +26,7 @@
     "isp-admin-ui-kit": "^0.4.3",
     "react-redux": "^9.1.0",
     "react-resizable": "^3.0.5",
+    "react-router-dom": "^6.22.3",
     "simplebar": "^6.2.5",
     "simplebar-react": "^3.2.4"
   },
