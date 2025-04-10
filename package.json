@@ -1,7 +1,7 @@
 {
   "name": "isp-admin-ui",
   "private": true,
-  "version": "0.21.1",
+  "version": "0.21.2",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.10",
-    "isp-ui-kit": "^0.17.1",
+    "isp-ui-kit": "^0.17.2",
     "axios": "^1.7.7",
     "react-hook-form": "^7.51.2",
     "react-dom": "^18.2.0",
