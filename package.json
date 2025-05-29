@@ -1,7 +1,7 @@
 {
   "name": "isp-admin-ui",
   "private": true,
-  "version": "0.21.12",
+  "version": "0.21.13",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -18,8 +18,8 @@
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.7.7",
     "dayjs": "^1.11.10",
-    "isp-admin-ui-kit": "^0.8.0",
-    "isp-ui-kit": "^0.20.6",
+    "isp-admin-ui-kit": "^0.9.0",
+    "isp-ui-kit": "^0.20.7",
     "monaco-editor": "^0.52.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
