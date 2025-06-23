@@ -2,6 +2,7 @@ import { loader } from '@monaco-editor/react'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
+import { AdminBase, baseSetupStore } from 'isp-admin-ui-kit'
 import * as monaco from 'monaco-editor'
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
@@ -9,8 +10,6 @@ import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
 import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-import { AdminBase, baseSetupStore } from 'isp-admin-ui-kit'
 
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
 
@@ -46,8 +45,6 @@ const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <AdminBase />
-    </BrowserRouter>
+    <AdminBase />
   </Provider>
 )
