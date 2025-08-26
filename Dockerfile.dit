@@ -9,6 +9,7 @@ COPY . .
 RUN sed -i 's/registry.npmjs.org/repo-mirror.mos.ru\/repository\/npm-public/g' package-lock.json
 RUN sed -i 's/github.com/repo-mirror.mos.ru\/repository\/raw-github/g' package-lock.json
 RUN sed -i 's/github.com/repo-mirror.mos.ru\/repository\/raw-github/g' package.json
+ENV NODE_OPTIONS="--max_old_space_size=4096"
 RUN npm ci
 RUN npm run build
 
