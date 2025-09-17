@@ -1,5 +1,5 @@
 FROM dockerhub.mos.ru/mosos/arbat:15.5 as builder-deps
-RUN zypper --no-gpg-checks update -y && zypper --no-gpg-checks install -y nodejs20 npm20
+RUN zypper --no-gpg-checks update -y && zypper --no-gpg-checks install -y nodejs22 npm22
 
 WORKDIR /usr/src/app
 RUN npm config set "strict-ssl" false
