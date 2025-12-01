@@ -9,7 +9,7 @@ echo "Using normalized PUBLIC_PATH: '$PUBLIC_PATH'"
 
 # Генерация конфигурации приложения
 CONFIG_DIR="/opt/msp/isp-admin-ui${PUBLIC_PATH}"
-CONFIG_PATH="${CONFIG_DIR}config.js"
+CONFIG_PATH="${CONFIG_DIR}/config.js"
 
 mkdir -p "$CONFIG_DIR"
 

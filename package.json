@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "vite build && node generateVersionFile.cjs",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 vite build && node generateVersionFile.cjs",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "fix:prettier": "prettier --write \"src/**/*.{ts,tsx, js}\"",
@@ -18,7 +18,7 @@
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.7.7",
     "dayjs": "^1.11.10",
-    "isp-admin-ui-kit": "^1.5.2",
+    "isp-admin-ui-kit": "^1.5.4",
     "isp-ui-kit": "^0.23.0",
     "monaco-editor": "^0.52.0",
     "react": "^18.2.0",
