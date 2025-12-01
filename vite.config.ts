@@ -8,7 +8,9 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+
   return {
+    base: env.PUBLIC_PATH || '/',
     optimizeDeps: { exclude: [] },
     define: {
       __APP_ENV__: env.APP_ENV,
