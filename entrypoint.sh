@@ -3,7 +3,7 @@ set -e
 
 PUBLIC_PATH="${PUBLIC_PATH:-/}"
 
-PUBLIC_PATH="$(echo "$PUBLIC_PATH" | sed -E 's|^/*|/|; s|/*$|/|')"
+PUBLIC_PATH="$(printf '%s' "$PUBLIC_PATH" | sed -E 's|^/*|/|; s|/*$|/|')"
 
 echo "Using normalized PUBLIC_PATH: '$PUBLIC_PATH'"
 
