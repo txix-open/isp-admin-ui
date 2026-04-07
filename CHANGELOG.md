@@ -1,3 +1,6 @@
+## 0.27.6
+- Исправлено
+  - на форме (ConfigurationEditorForm) исправлен DatePicker
 ## 0.27.5
 - Обновлено
   - библиотека isp-admin-ui-kit (Заменен swagger-ui на redoc)
