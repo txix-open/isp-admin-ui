@@ -29,3 +29,19 @@ export default {
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 1
+
+## Стенд с локальной библиотекой
+
+В `isp-admin-ui-kit` выполните `npm run pack:stand`, скопируйте созданный
+архив в `vendor/` этого проекта и установите его (укажите актуальную версию):
+
+```bash
+npm install ./vendor/isp-admin-ui-kit-1.11.0.tgz
+```
+
+Закоммитьте архив, package.json и package-lock.json. После замены архива
+повторите npm install, чтобы обновить checksum в lock-файле. Деплой обычный:
+основной Dockerfile копирует vendor до npm ci, Dockerfile.dit — вместе с проектом.
+Файл vendor/.gitkeep сохраняет каталог в Git даже без архивов. Если зависимость
+указывает на архив, этот архив обязателен. Для возврата на npm выполните
+`npm install isp-admin-ui-kit@<version>` с нужной опубликованной версией.
