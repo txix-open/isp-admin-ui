@@ -5,6 +5,8 @@ import svgr from 'vite-plugin-svgr'
 
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+import { guardDemoServer } from './guard-demo-server'
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -39,6 +41,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     plugins: [
+      guardDemoServer(),
       react(),
       svgr(),
       tsconfigPaths(),

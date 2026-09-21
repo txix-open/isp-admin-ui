@@ -13,6 +13,8 @@ import { Provider } from 'react-redux'
 
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
 
+import { guardDemoRoutes } from './guard-demo-routes'
+
 import 'react-resizable/css/styles.css'
 import 'simplebar-react/dist/simplebar.min.css'
 
@@ -45,6 +47,6 @@ const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <Provider store={store}>
-    <AdminBase />
+    <AdminBase customRouters={import.meta.env.DEV ? guardDemoRoutes : []} />
   </Provider>
 )
