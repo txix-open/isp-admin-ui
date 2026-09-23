@@ -1,3 +1,6 @@
+## 1.0.10
+- Изменено
+  - ENABLE_OAUTH_LOGIN по-умолчанию поставлено на `false`
 ## 1.0.9
 - Обновлено
   - добавлен CLIENT_NAME в entrypoint.sh
