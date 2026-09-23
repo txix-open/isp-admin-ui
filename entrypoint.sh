@@ -19,7 +19,7 @@ window.config = {
   APP_TOKEN: '${APP_TOKEN:-"default_token"}',
   CLIENT_NAME: '${CLIENT_NAME:-"isp-admin-ui"}',
   OAUTH_LOGIN_BUTTON_TEXT: '${OAUTH_LOGIN_BUTTON_TEXT:-"Войти с помощью OAuth"}',
-  ENABLE_OAUTH_LOGIN: ${ENABLE_OAUTH_LOGIN:-true}
+  ENABLE_OAUTH_LOGIN: ${ENABLE_OAUTH_LOGIN:-false}
 };
 EOF
 
