@@ -1,3 +1,9 @@
+## 1.0.12
+- Обновлено
+  - Библиотека isp-admin-ui-kit (1.13.1)
+    - Для доступа к странице «Git конфигурация» требуются права git_configuration_view и module_view
+    - Добавление, редактирование и удаление GIT доступны по праву git_configuration_credentials_edit, применение конфигурации — по git_configuration_merge
+    - Обновлены права пункта меню «Git конфигурация» и убрана проверка наличия isp-git-config-service
 ## 1.0.11
 - Обновлено
   - Библиотека isp-admin-ui-kit (1.13.0)
