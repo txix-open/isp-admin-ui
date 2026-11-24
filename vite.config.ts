@@ -1,6 +1,5 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import svgr from 'vite-plugin-svgr'
 
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -12,6 +11,14 @@ export default defineConfig(({ mode }) => {
   return {
     base: env.PUBLIC_PATH || '/',
     optimizeDeps: { exclude: [] },
+    resolve: {
+      alias: {
+        path: 'path-browserify',
+        http: 'stream-http',
+        url: 'url/',
+        process: 'process/browser'
+      }
+    },
     define: {
       __APP_ENV__: env.APP_ENV,
       APP_VERSION: JSON.stringify(process.env.npm_package_version)
@@ -38,11 +45,6 @@ export default defineConfig(({ mode }) => {
         '/api': env.PROXY_URL
       }
     },
-    plugins: [
-      react(),
-      svgr(),
-      tsconfigPaths(),
-      nodePolyfills({ globals: { process: true } })
-    ]
+    plugins: [react(), svgr(), tsconfigPaths()]
   }
 })
