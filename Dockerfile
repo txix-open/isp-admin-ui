@@ -7,6 +7,7 @@ FROM base as deps
 
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=bind,source=vendor,target=vendor \
     --mount=type=cache,target=/root/.npm \
     npm ci --omit=dev
 
@@ -14,6 +15,7 @@ FROM deps as build
 
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=bind,source=vendor,target=vendor \
     --mount=type=cache,target=/root/.npm \
     npm ci
 

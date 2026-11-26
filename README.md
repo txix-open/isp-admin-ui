@@ -42,8 +42,16 @@ export default {
 
 В `overrides` закреплены исправленные DOMPurify и KaTeX без обновления Monaco и
 Mermaid на новые основные версии. Overrides minimatch/glob относятся к инструментам
-разработки. Override `react-router-dom` позволяет использовать исправленную ветку 7
-с опубликованным `isp-admin-ui-kit@1.14.2`, чей peer-диапазон ещё требует ветку 6.
-После перехода на выпуск UI-kit с поддержкой Router 7 этот override можно удалить.
+разработки. Вендорная версия `isp-admin-ui-kit` поддерживает Router 7.
 React остаётся в ветке 18. Вместо всех Node-полифилов подключаются только Buffer/process и браузерные реализации path/http/url,
 необходимые парсерам JSON Schema/OpenAPI и ReDoc. Криптографические полифилы удалены.
+
+### Вендорный пакет isp-admin-ui-kit
+
+`npm ci` устанавливает UI-kit из `vendor/isp-admin-ui-kit-1.16.0.tgz`. Архив
+собран из коммита `abbe2f3` репозитория `isp-admin-ui-kit`.
+
+Для обновления запустите `npm run build:prod` в репозитории UI-kit и упакуйте
+сборку командой `npm pack --pack-destination /путь/к/isp-admin-ui/vendor`.
+В `isp-admin-ui` установите новый архив через `npm install ./vendor/<имя-архива>.tgz`
+и сохраните его вместе с обновлёнными `package.json` и `package-lock.json`.
