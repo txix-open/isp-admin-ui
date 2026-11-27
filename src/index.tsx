@@ -1,6 +1,8 @@
+import './browser-polyfills'
+
 import { loader } from '@monaco-editor/react'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import dayjs from 'dayjs'
+import { locale } from 'dayjs'
 import 'dayjs/locale/ru'
 import { AdminBase, baseSetupStore } from 'isp-admin-ui-kit'
 import * as monaco from 'monaco-editor'
@@ -38,7 +40,7 @@ loader.config({ monaco })
 
 loader.init().then()
 
-dayjs.locale('ru')
+locale('ru')
 const store = baseSetupStore()
 setupListeners(store.dispatch)
 const root = createRoot(document.getElementById('root') as HTMLElement)

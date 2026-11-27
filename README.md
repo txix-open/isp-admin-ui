@@ -29,3 +29,19 @@ export default {
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 1
+
+### Проверка совместимости зависимостей
+
+После обновления зависимостей выполните `npm ci`, `npm run lint`, `npm run build`
+и `npm run test:dependencies`. Последняя команда собирает отдельную проверочную
+страницу. Запустите `npm run preview -- --outDir build/dependency-smoke --port 4174`
+и откройте `http://localhost:4174/tests/dependency-smoke.html`.
+Успешный результат — `Dependency checks passed`. Проверяются DOMPurify, Mermaid
+(включая формулы), KaTeX, JSON Schema/RJSF, ReDoc, Router и JSON worker Monaco.
+Страница проверки не входит в основную production-сборку.
+
+В `overrides` закреплены исправленные DOMPurify и KaTeX без обновления Monaco и
+Mermaid на новые основные версии. Overrides minimatch/glob относятся к инструментам
+разработки. Библиотека `isp-admin-ui-kit` поддерживает Router 7.
+React остаётся в ветке 18. Вместо всех Node-полифилов подключаются только Buffer/process и браузерные реализации path/http/url,
+необходимые парсерам JSON Schema/OpenAPI и ReDoc. Криптографические полифилы удалены.
